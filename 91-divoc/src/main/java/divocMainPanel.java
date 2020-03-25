@@ -5,17 +5,25 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.TimerTask;
 
 public class divocMainPanel extends JPanel{
 	
 	private final int WIDTH = 550, HEIGHT = 700;
 	private int speed = 75;
 	private Timer timer;
+	private JButton confirmB;
+	private Stage1 stage1;
+	private Stage2 stage2;
 	
 	public divocMainPanel() {
-		addKeyListener(new DirectionListener());
 		timer = new Timer(speed, new ReboundListener());
-
+		
+		stage1 = new Stage1();
+		
+		this.setLayout(new BorderLayout());
+		
+		add(stage1);
 		
 		setBackground(Color.WHITE);
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -24,25 +32,26 @@ public class divocMainPanel extends JPanel{
 		
 	}
 	
-	public void paintComponent(Graphics page)
-	{
-		super.paintComponent(page);
-	}
-	
-	private class ButtonListener implements ActionListener{
-		public void actionPerformed(ActionEvent event) {
-			//if(event.getSource() == Button) {}
+	private void update() {
+		if(stage1 != null && stage1.isComplete() == false) {
+			this.updateUI();
 		}
-	}
-	
-	private class DirectionListener implements KeyListener{
-		public void keyPressed(KeyEvent event) {
-			if(event.getKeyCode() == KeyEvent.VK_A) {
-				//do something
-			}
+		else if(stage1 != null && stage1.isComplete() == true) {
+			remove(stage1);
+			stage1 = null;
+			stage2 = new Stage2();
+			add(stage2);
+			this.updateUI();
 		}
-		public void keyTyped(KeyEvent event) {}
-		public void keyReleased(KeyEvent event) {}
+		if(stage2 != null && stage2.isComplete() == false) {
+			this.updateUI();
+		}
+		else if(stage2 != null && stage2.isComplete() == true) {
+			remove(stage2);
+			stage2 = null;
+			this.updateUI();
+		}
+		
 	}
 	
 	private class ReboundListener implements ActionListener
@@ -53,7 +62,7 @@ public class divocMainPanel extends JPanel{
 		//--------------------------------------------------------------
 		public void actionPerformed(ActionEvent event)
 		{
-			//happens over and over again
+			update();
 		}
 	}
 }
