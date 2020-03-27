@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.awt.geom.AffineTransform;
 
-public class Stage2 extends JPanel{
+public class Stage3 extends JPanel{
 	private int speed = 75;
 	private int loadSpeed = 1000;
 	private int woodSpeed = 25000;
@@ -21,11 +21,11 @@ public class Stage2 extends JPanel{
 	private boolean complete = false;
 	private JLabel woodL, storyL, loadL;
 	private JButton collectB;
-	private int wood = 0;
+	private int wood = 10;
 	private boolean loading = false;
 	private ArrayList<String> loads, story;
 	
-	public Stage2() {
+	public Stage3() {
 		this.setLayout(null);
 		
 		setupStory();
@@ -65,7 +65,7 @@ public class Stage2 extends JPanel{
 	
 	private void setupComponents() {
 		woodL = new JLabel("Wood: " + wood);
-		storyL = new JLabel("");
+		storyL = new JLabel(story.get(0));
 		collectB = new JButton("Collect");
 		
 		woodL.setBounds(0, 25, 75, 25);
@@ -113,7 +113,7 @@ public class Stage2 extends JPanel{
 	}
 	
 	private void update() {
-		if(wood >= 10)
+		if(wood >= 100)
 			complete = true;
 		this.updateUI();
 	}

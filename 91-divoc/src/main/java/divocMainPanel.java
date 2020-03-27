@@ -15,6 +15,7 @@ public class divocMainPanel extends JPanel{
 	private JButton confirmB;
 	private Stage1 stage1;
 	private Stage2 stage2;
+	private Stage3 stage3;
 	
 	public divocMainPanel() {
 		timer = new Timer(speed, new ReboundListener());
@@ -49,6 +50,16 @@ public class divocMainPanel extends JPanel{
 		else if(stage2 != null && stage2.isComplete() == true) {
 			remove(stage2);
 			stage2 = null;
+			stage3 = new Stage3();
+			add(stage3);
+			this.updateUI();
+		}
+		if(stage3 != null && stage3.isComplete() == false) {
+			this.updateUI();
+		}
+		else if(stage3 != null && stage3.isComplete() == true) {
+			remove(stage3);
+			stage3 = null;
 			this.updateUI();
 		}
 		
