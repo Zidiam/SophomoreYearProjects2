@@ -18,7 +18,7 @@ public class Stage2 extends JPanel{
 	private int loadSpeed = 1000;
 	private int woodSpeed = 25000;
 	private Timer gameTimer, loadTimer, woodTimer;
-	private boolean complete = false;
+	private boolean complete = true;
 	private JLabel woodL, storyL, loadL;
 	private JButton collectB;
 	private int wood = 0;
@@ -66,7 +66,7 @@ public class Stage2 extends JPanel{
 	private void setupComponents() {
 		woodL = new JLabel("Wood: " + wood);
 		storyL = new JLabel("");
-		collectB = new JButton("Collect");
+		collectB = new JButton("Gather");
 		
 		woodL.setBounds(0, 25, 75, 25);
 		storyL.setBounds(0, 675, 500, 25);

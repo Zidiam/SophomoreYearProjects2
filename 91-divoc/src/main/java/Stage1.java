@@ -21,7 +21,7 @@ public class Stage1 extends JPanel{
 		setupWords();
 		
 		this.setBackground(Color.white);
-		complete = false;
+		complete = true;
 		
 		confirmB = new JButton("OK");
 		confirmB.setBounds(0, 50, 75, 25);

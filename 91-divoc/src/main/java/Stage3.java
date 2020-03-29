@@ -17,13 +17,13 @@ public class Stage3 extends JPanel{
 	private int speed = 75;
 	private int loadSpeed = 1000;
 	private int woodSpeed = 25000;
-	private Timer gameTimer, loadTimer, woodTimer;
+	private Timer gameTimer, woodLoadTimer, woodTimer, rabbitT;
 	private boolean complete = false;
-	private JLabel woodL, storyL, loadL;
-	private JButton collectB;
+	private JLabel woodL, storyL, woodLoadL, rabbitLoadL, redL, rabbitL;
+	private JButton woodCollectB, rabbitCollectB;
 	private int wood = 10;
-	private boolean loading = false;
-	private ArrayList<String> loads, story;
+	private int rabbit = 1;
+	private ArrayList<String> loadsW, story, red, loadsR;
 	
 	public Stage3() {
 		this.setLayout(null);
@@ -35,10 +35,10 @@ public class Stage3 extends JPanel{
 		this.setBackground(Color.white);
 		gameTimer = new Timer(speed, new GameListener());
 		gameTimer.start();
-		loadTimer = new Timer(loadSpeed, new LoadListener());
-		loadTimer.start();
+		woodLoadTimer = new Timer(loadSpeed, new WoodLoadListener());
+		woodLoadTimer.start();
 		woodTimer = new Timer(woodSpeed, new WoodListener());
-		woodTimer.start();
+		woodTimer.start(); 
 	}
 	
 	private void setupStory() {
@@ -46,40 +46,60 @@ public class Stage3 extends JPanel{
 		story.add("You spot a bunny with ragged hair and an extra ear");
 		story.add("The tree's have orange oily bumps on them");
 		story.add("Wood feel soft but looks hard.");
-		story.add("A breeze with the smell of death rushes past you");		
+		story.add("A breeze with the smell of death rushes past you");	
+		
+		red = new ArrayList<String>();
+		red.add("You grow hungry and spot a rabid bunny with green dots all over it");
 	}
 	
 	private void setupLoad() {
-		loads = new ArrayList<String>();
-		loads.add("[      ]");
-		loads.add("[[]    ]");
-		loads.add("[[][]  ]");
-		loads.add("[[][][]]");
+		loadsW = new ArrayList<String>();
+		loadsW.add("[      ]");
+		loadsW.add("[[]    ]");
+		loadsW.add("[[][]  ]");
+		loadsW.add("[[][][]]");
 		
-		loadL = new JLabel(loads.get(0));
+		loadsR = new ArrayList<String>();
 		
-		loadL.setBounds(250, 25, 125, 25);
+		loadsR = loadsW.clone();
 		
-		add(loadL);
+		woodLoadL = new JLabel(loadsW.get(0));
+		
+		
+		
+		woodLoadL.setBounds(250, 25, 125, 25);
+		
+		add(woodLoadL);
 	}
 	
 	private void setupComponents() {
 		woodL = new JLabel("Wood: " + wood);
 		storyL = new JLabel(story.get(0));
-		collectB = new JButton("Collect");
+		woodCollectB = new JButton("Gather");
+		redL = new JLabel(red.get(0));
+		rabbitL = new JLabel("Rabbit: " + rabbit);
+		rabbitCollectB = new JButton("Hunt");
 		
 		woodL.setBounds(0, 25, 75, 25);
 		storyL.setBounds(0, 675, 500, 25);
-		collectB.setBounds(425, 25, 100, 25);
+		woodCollectB.setBounds(425, 25, 100, 25);
+		redL.setBounds(0, 125, 500, 25);
+		rabbitL.setBounds(0, 50, 500, 25);
+		rabbitCollectB.setBounds(425, 50, 100, 25);
 		
-		collectB.setBackground(Color.WHITE);
+		woodCollectB.setBackground(Color.WHITE);
+		rabbitCollectB.setBackground(Color.WHITE);
+		redL.setForeground(Color.RED);
 		
-		collectB.addActionListener(new ButtonListener());
+		woodCollectB.addActionListener(new ButtonListener());
+		rabbitCollectB.addActionListener(new ButtonListener());
 		
 		add(woodL);
 		add(storyL);
-		add(collectB);
-		
+		add(woodCollectB);
+		add(redL);
+		add(rabbitL);
+		add(rabbitCollectB);
 	}
 	
 	private void removeWood() {
@@ -90,21 +110,20 @@ public class Stage3 extends JPanel{
 	}
 	
 	private void load() {
-		int location = loads.indexOf(loadL.getText());
-		if(location == loads.size()-1) {
-			loading = false;
-			loadL.setText(loads.get(0));
-			collectWood();
-			Random rand = new Random();
-			if(rand.nextBoolean()) {
-				storyL.setText(story.get(rand.nextInt(story.size())));
+		System.out.println(woodLoadL.getText());
+		if(woodLoadL.getText() != loadsW.get(0)) {
+			if(woodLoadL.getText() == loadsW.get(loadsW.size()-1)) {
+				collectWood();
+				Random rand = new Random();
+				if(rand.nextBoolean()) {
+					storyL.setText(story.get(rand.nextInt(story.size())));
+				}
+				woodLoadL.setText(loadsW.get(0));
+			}
+			else {
+				woodLoadL.setText(loadsW.get(loadsW.indexOf(woodLoadL.getText()) + 1));
 			}
 		}
-		else{
-			location ++;
-			loadL.setText(loads.get(location));
-		}
-		System.out.println(loadL.getText());
 	}
 	
 	private void collectWood() {
@@ -128,46 +147,40 @@ public class Stage3 extends JPanel{
 	
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
-			if(event.getSource() == collectB) {
-				loading = true;
+			if(event.getSource() == woodCollectB) {
+				if(woodLoadL.getText() == loadsW.get(0)) {
+					woodLoadL.setText(loadsW.get(1));
+				}
 			}
 		}
 	}
 	
 	private class GameListener implements ActionListener
 	{
-		//--------------------------------------------------------------
-		//  Updates the position of the image and possibly the direction
-		//  of movement whenever the timer fires an action event.
-		//--------------------------------------------------------------
 		public void actionPerformed(ActionEvent event)
 		{
 			update();
+			if(woodLoadL.getText() != loadsW.get(0)) {
+				
+			}
 		}
 	}
 	
 	private class WoodListener implements ActionListener
 	{
-		//--------------------------------------------------------------
-		//  Updates the position of the image and possibly the direction
-		//  of movement whenever the timer fires an action event.
-		//--------------------------------------------------------------
 		public void actionPerformed(ActionEvent event)
 		{
 			removeWood();
 		}
 	}
 	
-	private class LoadListener implements ActionListener
+	private class WoodLoadListener implements ActionListener
 	{
-		//--------------------------------------------------------------
-		//  Updates the position of the image and possibly the direction
-		//  of movement whenever the timer fires an action event.
-		//--------------------------------------------------------------
 		public void actionPerformed(ActionEvent event)
 		{
-			if(loading == true)
+			if(woodLoadL.getText() != loadsW.get(0)) {
 				load();
+			}
 		}
 	}
 }
