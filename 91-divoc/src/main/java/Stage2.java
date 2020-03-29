@@ -18,7 +18,7 @@ public class Stage2 extends JPanel{
 	private int loadSpeed = 1000;
 	private int woodSpeed = 25000;
 	private Timer gameTimer, loadTimer, woodTimer;
-	private boolean complete = true;
+	private boolean complete = false;
 	private JLabel woodL, storyL, loadL;
 	private JButton collectB;
 	private int wood = 0;
