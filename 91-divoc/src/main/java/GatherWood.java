@@ -12,7 +12,7 @@ import javax.swing.Timer;
 
 public class GatherWood extends JPanel{
 	
-	private JButton gatherB, addB, removeB;
+	private JButton gatherB, addB, removeB, startB;
 	private JLabel gatherersL, loadL;
 	private int gatherers, loadSpeed, checkSpeed;
 	private ArrayList<String> loadList;
@@ -64,12 +64,14 @@ public class GatherWood extends JPanel{
 		removeB = new JButton("Remove");
 		gatherersL = new JLabel("Gatherers: " + gatherers);
 		loadL = new JLabel(loadList.get(0));
+		startB = new JButton("Click to unlock wood gathering");
 		
 		gatherB.setBounds(450, 0, 100, 25);
 		addB.setBounds(100, 0, 100, 25);
 		removeB.setBounds(200, 0, 100, 25);
 		gatherersL.setBounds(0, 0, 100, 25);
 		loadL.setBounds(300, 0, 150, 25);
+		startB.setBounds(0, 0, 550, 25);
 		
 		loadL.setFont(new Font("Arial Narrow", Font.BOLD, 31));
 		loadL.setForeground(new Color(0, 0, 0, 50));
@@ -77,7 +79,9 @@ public class GatherWood extends JPanel{
 		gatherB.addActionListener(new ButtonListener());
 		addB.addActionListener(new ButtonListener());
 		removeB.addActionListener(new ButtonListener());
+		startB.addActionListener(new ButtonListener());
 		
+		add(startB);
 		add(gatherB);
 		add(addB);
 		add(removeB);
@@ -105,6 +109,10 @@ public class GatherWood extends JPanel{
 		gatherersL.setText("Gatherers: " + gatherers);
 	}
 	
+	private void update() {
+		this.updateUI();
+	}
+	
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == gatherB && gatherers > 0) {
@@ -125,6 +133,10 @@ public class GatherWood extends JPanel{
 					People.addPeople(1);
 					gatherersL.setText("Gatherers: " + gatherers);
 				}
+			}
+			if(event.getSource() == startB) {
+				remove(startB);
+				update();
 			}
 		}
 	}

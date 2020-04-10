@@ -13,28 +13,36 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 public class Hut extends JPanel{
-	private int loadSpeed = 500;
+	private int checkSpeed = 1;
 	private int removalSpeed = 25000;//set to 50k
-	private Timer removalTimer;
+	private Timer removalTimer, checkTimer;
 	private JButton buildB;
 	private boolean built = false;
 	private int woodCost;
 	private JLabel costL, hutL;
+	private int overallWood;
 	
-	public Hut(int woodCost) {
+	public Hut(int woodCost, int overallWood) {
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(75, 125));
 		this.setBackground(Color.black);
 
+		this.overallWood = overallWood;
 		this.woodCost = woodCost;
 		
-		setupComponents();
 		timerSetup();
+	}
+	
+	private void buildHut() {
+		setupComponents();
 	}
 	
 	private void timerSetup() {
 		removalTimer = new Timer(removalSpeed, new RemoveListener());
 		removalTimer.start(); 
+		
+		checkTimer = new Timer(checkSpeed, new CheckListener());
+		checkTimer.start(); 
 	}
 	
 	public boolean isBuilt() {
@@ -64,6 +72,8 @@ public class Hut extends JPanel{
 		add(buildB);
 		add(costL);
 		add(hutL);
+		
+		this.updateUI();
 	}
 	
 	private void removeHut() {
@@ -113,6 +123,16 @@ public class Hut extends JPanel{
 		{
 			if(built == true) {
 				removeHut();	
+			}
+		}
+	}
+	
+	private class CheckListener implements ActionListener
+	{
+		public void actionPerformed(ActionEvent event)
+		{
+			if(built == false && costL == null && Wood.getOverall() >= overallWood) {
+				buildHut();
 			}
 		}
 	}

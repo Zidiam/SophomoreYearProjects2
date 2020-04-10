@@ -28,7 +28,7 @@ public class Camp extends JPanel{
 	private void setupComponents() {
 		campfire = new CampFire();
 		story = new Story(campfire);
-		hut1 = new Hut(10);
+		hut1 = new Hut(10, 5);
 		
 		campfire.setBounds(225, 275, 75, 75);
 		story.setBounds(0, 600, 550, 75);
