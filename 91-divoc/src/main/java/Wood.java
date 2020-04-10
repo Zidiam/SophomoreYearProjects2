@@ -1,6 +1,6 @@
 public class Wood{
-	private static int wood = 1;
-	private static int overallWood = 1;
+	private static int wood = 100;
+	private static int overallWood = 100;
 	
 	public Wood() {
 	}

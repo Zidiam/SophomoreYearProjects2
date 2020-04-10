@@ -11,8 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Camp extends JPanel{
-	private CampFire wood;
+	private CampFire campfire;
 	private Story story;
+	private Hut hut1;
 	
 	public Camp() {
 		this.setLayout(null);
@@ -25,14 +26,17 @@ public class Camp extends JPanel{
 	}
 	
 	private void setupComponents() {
-		wood = new CampFire();
-		story = new Story(wood);
+		campfire = new CampFire();
+		story = new Story(campfire);
+		hut1 = new Hut(10);
 		
-		wood.setBounds(225, 275, 75, 75);
+		campfire.setBounds(225, 275, 75, 75);
 		story.setBounds(0, 600, 550, 75);
+		hut1.setBounds(225, 100, 75, 125);
 		
-		add(wood);
+		add(campfire);
 		add(story);
+		add(hut1);
 	}
 	
 	private class ButtonListener implements ActionListener{

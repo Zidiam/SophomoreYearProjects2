@@ -14,9 +14,9 @@ public class GatherWood extends JPanel{
 	
 	private JButton gatherB, addB, removeB;
 	private JLabel gatherersL, loadL;
-	private int gatherers, loadSpeed;
+	private int gatherers, loadSpeed, checkSpeed;
 	private ArrayList<String> loadList;
-	private Timer loadTimer;
+	private Timer loadTimer, checkTimer;
 	
 	
 	public GatherWood() {
@@ -26,6 +26,7 @@ public class GatherWood extends JPanel{
 		
 		gatherers = 0;
 		loadSpeed = 250;
+		checkSpeed = 1;
 		setupLoad();
 		setupComponents();
 		setupTimer();
@@ -87,10 +88,21 @@ public class GatherWood extends JPanel{
 	private void setupTimer() {
 		loadTimer = new Timer(loadSpeed, new LoadListener());
 		loadTimer.start();
+		
+		checkTimer = new Timer(checkSpeed, new CheckListener());
+		checkTimer.start();
 	}
 	
 	private void gather() {
 		Wood.addWood(gatherers);
+	}
+	
+	private void checkPeople() {
+		while(People.getPeople() < 0 && gatherers > 0) {
+			gatherers --;
+			People.addPeople(1);
+		}
+		gatherersL.setText("Gatherers: " + gatherers);
 	}
 	
 	private class ButtonListener implements ActionListener{
@@ -128,6 +140,14 @@ public class GatherWood extends JPanel{
 			if(!loadL.getText().equals(loadList.get(0))) {
 				loadL.setText(loadList.get(loadList.indexOf(loadL.getText()) + 1));
 			}
+		}
+	}
+	
+	private class CheckListener implements ActionListener
+	{
+		public void actionPerformed(ActionEvent event)
+		{
+			checkPeople();
 		}
 	}
 	
