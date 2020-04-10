@@ -1,6 +1,7 @@
 public class Wood{
-	private static int wood = 1;
-	private static int overallWood = 1;
+	private static int wood = 0;
+	private static int overallWood = 0;
+	private static int burnedWood = 0;
 	
 	public Wood() {
 	}
@@ -20,5 +21,13 @@ public class Wood{
 	
 	public static int getOverall() {
 		return overallWood;
+	}
+	
+	public static void addBurnedWood(int add) {
+		burnedWood += add;
+	}
+	
+	public static int getBurnedWood() {
+		return burnedWood;
 	}
 }

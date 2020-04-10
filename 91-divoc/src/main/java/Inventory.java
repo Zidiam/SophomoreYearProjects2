@@ -10,7 +10,7 @@ import javax.swing.Timer;
 
 public class Inventory extends JPanel{
 
-	private JButton wood;
+	private JButton woodB;
 	private JLabel woodL;
 	private Timer gameTimer;
 	private int gameSpeed = 1;
@@ -20,7 +20,6 @@ public class Inventory extends JPanel{
 		this.setBackground(Color.WHITE);
 		this.setLayout(null);
 		
-		setupComponents();
 		timerSetup();
 	}
 	
@@ -29,31 +28,51 @@ public class Inventory extends JPanel{
 		gameTimer.start();
 	}
 	
-	private void setupComponents() {
-		wood = new JButton("Wood");
+	private void setupWood() {
+		woodB = new JButton("Wood");
 		woodL = new JLabel("" + Wood.getWood());
 		
-		wood.setBounds(0, 0, 75, 75);
+		woodB.setBounds(0, 0, 75, 75);
 		
-		wood.setBackground(new Color(0, 0, 0, 0));
-		wood.setContentAreaFilled(false);
+		woodB.setBackground(new Color(0, 0, 0, 0));
+		woodB.setContentAreaFilled(false);
 		
 		woodL.setBounds(0, 50, 75, 25);
 		
 		add(woodL);
-		add(wood);
-		
+		add(woodB);
+		this.updateUI();
+	}
+	
+	private void removeWood() {
+		remove(woodL);
+		remove(woodB);
+		woodL = null;
+		woodB = null;
+		this.updateUI();
 	}
 	
 	private void updateInventory() {
-		woodL.setText("" + Wood.getWood());
+	} 
+	
+	private void checkWood() {
+		if(woodL == null && Wood.getWood() > 0) {
+			setupWood();
+		}
+		if(Wood.getWood() <= 0 && Wood.getOverall() > 0 && woodL != null) {
+			removeWood();
+		}
+		if(woodL != null) {
+			woodL.setText("" + Wood.getWood());
+		}
 	}
 	
 	private class GameListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			updateInventory();
+			checkWood();
+			//updateInventory();
 		}
 	}
 	

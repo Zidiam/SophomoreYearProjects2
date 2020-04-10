@@ -57,6 +57,7 @@ public class CampFire extends JPanel{
 			if(event.getSource() == collectB && collectB.getText().equals("Light")) {
 				if(Wood.getWood() > 0) {
 					Wood.removeWood(1);
+					Wood.addBurnedWood(1);
 					collectB.setContentAreaFilled(false);
 					collectB.setBackground(Color.WHITE);
 					lit = true;

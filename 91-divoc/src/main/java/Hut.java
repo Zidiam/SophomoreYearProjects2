@@ -20,14 +20,14 @@ public class Hut extends JPanel{
 	private boolean built = false;
 	private int woodCost;
 	private JLabel costL, hutL;
-	private int overallWood;
+	private int maxWood;
 	
-	public Hut(int woodCost, int overallWood) {
+	public Hut(int woodCost, int maxWood) {
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(75, 125));
 		this.setBackground(Color.black);
 
-		this.overallWood = overallWood;
+		this.maxWood = maxWood;
 		this.woodCost = woodCost;
 		
 		timerSetup();
@@ -131,7 +131,7 @@ public class Hut extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(built == false && costL == null && Wood.getOverall() >= overallWood) {
+			if(built == false && costL == null && Wood.getBurnedWood() >= maxWood) {
 				buildHut();
 			}
 		}
