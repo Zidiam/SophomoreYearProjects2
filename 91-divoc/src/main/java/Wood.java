@@ -1,7 +1,7 @@
 public class Wood{
-	private static int wood = 0;
-	private static int overallWood = 0;
-	private static int burnedWood = 0;
+	private static int wood = 10;
+	private static int overallWood = 10;
+	private static int burnedWood = 10;
 	
 	public Wood() {
 	}

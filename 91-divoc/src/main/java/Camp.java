@@ -13,7 +13,7 @@ import javax.swing.Timer;
 public class Camp extends JPanel{
 	private CampFire campfire;
 	private Story story;
-	private Hut hut1;
+	private Hut hut1, hut2, hut3, hut4;
 	
 	public Camp() {
 		this.setLayout(null);
@@ -29,14 +29,23 @@ public class Camp extends JPanel{
 		campfire = new CampFire();
 		story = new Story(campfire);
 		hut1 = new Hut(10, 5);
+		hut2 = new Hut(10, 5);
+		hut3 = new Hut(10, 5);
+		hut4 = new Hut(10, 5);
 		
 		campfire.setBounds(225, 275, 75, 75);
 		story.setBounds(0, 600, 550, 75);
-		hut1.setBounds(225, 100, 75, 125);
+		hut1.setBounds(225, 125, 75, 125);
+		hut2.setBounds(350, 250, 75, 125);
+		hut3.setBounds(100, 250, 75, 125);
+		hut4.setBounds(225, 375, 75, 125);
 		
 		add(campfire);
 		add(story);
 		add(hut1);
+		add(hut2);
+		add(hut3);
+		add(hut4);
 	}
 	
 	private class ButtonListener implements ActionListener{
