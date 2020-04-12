@@ -1,7 +1,8 @@
 public class People{
-	private static int people = 1;
+	private static int people;
 	
-	public People() {
+	public People(int people) {
+		this.people = people;
 	}
 	
 	public static int getPeople() {

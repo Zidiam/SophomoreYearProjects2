@@ -18,6 +18,8 @@ public class divocMainPanel extends JPanel{
 	private Forest forest;
 	private Wood wood;
 	private People people;
+	private Rabbit rabbit;
+	private Leaf leaf;
 	
 	public divocMainPanel() {
 		timer = new Timer(speed, new ReboundListener());
@@ -37,8 +39,10 @@ public class divocMainPanel extends JPanel{
 		tabs = new JTabbedPane();
 		inventory = new Inventory();
 		forest = new Forest();
-		wood = new Wood();
-		people = new People();
+		wood = new Wood(10, 20, 10);
+		people = new People(1);
+		rabbit = new Rabbit(10, 20);
+		leaf = new Leaf(10, 20);
 		
 		camp = new Camp();
 		

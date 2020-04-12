@@ -9,9 +9,10 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Inventory extends JPanel{
-
-	private JButton woodB;
-	private JLabel woodL;
+	private WoodInventory wood;
+	private LeafInventory leaf;
+	private RabbitInventory rabbit;
+	
 	private Timer gameTimer;
 	private int gameSpeed = 1;
 	
@@ -20,7 +21,51 @@ public class Inventory extends JPanel{
 		this.setBackground(Color.WHITE);
 		this.setLayout(null);
 		
+		setupComponents();
+		
 		timerSetup();
+	}
+	
+	private void setupComponents() {
+		wood = new WoodInventory();
+		rabbit = new RabbitInventory();
+		leaf = new LeafInventory();
+		add(wood);
+		add(leaf);
+		add(rabbit);
+	}
+	
+	private void updateLocation() {
+		int x = 10;
+		int y = 10;
+		if(wood.isActive() == true) {
+			wood.setBounds(x, y, 75, 75);
+			x += 75;
+		}
+		else {
+			//set it outside of the screen
+			wood.setBounds(-100, -100, 75, 75);
+		}
+		
+		if(rabbit.isActive() == true) {
+			rabbit.setBounds(x, y, 75, 75);
+			x += 75;
+		}
+		else {
+			//set it outside of the screen
+			rabbit.setBounds(-100, -100, 75, 75);
+		}
+		
+		if(leaf.isActive() == true) {
+			leaf.setBounds(x, y, 75, 75);
+			x += 75;
+		}
+		else {
+			//set it outside of the screen
+			leaf.setBounds(-100, -100, 75, 75);
+		}
+		
+		
 	}
 	
 	private void timerSetup() {
@@ -28,51 +73,11 @@ public class Inventory extends JPanel{
 		gameTimer.start();
 	}
 	
-	private void setupWood() {
-		woodB = new JButton("Wood");
-		woodL = new JLabel("" + Wood.getWood());
-		
-		woodB.setBounds(0, 0, 75, 75);
-		
-		woodB.setBackground(new Color(0, 0, 0, 0));
-		woodB.setContentAreaFilled(false);
-		
-		woodL.setBounds(0, 50, 75, 25);
-		
-		add(woodL);
-		add(woodB);
-		this.updateUI();
-	}
-	
-	private void removeWood() {
-		remove(woodL);
-		remove(woodB);
-		woodL = null;
-		woodB = null;
-		this.updateUI();
-	}
-	
-	private void updateInventory() {
-	} 
-	
-	private void checkWood() {
-		if(woodL == null && Wood.getWood() > 0) {
-			setupWood();
-		}
-		if(Wood.getWood() <= 0 && Wood.getOverall() > 0 && woodL != null) {
-			removeWood();
-		}
-		if(woodL != null) {
-			woodL.setText("" + Wood.getWood());
-		}
-	}
-	
 	private class GameListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			checkWood();
-			//updateInventory();
+			updateLocation();
 		}
 	}
 	

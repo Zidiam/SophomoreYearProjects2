@@ -1,9 +1,10 @@
 public class Wood{
-	private static int wood = 10;
-	private static int overallWood = 10;
-	private static int burnedWood = 10;
+	private static int wood, burnedWood, overallWood;
 	
-	public Wood() {
+	public Wood(int wood, int overallWood, int burnedWood) {
+		this.wood = wood;
+		this.overallWood = overallWood;
+		this.burnedWood = burnedWood;
 	}
 	
 	public static int getWood() {

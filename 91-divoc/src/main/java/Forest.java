@@ -9,10 +9,11 @@ import javax.swing.Timer;
 
 public class Forest extends JPanel{
 	
-	GatherWood wood;
+	private GatherWood wood;
 	private JLabel people;
 	private Timer gameTimer;
 	private int gameSpeed = 1;
+	private GatherTraps traps;
 	
 	public Forest() {
 		this.setPreferredSize(new Dimension(550, 700));
@@ -31,13 +32,16 @@ public class Forest extends JPanel{
 	
 	private void setupComponents() {
 		wood = new GatherWood();
+		traps = new GatherTraps();
 		people = new JLabel("Available People: " + People.getPeople());
 		
 		people.setBounds(0, 0, 550, 25);
 		wood.setBounds(0, 25, 550, 25);
+		traps.setBounds(0, 50, 550, 25);
 		
 		add(people);
 		add(wood);
+		add(traps);
 	}
 	
 	private class GameListener implements ActionListener
