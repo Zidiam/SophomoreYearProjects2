@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class Camp extends JPanel{
+public class StrongHold extends JPanel{
 	private CampFire campfire;
 	private Story story;
 	private Hut hut1, hut2, hut3, hut4;
@@ -22,7 +22,7 @@ public class Camp extends JPanel{
 	private int gameSpeed = 1;
 	private boolean complete = false;
 	
-	public Camp() {
+	public StrongHold() {
 		this.setLayout(null);
 		
 		setupComponents();

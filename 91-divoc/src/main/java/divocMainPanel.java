@@ -20,9 +20,10 @@ public class divocMainPanel extends JPanel{
 	private People people;
 	private Rabbit rabbit;
 	private Leaf leaf;
+	private StrongHold stronghold;
 	
 	public divocMainPanel() {
-		timer = new Timer(speed, new ReboundListener());
+		timer = new Timer(speed, new GameListener());
 		
 		setupComponents();
 		
@@ -54,7 +55,17 @@ public class divocMainPanel extends JPanel{
 		add(tabs);
 	}
 	
-	private class ReboundListener implements ActionListener
+	private void updateTabs() {
+		if(camp.isComplete() && stronghold == null) {
+			stronghold = new StrongHold();
+			tabs.remove(0);
+			tabs.add(stronghold, 0);
+			tabs.setTitleAt(0, "Stronghold");
+			tabs.setSelectedIndex(0);
+		}
+	}
+	
+	private class GameListener implements ActionListener
 	{
 		//--------------------------------------------------------------
 		//  Updates the position of the image and possibly the direction
@@ -62,6 +73,7 @@ public class divocMainPanel extends JPanel{
 		//--------------------------------------------------------------
 		public void actionPerformed(ActionEvent event)
 		{
+			updateTabs();
 		}
 	}
 }
