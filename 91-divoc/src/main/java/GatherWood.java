@@ -99,6 +99,7 @@ public class GatherWood extends JPanel{
 	
 	private void gather() {
 		Wood.addWood(gatherers);
+		Leaf.addLeaf(gatherers);
 	}
 	
 	private void checkPeople() {

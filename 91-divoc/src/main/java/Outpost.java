@@ -13,29 +13,30 @@ import javax.swing.JToolTip;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class Hut extends JPanel{
+public class Outpost extends JPanel{
 	private int checkSpeed = 1;
-	private int removalSpeed = 25000;//set to 50k
+	private int removalSpeed = 2500;//set to 50k
 	private Timer removalTimer, checkTimer;
 	private JButton buildB;
 	private boolean built = false;
-	private int woodCost, leafCost;
-	private JLabel woodL, hutL, leafL;
-	private int maxWood;
+	private int woodCost, leafCost, rabbitCost;
+	private JLabel woodL, leafL, rabbitL;
+	private int maxRabbit;
 	
-	public Hut(int woodCost, int leafCost, int maxWood) {
+	public Outpost(int woodCost, int leafCost, int rabbitCost, int maxRabbit) {
 		this.setLayout(null);
-		this.setPreferredSize(new Dimension(75, 100));
+		this.setPreferredSize(new Dimension(100, 100));
 		this.setBackground(Color.black);
 
-		this.maxWood = maxWood;
+		this.maxRabbit = maxRabbit;
 		this.woodCost = woodCost;
 		this.leafCost = leafCost;
+		this.rabbitCost = rabbitCost;
 		
 		timerSetup();
 	}
 	
-	private void buildHut() {
+	private void buildOutpost() {
 		setupComponents();
 	}
 	
@@ -53,51 +54,52 @@ public class Hut extends JPanel{
 
 	
 	private void setupComponents() {
-		buildB = new JButton("Build");
+		buildB = new JButton("Outpost");
 		woodL = new JLabel(woodCost + " Wood", SwingConstants.CENTER);
 		leafL = new JLabel(leafCost + " Leaves", SwingConstants.CENTER);
-		hutL = new JLabel("HUT", SwingConstants.CENTER);
+		rabbitL = new JLabel(rabbitCost + " Rabbits", SwingConstants.CENTER);
 		
 		buildB.setBackground(Color.black);
 		buildB.setForeground(Color.WHITE);
 		buildB.setBorderPainted(true);
 		buildB.setFocusable(false);
 		
-		hutL.setForeground(Color.WHITE);
 		woodL.setForeground(Color.WHITE);
 		leafL.setForeground(Color.WHITE);
+		rabbitL.setForeground(Color.WHITE);
 		
 		buildB.addActionListener(new ButtonListener());
 		
-		hutL.setBounds(0, 0, 75, 25);
-		buildB.setBounds(0, 25, 75, 25);
-		woodL.setBounds(0, 50, 75, 25);
-		leafL.setBounds(0, 75, 75, 25);
+		buildB.setBounds(0, 0, 100, 25);
+		woodL.setBounds(0, 25, 100, 25);
+		leafL.setBounds(0, 50, 100, 25);
+		rabbitL.setBounds(0, 75, 100, 25);
 		
 		add(buildB);
 		add(woodL);
-		add(hutL);
 		add(leafL);
+		add(rabbitL);
 		
 		this.updateUI();
 	}
 	
-	private void removeHut() {
-		buildB.setText("Build");
+	private void removeOutpost() {
+		buildB.setText("Outpost");
 		woodL.setText(woodCost + " Wood");
 		leafL.setText(leafCost + " Leaves");
-		hutL.setText("HUT");
+		rabbitL.setText(rabbitCost + " Rabbits");
 		
 		buildB.setBackground(Color.black);
 		buildB.setForeground(Color.WHITE);
 		buildB.setBorderPainted(true);
 		buildB.setFocusable(false);
 		
-		buildB.setSize(75, 25);
-		
-		hutL.setForeground(Color.WHITE);
+		buildB.setLocation(0, 0);
+		buildB.setSize(100, 25);
+
 		woodL.setForeground(Color.WHITE);
 		leafL.setForeground(Color.WHITE);
+		rabbitL.setForeground(Color.WHITE);
 		
 		buildB.setEnabled(true);
 		built = false;
@@ -106,25 +108,27 @@ public class Hut extends JPanel{
 		
 	}
 	
-	private void addHut() {
+	private void addOutpost() {
 		Wood.removeWood(woodCost);
 		Leaf.removeLeaf(leafCost);
+		Rabbit.removeRabbit(rabbitCost);
 		People.addPeople(1);
 		buildB.setBackground(Color.GRAY);
 		built = true;
-		buildB.setText("HUT");
-		buildB.setSize(75, 75);
+		buildB.setText("Outpost");
+		buildB.setLocation(0, 0);
+		buildB.setSize(100, 100);
 		buildB.setEnabled(false);
 		woodL.setText("");
-		hutL.setText("");
 		leafL.setText("");
 	}
 	
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
-			if(event.getSource() == buildB && buildB.getText().equals("Build")) {
-				if(Wood.getWood() >= woodCost && Leaf.getLeaf() >= leafCost && built == false) {
-					addHut();
+			if(event.getSource() == buildB && buildB.getText().equals("Outpost")) {
+				if(Wood.getWood() >= woodCost && Leaf.getLeaf() >= leafCost && Rabbit.getRabbit() >= rabbitCost && built == false) {
+					System.out.println("test");
+					addOutpost();
 				}
 			}	
 		}
@@ -134,9 +138,9 @@ public class Hut extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			//later we can destroy huts over time if an invader comes and such
+			//later we can destroy outposts over time if an invader comes and such
 			//if(built == true) {
-			//	removeHut();	
+			//	removeOutpost();	
 			//}
 		}
 	}
@@ -145,9 +149,8 @@ public class Hut extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(built == false && woodL == null && Wood.getBurnedWood() >= maxWood) {
-				buildHut();
-				Rabbit.setActive(true);
+			if(built == false && woodL == null && Rabbit.getOverall() >= maxRabbit) {
+				buildOutpost();
 			}
 		}
 	}

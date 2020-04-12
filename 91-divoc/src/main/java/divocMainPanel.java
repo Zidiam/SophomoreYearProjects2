@@ -39,10 +39,10 @@ public class divocMainPanel extends JPanel{
 		tabs = new JTabbedPane();
 		inventory = new Inventory();
 		forest = new Forest();
-		wood = new Wood(10, 20, 10);
+		wood = new Wood(1000, 2000, 1000);
 		people = new People(1);
-		rabbit = new Rabbit(10, 20);
-		leaf = new Leaf(10, 20);
+		rabbit = new Rabbit(1000, 1000);
+		leaf = new Leaf(1000, 1000);
 		
 		camp = new Camp();
 		

@@ -17,7 +17,7 @@ public class GatherTraps extends JPanel{
 	private int hunters, loadSpeed, checkSpeed;
 	private ArrayList<String> loadList;
 	private Timer loadTimer, checkTimer;
-	
+	private boolean isDisplayed;
 	
 	public GatherTraps() {
 		this.setPreferredSize(new Dimension(550, 25));
@@ -27,8 +27,8 @@ public class GatherTraps extends JPanel{
 		hunters = 0;
 		loadSpeed = 250;
 		checkSpeed = 1;
+		isDisplayed = false;
 		setupLoad();
-		setupComponents();
 		setupTimer();
 	}
 	
@@ -113,6 +113,13 @@ public class GatherTraps extends JPanel{
 		this.updateUI();
 	}
 	
+	private void checkDisplay(){
+		if(isDisplayed == false && Rabbit.isActive()) {
+			setupComponents();
+			isDisplayed = true;
+		}
+	}
+	
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == hunterB && hunters > 0) {
@@ -145,12 +152,14 @@ public class GatherTraps extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(loadList.indexOf(loadL.getText()) == loadList.size()-1) {
-				gather();
-				loadL.setText(loadList.get(0));
-			}
-			if(!loadL.getText().equals(loadList.get(0))) {
-				loadL.setText(loadList.get(loadList.indexOf(loadL.getText()) + 1));
+			if(isDisplayed == true) {
+				if(loadList.indexOf(loadL.getText()) == loadList.size()-1) {
+					gather();
+					loadL.setText(loadList.get(0));
+				}
+				if(!loadL.getText().equals(loadList.get(0))) {
+					loadL.setText(loadList.get(loadList.indexOf(loadL.getText()) + 1));
+				}
 			}
 		}
 	}
@@ -159,7 +168,10 @@ public class GatherTraps extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			checkPeople();
+			checkDisplay();
+			if(isDisplayed == true) {
+				checkPeople();
+			}
 		}
 	}
 	

@@ -36,8 +36,8 @@ public class Inventory extends JPanel{
 	}
 	
 	private void updateLocation() {
-		int x = 10;
-		int y = 10;
+		int x = 0;
+		int y = 0;
 		if(wood.isActive() == true) {
 			wood.setBounds(x, y, 75, 75);
 			x += 75;
