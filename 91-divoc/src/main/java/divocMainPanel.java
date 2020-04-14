@@ -21,7 +21,11 @@ public class divocMainPanel extends JPanel{
 	private Rabbit rabbit;
 	private Leaf leaf;
 	private Wheat wheat;
+	private Stone stone;
 	private StrongHold stronghold;
+	private Villiage villiage;
+	private boolean admin = true;
+	private Tradepost tradepost;
 	
 	public divocMainPanel() {
 		timer = new Timer(speed, new GameListener());
@@ -41,12 +45,27 @@ public class divocMainPanel extends JPanel{
 		tabs = new JTabbedPane();
 		inventory = new Inventory();
 		forest = new Forest();
-		wood = new Wood(1000, 2000, 1000);
-		people = new People(1);
-		rabbit = new Rabbit(1000, 1000);
-		leaf = new Leaf(1000, 1000);
-		leaf = new Leaf(1000, 1000);
-		wheat = new Wheat(0, 0);
+		
+		if(admin == false) {
+			wood = new Wood(0, 0, 0);
+			people = new People(1);
+			rabbit = new Rabbit(0, 0);
+			leaf = new Leaf(0, 0);
+			leaf = new Leaf(0, 0);
+			wheat = new Wheat(0, 0);
+			stone = new Stone(0, 0);
+		}
+		if(admin == true) {
+			Tradepost.setActive(true);
+			wood = new Wood(100000, 100000, 100000);
+			people = new People(1000);
+			rabbit = new Rabbit(100000, 100000);
+			leaf = new Leaf(100000, 100000);
+			leaf = new Leaf(100000, 100000);
+			wheat = new Wheat(100000, 100000);
+			stone = new Stone(100000, 100000);
+			
+		}
 		
 		camp = new Camp();
 		
@@ -65,6 +84,17 @@ public class divocMainPanel extends JPanel{
 			tabs.add(stronghold, 0);
 			tabs.setTitleAt(0, "Stronghold");
 			tabs.setSelectedIndex(0);
+		}
+		if(camp.isComplete() && stronghold.isComplete() && villiage == null) {
+			villiage = new Villiage();
+			tabs.remove(0);
+			tabs.add(villiage, 0);
+			tabs.setTitleAt(0, "Villiage");
+			tabs.setSelectedIndex(0);
+		}
+		if(Tradepost.isActive()) {
+			tradepost = new Tradepost();
+			tabs.add("Tradepost", tradepost);
 		}
 	}
 	

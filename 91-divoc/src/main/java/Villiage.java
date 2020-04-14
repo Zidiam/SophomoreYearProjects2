@@ -11,19 +11,16 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class StrongHold extends JPanel{
+public class Villiage extends JPanel{
 	private JButton upgradeB;
 	private JLabel upgradeL;
 	private Timer checkTimer;
 	private int gameSpeed = 1;
 	private boolean complete = false;
-	private CampButton camp;
-	private Farm farm1, farm2, farm3, farm4;
-	private MineShaft mine1, mine2, mine3;
+	private StrongholdButton stronghold;
 	private Wall wall;
-	private TradepostButton tradepost;
 	
-	public StrongHold() {
+	public Villiage() {
 		this.setLayout(null);
 		
 		setupComponents();
@@ -58,45 +55,18 @@ public class StrongHold extends JPanel{
 	}
 	
 	private void setupComponents() {
-		farm1 = new Farm(200, 125, 50);
-		farm2 = new Farm(250, 200, 60);
-		farm3 = new Farm(300, 250, 70);
-		farm4 = new Farm(400, 300, 80);
-	
-		mine1 = new MineShaft(250, 80, 20, 5);
-		mine2 = new MineShaft(300, 90, 30, 10);
-		mine3 = new MineShaft(350, 100, 30, 10);
+		stronghold = new StrongholdButton();
 		
 		wall = new Wall(100, 100);
 		
-		tradepost = new TradepostButton(260, 90, 20, 7);
-		
-		camp = new CampButton();
-		
-		camp.setBounds(245, 275, 75, 75);
-		farm1.setBounds(245, 125, 75, 100);
-		farm2.setBounds(365, 250, 75, 100);
-		farm3.setBounds(120, 250, 75, 100);
-		farm4.setBounds(245, 375, 75, 100);
-		
-		mine1.setBounds(405, 75, 100, 100);
-		mine2.setBounds(405, 425, 100, 100);
-		mine3.setBounds(70, 425, 100, 100);
-		tradepost.setBounds(70, 75, 100, 100);
+		stronghold.setBounds(245, 275, 75, 75);
 		
 		wall.setBounds(0, 25, 575, 700);
 		
 		wall.setVisible(false);
-		add(camp);
-		add(farm1);
-		add(farm2);
-		add(farm3);
-		add(farm4);
-		add(mine1);
-		add(mine2);
-		add(mine3);
-		add(tradepost);
-		add(wall);
+
+		//add(wall);
+		add(stronghold);
 	}
 	
 	public boolean isComplete() {
@@ -115,18 +85,7 @@ public class StrongHold extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(farm1.isBuilt() == true && farm2.isBuilt() == true && farm3.isBuilt() == true && farm4.isBuilt() == true) {
-				if(mine1.isBuilt() == true && mine2.isBuilt() == true && mine3.isBuilt() == true && tradepost.isBuilt() == true) {
-					if(wall.isVisible() == false) {
-						wall.setVisible(true);
-					}
-					if(wall.isBought()) {
-						if(upgradeB == null) {
-							setupUpgrade();
-						}
-					}
-				}
-			}
+			
 		}
 	}
 	

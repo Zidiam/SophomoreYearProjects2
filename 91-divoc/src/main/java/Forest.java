@@ -15,6 +15,7 @@ public class Forest extends JPanel{
 	private int gameSpeed = 1;
 	private GatherTraps traps;
 	private GatherFarm farm;
+	private GatherMines mines;
 	
 	public Forest() {
 		this.setPreferredSize(new Dimension(575, 700));
@@ -35,6 +36,7 @@ public class Forest extends JPanel{
 		wood = new GatherWood();
 		traps = new GatherTraps();
 		farm = new GatherFarm();
+		mines = new GatherMines();
 		
 		people = new JLabel("Available People: " + People.getPeople());
 		
@@ -42,11 +44,13 @@ public class Forest extends JPanel{
 		wood.setBounds(0, 25, 575, 25);
 		traps.setBounds(0, 50, 575, 25);
 		farm.setBounds(0, 75, 575, 25);
+		mines.setBounds(0, 100, 575, 25);
 		
 		add(people);
 		add(wood);
 		add(traps);
 		add(farm);
+		add(mines);
 	}
 	
 	private class GameListener implements ActionListener

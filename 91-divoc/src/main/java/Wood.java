@@ -1,10 +1,11 @@
 public class Wood{
-	private static int wood, burnedWood, overallWood;
+	private static int wood, burnedWood, overallWood, multiplier;
 	
 	public Wood(int wood, int overallWood, int burnedWood) {
 		this.wood = wood;
 		this.overallWood = overallWood;
 		this.burnedWood = burnedWood;
+		this.multiplier = 1;
 	}
 	
 	public static int getWood() {
@@ -12,12 +13,20 @@ public class Wood{
 	}
 	
 	public static void addWood(int add) {
-		wood += add;
-		overallWood += add;
+		wood += add*multiplier;
+		overallWood += add*multiplier;
 	}
 	
 	public static void removeWood(int remove) {
 		wood -= remove;
+	}
+	
+	public static int getMultiplier() {
+		return multiplier;
+	}
+	
+	public static void addMultiplier(int add) {
+		multiplier += add;
 	}
 	
 	public static int getOverall() {

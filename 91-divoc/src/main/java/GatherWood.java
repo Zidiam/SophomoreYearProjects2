@@ -13,7 +13,7 @@ import javax.swing.Timer;
 public class GatherWood extends JPanel{
 	
 	private JButton gatherB, addB, removeB, startB;
-	private JLabel gatherersL, loadL;
+	private JLabel gatherersL, loadL, multiplierL;
 	private int gatherers, loadSpeed, checkSpeed;
 	private ArrayList<String> loadList;
 	private Timer loadTimer, checkTimer;
@@ -65,13 +65,15 @@ public class GatherWood extends JPanel{
 		gatherersL = new JLabel("Gatherers: " + gatherers);
 		loadL = new JLabel(loadList.get(0));
 		startB = new JButton("Click to unlock wood gathering");
+		multiplierL = new JLabel(Wood.getMultiplier() + "x");
 		
 		gatherB.setBounds(475, 0, 100, 25);
 		addB.setBounds(125, 0, 100, 25);
 		removeB.setBounds(225, 0, 100, 25);
-		gatherersL.setBounds(0, 0, 100, 25);
+		gatherersL.setBounds(0, 0, 75, 25);
 		loadL.setBounds(325, 0, 150, 25);
 		startB.setBounds(0, 0, 575, 25);
+		multiplierL.setBounds(100, 0, 25, 25);
 		
 		addB.setBackground(Color.WHITE);
 		removeB.setBackground(Color.WHITE);
@@ -92,6 +94,7 @@ public class GatherWood extends JPanel{
 		add(removeB);
 		add(gatherersL);
 		add(loadL);
+		add(multiplierL);
 	}
 	
 	private void setupTimer() {
@@ -113,6 +116,7 @@ public class GatherWood extends JPanel{
 			People.addPeople(1);
 		}
 		gatherersL.setText("Gatherers: " + gatherers);
+		multiplierL.setText(Wood.getMultiplier() + "x");
 	}
 	
 	private void update() {

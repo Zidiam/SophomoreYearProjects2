@@ -109,6 +109,8 @@ public class Hut extends JPanel{
 	private void addHut() {
 		Wood.removeWood(woodCost);
 		Leaf.removeLeaf(leafCost);
+		Wood.addMultiplier(1);
+		Leaf.addMultiplier(1);
 		People.addPeople(1);
 		buildB.setBackground(Color.GRAY);
 		built = true;

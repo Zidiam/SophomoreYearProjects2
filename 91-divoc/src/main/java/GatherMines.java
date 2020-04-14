@@ -10,22 +10,22 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class GatherTraps extends JPanel{
+public class GatherMines extends JPanel{
 	
-	private JButton hunterB, addB, removeB, startB;
-	private JLabel huntersL, loadL, multiplierL;
-	private int hunters, loadSpeed, checkSpeed;
+	private JButton minerB, addB, removeB, startB;
+	private JLabel minersL, loadL, multiplierL;
+	private int miners, loadSpeed, checkSpeed;
 	private ArrayList<String> loadList;
 	private Timer loadTimer, checkTimer;
 	private boolean isDisplayed;
 	
-	public GatherTraps() {
+	public GatherMines() {
 		this.setPreferredSize(new Dimension(575, 25));
 		this.setBackground(Color.WHITE);
 		this.setLayout(null);
 		
-		hunters = 0;
-		loadSpeed = 300;
+		miners = 0;
+		loadSpeed = 400;
 		checkSpeed = 1;
 		isDisplayed = false;
 		setupLoad();
@@ -59,18 +59,18 @@ public class GatherTraps extends JPanel{
 	}
 	
 	private void setupComponents() {
-		hunterB = new JButton("Hunt");
+		minerB = new JButton("Mine");
 		addB = new JButton("Add");
 		removeB = new JButton("Remove");
-		huntersL = new JLabel("Hunters: " + hunters);
+		minersL = new JLabel("Miners: " + miners);
 		loadL = new JLabel(loadList.get(0));
-		startB = new JButton("Click to setup traps");
-		multiplierL = new JLabel(Rabbit.getMultiplier() + "x");
+		startB = new JButton("Click to setup miners");
+		multiplierL = new JLabel(Stone.getMultiplier() + "x");
 		
-		hunterB.setBounds(475, 0, 100, 25);
+		minerB.setBounds(475, 0, 100, 25);
 		addB.setBounds(125, 0, 100, 25);
 		removeB.setBounds(225, 0, 100, 25);
-		huntersL.setBounds(0, 0, 75, 25);
+		minersL.setBounds(0, 0, 75, 25);
 		loadL.setBounds(325, 0, 150, 25);
 		startB.setBounds(0, 0, 575, 25);
 		multiplierL.setBounds(100, 0, 25, 25);
@@ -78,21 +78,21 @@ public class GatherTraps extends JPanel{
 		addB.setBackground(Color.WHITE);
 		removeB.setBackground(Color.WHITE);
 		startB.setBackground(Color.WHITE);
-		hunterB.setBackground(Color.WHITE);
+		minerB.setBackground(Color.WHITE);
 		
 		loadL.setFont(new Font("Arial Narrow", Font.BOLD, 31));
 		loadL.setForeground(new Color(0, 0, 0, 50));
 		
-		hunterB.addActionListener(new ButtonListener());
+		minerB.addActionListener(new ButtonListener());
 		addB.addActionListener(new ButtonListener());
 		removeB.addActionListener(new ButtonListener());
 		startB.addActionListener(new ButtonListener());
 		
 		add(startB);
-		add(hunterB);
+		add(minerB);
 		add(addB);
 		add(removeB);
-		add(huntersL);
+		add(minersL);
 		add(loadL);
 		add(multiplierL);
 	}
@@ -105,17 +105,17 @@ public class GatherTraps extends JPanel{
 		checkTimer.start();
 	}
 	
-	private void gather() {
-		Rabbit.addRabbit(hunters);
+	private void mine() {
+		Stone.addStone(miners);
 	}
 	
 	private void checkPeople() {
-		while(People.getPeople() < 0 && hunters > 0) {
-			hunters --;
+		while(People.getPeople() < 0 && miners > 0) {
+			miners --;
 			People.addPeople(1);
 		}
-		huntersL.setText("Hunters: " + hunters);
-		multiplierL.setText(Rabbit.getMultiplier() + "x");
+		minersL.setText("Miners: " + miners);
+		multiplierL.setText(Stone.getMultiplier() + "x");
 	}
 	
 	private void update() {
@@ -123,7 +123,7 @@ public class GatherTraps extends JPanel{
 	}
 	
 	private void checkDisplay(){
-		if(isDisplayed == false && Rabbit.isActive()) {
+		if(isDisplayed == false && Stone.isActive()) {
 			setupComponents();
 			isDisplayed = true;
 		}
@@ -131,23 +131,23 @@ public class GatherTraps extends JPanel{
 	
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
-			if(event.getSource() == hunterB && hunters > 0) {
+			if(event.getSource() == minerB && miners > 0) {
 				if(loadL.getText().equals(loadList.get(0))) {
 					loadL.setText(loadList.get(1));
 				}
 			}
 			if(event.getSource() == addB && loadL.getText().equals(loadList.get(0))) {
 				if(People.getPeople() > 0) {
-					hunters ++;
+					miners ++;
 					People.removePeople(1);
-					huntersL.setText("Hunters: " + hunters);
+					minersL.setText("Miners: " + miners);
 				}
 			}
 			if(event.getSource() == removeB && loadL.getText().equals(loadList.get(0))) {
-				if(hunters > 0) {
-					hunters --;
+				if(miners > 0) {
+					miners --;
 					People.addPeople(1);
-					huntersL.setText("Hunters: " + hunters);
+					minersL.setText("Miners: " + miners);
 				}
 			}
 			if(event.getSource() == startB) {
@@ -163,7 +163,7 @@ public class GatherTraps extends JPanel{
 		{
 			if(isDisplayed == true) {
 				if(loadList.indexOf(loadL.getText()) == loadList.size()-1) {
-					gather();
+					mine();
 					loadL.setText(loadList.get(0));
 				}
 				if(!loadL.getText().equals(loadList.get(0))) {

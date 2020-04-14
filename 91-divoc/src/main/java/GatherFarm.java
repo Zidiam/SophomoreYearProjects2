@@ -13,7 +13,7 @@ import javax.swing.Timer;
 public class GatherFarm extends JPanel{
 	
 	private JButton farmerB, addB, removeB, startB;
-	private JLabel farmersL, loadL;
+	private JLabel farmersL, loadL, multiplierL;
 	private int farmers, loadSpeed, checkSpeed;
 	private ArrayList<String> loadList;
 	private Timer loadTimer, checkTimer;
@@ -25,7 +25,7 @@ public class GatherFarm extends JPanel{
 		this.setLayout(null);
 		
 		farmers = 0;
-		loadSpeed = 250;
+		loadSpeed = 350;
 		checkSpeed = 1;
 		isDisplayed = false;
 		setupLoad();
@@ -62,16 +62,18 @@ public class GatherFarm extends JPanel{
 		farmerB = new JButton("Farm");
 		addB = new JButton("Add");
 		removeB = new JButton("Remove");
-		farmersL = new JLabel("Hunters: " + farmers);
+		farmersL = new JLabel("Farmers: " + farmers);
 		loadL = new JLabel(loadList.get(0));
 		startB = new JButton("Click to setup farms");
+		multiplierL = new JLabel(Wheat.getMultiplier() + "x");
 		
 		farmerB.setBounds(475, 0, 100, 25);
 		addB.setBounds(125, 0, 100, 25);
 		removeB.setBounds(225, 0, 100, 25);
-		farmersL.setBounds(0, 0, 100, 25);
+		farmersL.setBounds(0, 0, 75, 25);
 		loadL.setBounds(325, 0, 150, 25);
 		startB.setBounds(0, 0, 575, 25);
+		multiplierL.setBounds(100, 0, 25, 25);
 		
 		addB.setBackground(Color.WHITE);
 		removeB.setBackground(Color.WHITE);
@@ -92,6 +94,7 @@ public class GatherFarm extends JPanel{
 		add(removeB);
 		add(farmersL);
 		add(loadL);
+		add(multiplierL);
 	}
 	
 	private void setupTimer() {
@@ -111,7 +114,8 @@ public class GatherFarm extends JPanel{
 			farmers --;
 			People.addPeople(1);
 		}
-		farmersL.setText("Hunters: " + farmers);
+		farmersL.setText("Farmers: " + farmers);
+		multiplierL.setText(Wheat.getMultiplier() + "x");
 	}
 	
 	private void update() {
@@ -136,14 +140,14 @@ public class GatherFarm extends JPanel{
 				if(People.getPeople() > 0) {
 					farmers ++;
 					People.removePeople(1);
-					farmersL.setText("Hunters: " + farmers);
+					farmersL.setText("Farmers: " + farmers);
 				}
 			}
 			if(event.getSource() == removeB && loadL.getText().equals(loadList.get(0))) {
 				if(farmers > 0) {
 					farmers --;
 					People.addPeople(1);
-					farmersL.setText("Hunters: " + farmers);
+					farmersL.setText("Farmers: " + farmers);
 				}
 			}
 			if(event.getSource() == startB) {
@@ -177,6 +181,7 @@ public class GatherFarm extends JPanel{
 			if(isDisplayed == true) {
 				checkPeople();
 			}
+			
 		}
 	}
 	

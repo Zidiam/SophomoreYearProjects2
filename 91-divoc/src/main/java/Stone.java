@@ -1,10 +1,10 @@
-public class Wheat{
-	private static int wheat, overallWheat, multiplier;
+public class Stone{
+	private static int stone, overallStone, multiplier;
 	private static boolean active;
 	
-	public Wheat(int wheat, int overall) {
-		this.wheat = wheat;
-		this.overallWheat = overall;
+	public Stone(int stone, int overall) {
+		this.stone = stone;
+		this.overallStone = overall;
 		this.active = false;
 		this.multiplier = 1;
 	}
@@ -17,17 +17,17 @@ public class Wheat{
 		multiplier += add;
 	}
 	
-	public static int getWheat() {
-		return wheat;
+	public static int getStone() {
+		return stone;
 	}
 	
-	public static void addWheat(int add) {
-		wheat += add * multiplier;
-		overallWheat += add * multiplier;
+	public static void addStone(int add) {
+		stone += add * multiplier;
+		overallStone += add * multiplier;
 	}
 	
-	public static void removeWheat(int remove) {
-		wheat -= remove;
+	public static void removeStone(int remove) {
+		stone -= remove;
 	}
 	
 	public static void setActive(boolean v) {
@@ -39,6 +39,6 @@ public class Wheat{
 	}
 	
 	public static int getOverall() {
-		return overallWheat;
+		return overallStone;
 	}
 }

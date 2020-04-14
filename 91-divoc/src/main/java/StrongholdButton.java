@@ -9,14 +9,14 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class CampButton extends JPanel{
-	private JButton lightB, campB;
-	private JLabel campL;
+public class StrongholdButton extends JPanel{
+	private JButton lightB, strongholdB;
+	private JLabel strongholdL;
 	private boolean lit = true;
 	private int removalSpeed = 15000;
 	private Timer removalTimer;
 	
-	public CampButton() {
+	public StrongholdButton() {
 		this.setPreferredSize(new Dimension(75, 75));
 		
 		this.setLayout(null);
@@ -32,26 +32,26 @@ public class CampButton extends JPanel{
 	
 	private void setupComponents() {
 		lightB = new JButton();
-		campB = new JButton();
-		campL = new JLabel("Camp", SwingConstants.CENTER);
+		strongholdB = new JButton();
+		strongholdL = new JLabel("Stronghold", SwingConstants.CENTER);
 		
 		lightB.setBounds(25, 25, 25, 25);
-		campB.setBounds(0, 0, 75, 75);
-		campL.setBounds(0, 0, 75, 25);
+		strongholdB.setBounds(0, 0, 75, 75);
+		strongholdL.setBounds(0, 0, 75, 25);
 		
 		lightB.setFocusable(false);
 		
 		lightB.setBackground(Color.WHITE);
-		campB.setBackground(Color.BLACK);
-		campL.setForeground(Color.WHITE);
+		strongholdB.setBackground(Color.BLACK);
+		strongholdL.setForeground(Color.WHITE);
 		
 		lightB.addActionListener(new ButtonListener());
 		
-		campB.setEnabled(false);
+		strongholdB.setEnabled(false);
 		
-		add(campL);
+		add(strongholdL);
 		add(lightB);
-		add(campB);
+		add(strongholdB);
 	}
 	
 	private class ButtonListener implements ActionListener{

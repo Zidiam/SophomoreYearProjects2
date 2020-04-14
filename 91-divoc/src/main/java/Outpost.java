@@ -111,6 +111,7 @@ public class Outpost extends JPanel{
 	private void addOutpost() {
 		Wood.removeWood(woodCost);
 		Leaf.removeLeaf(leafCost);
+		Rabbit.addMultiplier(1);
 		Rabbit.removeRabbit(rabbitCost);
 		People.addPeople(1);
 		buildB.setBackground(Color.GRAY);

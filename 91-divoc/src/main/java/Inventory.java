@@ -13,6 +13,7 @@ public class Inventory extends JPanel{
 	private LeafInventory leaf;
 	private RabbitInventory rabbit;
 	private WheatInventory wheat;
+	private StoneInventory stone;
 	
 	private Timer gameTimer;
 	private int gameSpeed = 1;
@@ -32,11 +33,13 @@ public class Inventory extends JPanel{
 		rabbit = new RabbitInventory();
 		leaf = new LeafInventory();
 		wheat = new WheatInventory();
+		stone = new StoneInventory();
 		
 		add(wood);
 		add(leaf);
 		add(rabbit);
 		add(wheat);
+		add(stone);
 	}
 	
 	private void updateLocation() {
@@ -76,6 +79,15 @@ public class Inventory extends JPanel{
 		else {
 			//set it outside of the screen
 			wheat.setBounds(-100, -100, 75, 75);
+		}
+		
+		if(stone.isActive() == true) {
+			stone.setBounds(x, y, 75, 75);
+			x += 75;
+		}
+		else {
+			//set it outside of the screen
+			stone.setBounds(-100, -100, 75, 75);
 		}
 		
 		

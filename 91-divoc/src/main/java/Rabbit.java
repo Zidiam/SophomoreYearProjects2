@@ -1,11 +1,20 @@
 public class Rabbit{
-	private static int rabbit, overallRabbit;
+	private static int rabbit, overallRabbit, multiplier;
 	private static boolean active;
 	
 	public Rabbit(int rabbit, int overall) {
 		this.rabbit = rabbit;
 		this.overallRabbit = overall;
 		this.active = false;
+		this.multiplier = 1;
+	}
+	
+	public static int getMultiplier() {
+		return multiplier;
+	}
+	
+	public static void addMultiplier(int add) {
+		multiplier += add;
 	}
 	
 	public static int getRabbit() {
@@ -13,8 +22,8 @@ public class Rabbit{
 	}
 	
 	public static void addRabbit(int add) {
-		rabbit += add;
-		overallRabbit += add;
+		rabbit += add * multiplier;
+		overallRabbit += add * multiplier;
 	}
 	
 	public static void removeRabbit(int remove) {

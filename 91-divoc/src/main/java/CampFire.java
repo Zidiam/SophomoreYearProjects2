@@ -13,7 +13,7 @@ import javax.swing.Timer;
 
 public class CampFire extends JPanel{
 	private int loadSpeed = 500;
-	private int removalSpeed = 25000;
+	private int removalSpeed = 15000;
 	private Timer removalTimer;
 	private JButton collectB;
 	private boolean lit = false;

@@ -20,7 +20,7 @@ public class Camp extends JPanel{
 	private JLabel upgradeL;
 	private Timer checkTimer;
 	private int gameSpeed = 1;
-	private boolean complete = true;
+	private boolean complete = false;
 	
 	public Camp() {
 		this.setLayout(null);
@@ -40,7 +40,7 @@ public class Camp extends JPanel{
 	
 	private void setupUpgrade() {
 		upgradeB = new JButton("Click to upgrade the camp");
-		upgradeL = new JLabel("Cost: 1000 Wood, 650 Leaves, 400 Rabbit, 200 Deer, 10 Bear", SwingConstants.CENTER);
+		upgradeL = new JLabel("Cost: 200 Wood, 125 Leaves, 65 Rabbit", SwingConstants.CENTER);
 		
 		upgradeB.setBackground(Color.WHITE);
 		upgradeL.setForeground(Color.WHITE);
@@ -61,14 +61,14 @@ public class Camp extends JPanel{
 		story = new Story(campfire);
 		
 		hut1 = new Hut(10, 5, 5);
-		hut2 = new Hut(10, 5, 5);
-		hut3 = new Hut(10, 5, 5);
-		hut4 = new Hut(10, 5, 5);
+		hut2 = new Hut(20, 10, 10);
+		hut3 = new Hut(30, 15, 20);
+		hut4 = new Hut(50, 30, 40);
 		
-		outpost1 = new Outpost(10, 5, 5, 5);
-		outpost2 = new Outpost(10, 5, 5, 5);
-		outpost3 = new Outpost(10, 5, 5, 5);
-		outpost4 = new Outpost(10, 5, 5, 5);
+		outpost1 = new Outpost(60, 35, 10, 5);
+		outpost2 = new Outpost(80, 45, 15, 10);
+		outpost3 = new Outpost(90, 55, 20, 20);
+		outpost4 = new Outpost(100, 65, 30, 40);
 		
 		campfire.setBounds(245, 275, 75, 75);
 		story.setBounds(0, 600, 575, 75);
@@ -104,7 +104,10 @@ public class Camp extends JPanel{
 	
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
-			if(event.getSource() == upgradeB) {
+			if(event.getSource() == upgradeB && Wood.getWood() >= 200 && Leaf.getLeaf() >= 125 && Rabbit.getRabbit() >= 65) {
+				Wood.removeWood(200);
+				Leaf.removeLeaf(125);
+				Rabbit.removeRabbit(65);
 				complete = true;
 			}
 		}

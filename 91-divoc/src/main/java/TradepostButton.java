@@ -1,37 +1,42 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JToolTip;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class Farm extends JPanel{
+public class TradepostButton extends JPanel{
 	private int checkSpeed = 1;
-	private int removalSpeed = 25000;//set to 50k
+	private int removalSpeed = 2500;//set to 50k
 	private Timer removalTimer, checkTimer;
 	private JButton buildB;
 	private boolean built = false;
-	private int woodCost, leafCost;
-	private JLabel woodL, farmL, leafL;
-	private int maxWood;
+	private int woodCost, leafCost, rabbitCost;
+	private JLabel woodL, leafL, rabbitL;
+	private int maxRabbit;
 	
-	public Farm(int woodCost, int leafCost, int maxWood) {
+	public TradepostButton(int woodCost, int leafCost, int rabbitCost, int maxRabbit) {
 		this.setLayout(null);
-		this.setPreferredSize(new Dimension(75, 100));
+		this.setPreferredSize(new Dimension(100, 100));
 		this.setBackground(Color.black);
 
-		this.maxWood = maxWood;
+		this.maxRabbit = maxRabbit;
 		this.woodCost = woodCost;
 		this.leafCost = leafCost;
+		this.rabbitCost = rabbitCost;
 		
 		timerSetup();
 	}
 	
-	private void buildFarm() {
+	private void buildTradepost() {
 		setupComponents();
 	}
 	
@@ -49,51 +54,52 @@ public class Farm extends JPanel{
 
 	
 	private void setupComponents() {
-		buildB = new JButton("Build");
+		buildB = new JButton("Tradepost");
 		woodL = new JLabel(woodCost + " Wood", SwingConstants.CENTER);
 		leafL = new JLabel(leafCost + " Leaves", SwingConstants.CENTER);
-		farmL = new JLabel("Farm", SwingConstants.CENTER);
+		rabbitL = new JLabel(rabbitCost + " Rabbits", SwingConstants.CENTER);
 		
 		buildB.setBackground(Color.black);
 		buildB.setForeground(Color.WHITE);
 		buildB.setBorderPainted(true);
 		buildB.setFocusable(false);
 		
-		farmL.setForeground(Color.WHITE);
 		woodL.setForeground(Color.WHITE);
 		leafL.setForeground(Color.WHITE);
+		rabbitL.setForeground(Color.WHITE);
 		
 		buildB.addActionListener(new ButtonListener());
 		
-		farmL.setBounds(0, 0, 75, 25);
-		buildB.setBounds(0, 25, 75, 25);
-		woodL.setBounds(0, 50, 75, 25);
-		leafL.setBounds(0, 75, 75, 25);
+		buildB.setBounds(0, 0, 100, 25);
+		woodL.setBounds(0, 25, 100, 25);
+		leafL.setBounds(0, 50, 100, 25);
+		rabbitL.setBounds(0, 75, 100, 25);
 		
 		add(buildB);
 		add(woodL);
-		add(farmL);
 		add(leafL);
+		add(rabbitL);
 		
 		this.updateUI();
 	}
 	
-	private void removeFarm() {
-		buildB.setText("Build");
+	private void removeTradepost() {
+		buildB.setText("Tradepost");
 		woodL.setText(woodCost + " Wood");
 		leafL.setText(leafCost + " Leaves");
-		farmL.setText("Farm");
+		rabbitL.setText(rabbitCost + " Rabbits");
 		
 		buildB.setBackground(Color.black);
 		buildB.setForeground(Color.WHITE);
 		buildB.setBorderPainted(true);
 		buildB.setFocusable(false);
 		
-		buildB.setSize(75, 25);
-		
-		farmL.setForeground(Color.WHITE);
+		buildB.setLocation(0, 0);
+		buildB.setSize(100, 25);
+
 		woodL.setForeground(Color.WHITE);
 		leafL.setForeground(Color.WHITE);
+		rabbitL.setForeground(Color.WHITE);
 		
 		buildB.setEnabled(true);
 		built = false;
@@ -102,26 +108,27 @@ public class Farm extends JPanel{
 		
 	}
 	
-	private void addFarm() {
+	private void addTradepost() {
+		Tradepost.setActive(true);
 		Wood.removeWood(woodCost);
 		Leaf.removeLeaf(leafCost);
-		Wheat.addMultiplier(1);
-		Wheat.setActive(true);
+		Rabbit.removeRabbit(rabbitCost);
 		buildB.setBackground(Color.GRAY);
 		built = true;
-		buildB.setText("Farm");
-		buildB.setSize(75, 75);
+		buildB.setText("Tradepost");
+		buildB.setLocation(0, 0);
+		buildB.setSize(100, 100);
 		buildB.setEnabled(false);
 		woodL.setText("");
-		farmL.setText("");
 		leafL.setText("");
 	}
 	
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
-			if(event.getSource() == buildB && buildB.getText().equals("Build")) {
-				if(Wood.getWood() >= woodCost && Leaf.getLeaf() >= leafCost && built == false) {
-					addFarm();
+			if(event.getSource() == buildB && buildB.getText().equals("Tradepost")) {
+				if(Wood.getWood() >= woodCost && Leaf.getLeaf() >= leafCost && Rabbit.getRabbit() >= rabbitCost && built == false) {
+					System.out.println("test");
+					addTradepost();
 				}
 			}	
 		}
@@ -131,9 +138,9 @@ public class Farm extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			//later we can destroy farms over time if an invader comes and such
+			//later we can destroy Tradeposts over time if an invader comes and such
 			//if(built == true) {
-			//	removeFarm();	
+			//	removeTradepost();	
 			//}
 		}
 	}
@@ -142,8 +149,8 @@ public class Farm extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(built == false && woodL == null && Wood.getBurnedWood() >= maxWood) {
-				buildFarm();
+			if(built == false && woodL == null && Rabbit.getOverall() >= maxRabbit) {
+				buildTradepost();
 			}
 		}
 	}
