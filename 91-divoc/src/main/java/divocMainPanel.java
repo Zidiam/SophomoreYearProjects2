@@ -16,23 +16,18 @@ public class divocMainPanel extends JPanel{
 	private JTabbedPane tabs;
 	private Inventory inventory;
 	private Forest forest;
-	private Wood wood;
 	private People people;
-	private Rabbit rabbit;
-	private Leaf leaf;
-	private Wheat wheat;
-	private Stone stone;
 	private StrongHold stronghold;
 	private Villiage villiage;
 	private boolean admin = true;
 	private Tradepost tradepost;
+	private Resource wood, leaf, rabbit, wheat, stone;
 	
 	public divocMainPanel() {
 		timer = new Timer(speed, new GameListener());
 		
+		setupValues();
 		setupComponents();
-		
-
 		
 		setBackground(Color.WHITE);
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -41,32 +36,36 @@ public class divocMainPanel extends JPanel{
 		
 	}
 	
+	private void setupValues() {
+		if(admin == false) {
+			people = new People(1);
+			wood = new Resource("Wood", 0, 0);
+			leaf = new Resource("Leaf", 0, 0);
+			wood.setActive(true);
+			leaf.setActive(true);
+			rabbit = new Resource("Rabbit", 0, 0);
+			wheat = new Resource("Wheat", 0, 0);
+			stone = new Resource("Stone", 0, 0);
+		}
+		if(admin == true) {
+			Tradepost.setActive(true);
+			people = new People(1);
+			wood = new Resource("Wood", 10000, 10000);
+			wood.addUsed(10000);
+			leaf = new Resource("Leaf", 10000, 10000);
+			wood.setActive(true);
+			leaf.setActive(true);
+			rabbit = new Resource("Rabbit", 10000, 10000);
+			wheat = new Resource("Wheat", 10000, 10000);
+			stone = new Resource("Stone", 10000, 10000);
+			
+		}
+	}
+	
 	private void setupComponents() {
 		tabs = new JTabbedPane();
 		inventory = new Inventory();
 		forest = new Forest();
-		
-		if(admin == false) {
-			wood = new Wood(0, 0, 0);
-			people = new People(1);
-			rabbit = new Rabbit(0, 0);
-			leaf = new Leaf(0, 0);
-			leaf = new Leaf(0, 0);
-			wheat = new Wheat(0, 0);
-			stone = new Stone(0, 0);
-		}
-		if(admin == true) {
-			Tradepost.setActive(true);
-			wood = new Wood(100000, 100000, 100000);
-			people = new People(1000);
-			rabbit = new Rabbit(100000, 100000);
-			leaf = new Leaf(100000, 100000);
-			leaf = new Leaf(100000, 100000);
-			wheat = new Wheat(100000, 100000);
-			stone = new Stone(100000, 100000);
-			
-		}
-		
 		camp = new Camp();
 		
 		

@@ -57,9 +57,9 @@ public class CampButton extends JPanel{
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == lightB && lightB.getBackground() == Color.BLACK) {
-				if(Wood.getWood() > 0) {
-					Wood.removeWood(1);
-					Wood.addBurnedWood(1);
+				if(Resource.allResources.get(0).get() > 0) {
+					Resource.allResources.get(0).remove(1);
+					Resource.allResources.get(0).addUsed(1);
 					lightB.setFocusable(false);
 					lightB.setBackground(Color.WHITE);
 					lit = true;

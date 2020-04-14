@@ -109,10 +109,10 @@ public class Outpost extends JPanel{
 	}
 	
 	private void addOutpost() {
-		Wood.removeWood(woodCost);
-		Leaf.removeLeaf(leafCost);
-		Rabbit.addMultiplier(1);
-		Rabbit.removeRabbit(rabbitCost);
+		Resource.allResources.get(0).remove(woodCost);
+		Resource.allResources.get(1).remove(leafCost);
+		Resource.allResources.get(2).addMultiplier(1);
+		Resource.allResources.get(2).remove(rabbitCost);
 		People.addPeople(1);
 		buildB.setBackground(Color.GRAY);
 		built = true;
@@ -127,7 +127,7 @@ public class Outpost extends JPanel{
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == buildB && buildB.getText().equals("Outpost")) {
-				if(Wood.getWood() >= woodCost && Leaf.getLeaf() >= leafCost && Rabbit.getRabbit() >= rabbitCost && built == false) {
+				if(Resource.allResources.get(0).get() >= woodCost && Resource.allResources.get(1).get() >= leafCost && Resource.allResources.get(2).get() >= rabbitCost && built == false) {
 					System.out.println("test");
 					addOutpost();
 				}
@@ -150,7 +150,7 @@ public class Outpost extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(built == false && woodL == null && Rabbit.getOverall() >= maxRabbit) {
+			if(built == false && woodL == null && Resource.allResources.get(2).getOverall() >= maxRabbit) {
 				buildOutpost();
 			}
 		}

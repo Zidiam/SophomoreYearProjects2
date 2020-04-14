@@ -103,10 +103,10 @@ public class Farm extends JPanel{
 	}
 	
 	private void addFarm() {
-		Wood.removeWood(woodCost);
-		Leaf.removeLeaf(leafCost);
-		Wheat.addMultiplier(1);
-		Wheat.setActive(true);
+		Resource.allResources.get(0).remove(woodCost);
+		Resource.allResources.get(1).remove(leafCost);
+		Resource.allResources.get(3).addMultiplier(1);
+		Resource.allResources.get(3).setActive(true);
 		buildB.setBackground(Color.GRAY);
 		built = true;
 		buildB.setText("Farm");
@@ -120,7 +120,7 @@ public class Farm extends JPanel{
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == buildB && buildB.getText().equals("Build")) {
-				if(Wood.getWood() >= woodCost && Leaf.getLeaf() >= leafCost && built == false) {
+				if(Resource.allResources.get(0).get() >= woodCost && Resource.allResources.get(1).get() >= leafCost && built == false) {
 					addFarm();
 				}
 			}	
@@ -142,7 +142,7 @@ public class Farm extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(built == false && woodL == null && Wood.getBurnedWood() >= maxWood) {
+			if(built == false && woodL == null && Resource.allResources.get(0).getUsed() >= maxWood) {
 				buildFarm();
 			}
 		}

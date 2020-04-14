@@ -109,11 +109,11 @@ public class MineShaft extends JPanel{
 	}
 	
 	private void addMineShaft() {
-		Wood.removeWood(woodCost);
-		Wheat.removeWheat(wheatCost);
-		Rabbit.removeRabbit(rabbitCost);
-		Stone.addMultiplier(1);
-		Stone.setActive(true);
+		Resource.allResources.get(0).remove(woodCost);
+		Resource.allResources.get(3).remove(wheatCost);
+		Resource.allResources.get(2).remove(rabbitCost);
+		Resource.allResources.get(4).addMultiplier(1);
+		Resource.allResources.get(4).setActive(true);
 		People.addPeople(1);
 		buildB.setBackground(Color.GRAY);
 		built = true;
@@ -128,7 +128,7 @@ public class MineShaft extends JPanel{
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == buildB && buildB.getText().equals("MineShaft")) {
-				if(Wood.getWood() >= woodCost && Wheat.getWheat() >= wheatCost && Rabbit.getRabbit() >= rabbitCost && built == false) {
+				if(Resource.allResources.get(0).get() >= woodCost && Resource.allResources.get(3).get() >= wheatCost && Resource.allResources.get(2).get() >= rabbitCost && built == false) {
 					addMineShaft();
 				}
 			}	
@@ -150,7 +150,7 @@ public class MineShaft extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(built == false && woodL == null && Wheat.getOverall() >= maxWheat) {
+			if(built == false && woodL == null && Resource.allResources.get(3).getOverall() >= maxWheat) {
 				buildMineShaft();
 			}
 		}

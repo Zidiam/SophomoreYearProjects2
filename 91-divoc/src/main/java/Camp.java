@@ -104,10 +104,10 @@ public class Camp extends JPanel{
 	
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
-			if(event.getSource() == upgradeB && Wood.getWood() >= 200 && Leaf.getLeaf() >= 125 && Rabbit.getRabbit() >= 65) {
-				Wood.removeWood(200);
-				Leaf.removeLeaf(125);
-				Rabbit.removeRabbit(65);
+			if(event.getSource() == upgradeB && Resource.allResources.get(0).get() >= 200 && Resource.allResources.get(1).get() >= 125 && Resource.allResources.get(2).get() >= 65) {
+				Resource.allResources.get(0).remove(200);
+				Resource.allResources.get(1).remove(125);
+				Resource.allResources.get(2).remove(65);
 				complete = true;
 			}
 		}

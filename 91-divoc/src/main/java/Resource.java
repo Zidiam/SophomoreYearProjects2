@@ -1,11 +1,23 @@
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+
 public class Resource{
-	private static ArrayList<Resource> allResources = new ArrayList<Resource>();
+	public static ArrayList<Resource> allResources = new ArrayList<Resource>();
 	
-	private int amount, overall, multiplier, odds;
+	private int amount, overall, multiplier, odds, used;
 	private String name;
+	private boolean active;
+	private Item item;
 	
 	public Resource(String name, int amount, int overall) {
 		this.name = name;
@@ -13,6 +25,10 @@ public class Resource{
 		this.overall = overall;
 		this.multiplier = 1;
 		odds = 100;
+		used = 0;
+		active = false;
+		item = new Item(this);
+		
 		allResources.add(this);
 	}
 	
@@ -28,8 +44,28 @@ public class Resource{
 		}
 	}
 	
+	public void setActive(boolean a) {
+		active = a;
+	}
+	
+	public boolean isActive() {
+		return active;
+	}
+	
 	public void remove(int remove) {
 		amount -= remove;
+	}
+	
+	public void addUsed(int add) {
+		used += add;
+	}
+	
+	public int getUsed() {
+		return used;
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	public int getMultiplier() {
@@ -42,5 +78,92 @@ public class Resource{
 	
 	public int getOverall() {
 		return overall;
+	}
+	
+	public Item getItem() {
+		return item;
+	}
+	
+	public void setBounds(int x, int y, int width, int height) {
+		item.setBounds(x, y, width, height);
+	}
+	
+	private class Item extends JPanel{
+
+		private JButton resourceB;
+		private JLabel resourceL;
+		private Timer gameTimer;
+		private int gameSpeed = 1;
+		private Resource resource;
+		
+		private Item(Resource resource) {
+			this.setPreferredSize(new Dimension(75, 75));
+			this.setBackground(Color.WHITE);
+			this.setLayout(null);
+			
+			this.resource = resource;
+			
+			timerSetup();
+		}
+		
+		private void timerSetup() {
+			gameTimer = new Timer(gameSpeed, new GameListener());
+			gameTimer.start();
+		}
+		
+		private void setupResource() {
+			resourceB = new JButton(resource.getName());
+			resourceL = new JLabel("" +  resource.get());
+			
+			resourceB.setBounds(0, 0, 75, 75);
+			
+			resourceB.setBackground(new Color(0, 0, 0, 0));
+			resourceB.setContentAreaFilled(false);
+			
+			resourceL.setBounds(0, 50, 75, 25);
+			
+			add(resourceL);
+			add(resourceB);
+			this.updateUI();
+		}
+		
+		private void removeResource() {
+			remove(resourceL);
+			remove(resourceB);
+			resourceL = null;
+			resourceB = null;
+			this.updateUI();
+		}
+		
+		public boolean isActive() {
+			if(resourceL == null)
+				return false;
+			
+			return true;
+		}
+				
+		
+		private void checkResource() {
+			if(resourceL == null && resource.get() > 0) {
+				setupResource();
+			}
+			if(resource.get() <= 0 && resource.getOverall() > 0 && resourceL != null) {
+				removeResource();
+			}
+			if(resourceL != null) {
+				resourceL.setText("" + resource.get());
+			}
+			
+			this.updateUI();
+		}
+		
+		private class GameListener implements ActionListener
+		{
+			public void actionPerformed(ActionEvent event)
+			{
+				checkResource();
+			}
+		}
+		
 	}
 }

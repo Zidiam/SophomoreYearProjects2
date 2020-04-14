@@ -9,13 +9,13 @@ import javax.swing.Timer;
 
 public class Forest extends JPanel{
 	
-	private GatherWood wood;
 	private JLabel people;
 	private Timer gameTimer;
 	private int gameSpeed = 1;
-	private GatherTraps traps;
-	private GatherFarm farm;
-	private GatherMines mines;
+	private Gather wood;
+	private Gather traps;
+	private Gather farm;
+	private Gather mines;
 	
 	public Forest() {
 		this.setPreferredSize(new Dimension(575, 700));
@@ -33,10 +33,14 @@ public class Forest extends JPanel{
 	}
 	
 	private void setupComponents() {
-		wood = new GatherWood();
-		traps = new GatherTraps();
-		farm = new GatherFarm();
-		mines = new GatherMines();
+		wood = new Gather("Gatherer", "Gather", Resource.allResources.get(0), 250);
+		wood.addResource(Resource.allResources.get(1));
+		
+		traps = new Gather("Hunter", "Hunt", Resource.allResources.get(2), 300);
+		
+		farm = new Gather("Farmer", "Farm", Resource.allResources.get(3), 350);
+		
+		mines = new Gather("Miner", "Mine", Resource.allResources.get(4), 400);
 		
 		people = new JLabel("Available People: " + People.getPeople());
 		

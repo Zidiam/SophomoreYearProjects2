@@ -10,26 +10,37 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class GatherTraps extends JPanel{
+public class Gather extends JPanel{
 	
-	private JButton hunterB, addB, removeB, startB;
-	private JLabel huntersL, loadL, multiplierL;
-	private int hunters, loadSpeed, checkSpeed;
+	private JButton collectB, addB, removeB, startB;
+	private JLabel collectorsL, loadL, multiplierL;
+	private int collectors, loadSpeed, checkSpeed;
 	private ArrayList<String> loadList;
 	private Timer loadTimer, checkTimer;
 	private boolean isDisplayed;
+	private ArrayList<Resource> resources;
+	private String name, nameB;
 	
-	public GatherTraps() {
+	public Gather(String name, String nameB, Resource resource, int loadSpeed) {
 		this.setPreferredSize(new Dimension(575, 25));
 		this.setBackground(Color.WHITE);
 		this.setLayout(null);
 		
-		hunters = 0;
-		loadSpeed = 300;
+		resources = new ArrayList<Resource>();
+		resources.add(resource);
+		
+		this.name = name;
+		this.nameB = nameB;
+		collectors = 0;
+		this.loadSpeed = loadSpeed;
 		checkSpeed = 1;
 		isDisplayed = false;
 		setupLoad();
 		setupTimer();
+	}
+	
+	public void addResource(Resource resource) {
+		resources.add(resource);
 	}
 	
 	private void setupLoad() {
@@ -59,18 +70,18 @@ public class GatherTraps extends JPanel{
 	}
 	
 	private void setupComponents() {
-		hunterB = new JButton("Hunt");
+		collectB = new JButton(nameB);
 		addB = new JButton("Add");
 		removeB = new JButton("Remove");
-		huntersL = new JLabel("Hunters: " + hunters);
+		collectorsL = new JLabel(name + "s: " + collectors);
 		loadL = new JLabel(loadList.get(0));
-		startB = new JButton("Click to setup traps");
-		multiplierL = new JLabel(Rabbit.getMultiplier() + "x");
+		startB = new JButton("Click to setup " + name + "s");
+		multiplierL = new JLabel(resources.get(0).getMultiplier() + "x");
 		
-		hunterB.setBounds(475, 0, 100, 25);
+		collectB.setBounds(475, 0, 100, 25);
 		addB.setBounds(125, 0, 100, 25);
 		removeB.setBounds(225, 0, 100, 25);
-		huntersL.setBounds(0, 0, 75, 25);
+		collectorsL.setBounds(0, 0, 75, 25);
 		loadL.setBounds(325, 0, 150, 25);
 		startB.setBounds(0, 0, 575, 25);
 		multiplierL.setBounds(100, 0, 25, 25);
@@ -78,21 +89,21 @@ public class GatherTraps extends JPanel{
 		addB.setBackground(Color.WHITE);
 		removeB.setBackground(Color.WHITE);
 		startB.setBackground(Color.WHITE);
-		hunterB.setBackground(Color.WHITE);
+		collectB.setBackground(Color.WHITE);
 		
 		loadL.setFont(new Font("Arial Narrow", Font.BOLD, 31));
 		loadL.setForeground(new Color(0, 0, 0, 50));
 		
-		hunterB.addActionListener(new ButtonListener());
+		collectB.addActionListener(new ButtonListener());
 		addB.addActionListener(new ButtonListener());
 		removeB.addActionListener(new ButtonListener());
 		startB.addActionListener(new ButtonListener());
 		
 		add(startB);
-		add(hunterB);
+		add(collectB);
 		add(addB);
 		add(removeB);
-		add(huntersL);
+		add(collectorsL);
 		add(loadL);
 		add(multiplierL);
 	}
@@ -105,17 +116,19 @@ public class GatherTraps extends JPanel{
 		checkTimer.start();
 	}
 	
-	private void gather() {
-		Rabbit.addRabbit(hunters);
+	private void add() {
+		for(int z = 0; z < resources.size(); z ++) {
+			resources.get(z).add(collectors);
+		}
 	}
 	
 	private void checkPeople() {
-		while(People.getPeople() < 0 && hunters > 0) {
-			hunters --;
+		while(People.getPeople() < 0 && collectors > 0) {
+			collectors --;
 			People.addPeople(1);
 		}
-		huntersL.setText("Hunters: " + hunters);
-		multiplierL.setText(Rabbit.getMultiplier() + "x");
+		collectorsL.setText(name + "s: " + collectors);
+		multiplierL.setText(resources.get(0).getMultiplier() + "x");
 	}
 	
 	private void update() {
@@ -123,7 +136,7 @@ public class GatherTraps extends JPanel{
 	}
 	
 	private void checkDisplay(){
-		if(isDisplayed == false && Rabbit.isActive()) {
+		if(isDisplayed == false && resources.get(0).isActive()) {
 			setupComponents();
 			isDisplayed = true;
 		}
@@ -131,23 +144,23 @@ public class GatherTraps extends JPanel{
 	
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
-			if(event.getSource() == hunterB && hunters > 0) {
+			if(event.getSource() == collectB && collectors > 0) {
 				if(loadL.getText().equals(loadList.get(0))) {
 					loadL.setText(loadList.get(1));
 				}
 			}
 			if(event.getSource() == addB && loadL.getText().equals(loadList.get(0))) {
 				if(People.getPeople() > 0) {
-					hunters ++;
+					collectors ++;
 					People.removePeople(1);
-					huntersL.setText("Hunters: " + hunters);
+					collectorsL.setText(name + "s: " + collectors);
 				}
 			}
 			if(event.getSource() == removeB && loadL.getText().equals(loadList.get(0))) {
-				if(hunters > 0) {
-					hunters --;
+				if(collectors > 0) {
+					collectors --;
 					People.addPeople(1);
-					huntersL.setText("Hunters: " + hunters);
+					collectorsL.setText(name + "s: " + collectors);
 				}
 			}
 			if(event.getSource() == startB) {
@@ -163,7 +176,7 @@ public class GatherTraps extends JPanel{
 		{
 			if(isDisplayed == true) {
 				if(loadList.indexOf(loadL.getText()) == loadList.size()-1) {
-					gather();
+					add();
 					loadL.setText(loadList.get(0));
 				}
 				if(!loadL.getText().equals(loadList.get(0))) {
@@ -181,6 +194,7 @@ public class GatherTraps extends JPanel{
 			if(isDisplayed == true) {
 				checkPeople();
 			}
+			
 		}
 	}
 	

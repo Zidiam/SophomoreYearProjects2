@@ -62,13 +62,13 @@ public class Wall extends JPanel{
 		remove(cost);
 		remove(purchase);
 		bought = true;
-		Wood.removeWood(wood);
-		Stone.removeStone(stone);
+		Resource.allResources.get(0).remove(wood);
+		Resource.allResources.get(4).remove(stone);
 	}
 	
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
-			if(event.getSource() == purchase && Wood.getWood() >= wood && Stone.getStone() >= stone) {
+			if(event.getSource() == purchase && Resource.allResources.get(0).get() >= wood && Resource.allResources.get(4).get() >= stone) {
 				purchased();
 			}
 		}

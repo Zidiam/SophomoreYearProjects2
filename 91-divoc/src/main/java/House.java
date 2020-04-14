@@ -107,8 +107,8 @@ public class House extends JPanel{
 	}
 	
 	private void addHouse() {
-		Wood.removeWood(woodCost);
-		Leaf.removeLeaf(leafCost);
+		Resource.allResources.get(0).remove(woodCost);
+		Resource.allResources.get(1).remove(leafCost);
 		People.addPeople(1);
 		buildB.setBackground(Color.GRAY);
 		built = true;
@@ -123,7 +123,7 @@ public class House extends JPanel{
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == buildB && buildB.getText().equals("Build")) {
-				if(Wood.getWood() >= woodCost && Leaf.getLeaf() >= leafCost && built == false) {
+				if(Resource.allResources.get(0).get() >= woodCost && Resource.allResources.get(1).get() >= leafCost && built == false) {
 					addHouse();
 				}
 			}	
@@ -145,9 +145,9 @@ public class House extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(built == false && woodL == null && Wood.getBurnedWood() >= maxWood) {
+			if(built == false && woodL == null && Resource.allResources.get(0).getUsed() >= maxWood) {
 				buildHouse();
-				Rabbit.setActive(true);
+				Resource.allResources.get(2).setActive(true);
 			}
 		}
 	}

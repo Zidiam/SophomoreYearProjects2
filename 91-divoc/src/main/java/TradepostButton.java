@@ -110,9 +110,9 @@ public class TradepostButton extends JPanel{
 	
 	private void addTradepost() {
 		Tradepost.setActive(true);
-		Wood.removeWood(woodCost);
-		Leaf.removeLeaf(leafCost);
-		Rabbit.removeRabbit(rabbitCost);
+		Resource.allResources.get(0).remove(woodCost);
+		Resource.allResources.get(1).remove(leafCost);
+		Resource.allResources.get(2).remove(rabbitCost);
 		buildB.setBackground(Color.GRAY);
 		built = true;
 		buildB.setText("Tradepost");
@@ -126,7 +126,7 @@ public class TradepostButton extends JPanel{
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == buildB && buildB.getText().equals("Tradepost")) {
-				if(Wood.getWood() >= woodCost && Leaf.getLeaf() >= leafCost && Rabbit.getRabbit() >= rabbitCost && built == false) {
+				if(Resource.allResources.get(0).get() >= woodCost && Resource.allResources.get(1).get() >= leafCost && Resource.allResources.get(2).get() >= rabbitCost && built == false) {
 					System.out.println("test");
 					addTradepost();
 				}
@@ -149,7 +149,7 @@ public class TradepostButton extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(built == false && woodL == null && Rabbit.getOverall() >= maxRabbit) {
+			if(built == false && woodL == null && Resource.allResources.get(2).getOverall() >= maxRabbit) {
 				buildTradepost();
 			}
 		}
