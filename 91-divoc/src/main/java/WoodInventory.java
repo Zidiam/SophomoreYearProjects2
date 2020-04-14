@@ -60,9 +60,6 @@ public class WoodInventory extends JPanel{
 	}
 			
 	
-	private void updateInventory() {
-	} 
-	
 	private void checkWood() {
 		if(woodL == null && Wood.getWood() > 0) {
 			setupWood();
@@ -82,7 +79,6 @@ public class WoodInventory extends JPanel{
 		public void actionPerformed(ActionEvent event)
 		{
 			checkWood();
-			//updateInventory();
 		}
 	}
 	

@@ -12,15 +12,13 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 public class StrongHold extends JPanel{
-	private CampFire campfire;
-	private Story story;
-	private Hut hut1, hut2, hut3, hut4;
-	private Outpost outpost1, outpost2, outpost3, outpost4;
 	private JButton upgradeB;
 	private JLabel upgradeL;
 	private Timer checkTimer;
 	private int gameSpeed = 1;
 	private boolean complete = false;
+	private CampButton camp;
+	private Farm farm1, farm2, farm3, farm4;
 	
 	public StrongHold() {
 		this.setLayout(null);
@@ -30,7 +28,7 @@ public class StrongHold extends JPanel{
 		
 		this.setBackground(Color.black);
 		
-		this.setPreferredSize(new Dimension(550, 700));
+		this.setPreferredSize(new Dimension(575, 700));
 	}
 	
 	private void setupTimers() {
@@ -57,45 +55,29 @@ public class StrongHold extends JPanel{
 	}
 	
 	private void setupComponents() {
-		campfire = new CampFire();
-		story = new Story(campfire);
+		farm1 = new Farm(20, 10, 10);
+		farm2 = new Farm(20, 10, 10);
+		farm3 = new Farm(20, 10, 10);
+		farm4 = new Farm(20, 10, 10);
+	
+		camp = new CampButton();
 		
-		hut1 = new Hut(10, 5, 5);
-		hut2 = new Hut(10, 5, 5);
-		hut3 = new Hut(10, 5, 5);
-		hut4 = new Hut(10, 5, 5);
+		camp.setBounds(245, 275, 75, 75);
+		farm1.setBounds(245, 125, 75, 100);
+		farm2.setBounds(365, 250, 75, 100);
+		farm3.setBounds(120, 250, 75, 100);
+		farm4.setBounds(245, 375, 75, 100);
 		
-		outpost1 = new Outpost(10, 5, 5, 5);
-		outpost2 = new Outpost(10, 5, 5, 5);
-		outpost3 = new Outpost(10, 5, 5, 5);
-		outpost4 = new Outpost(10, 5, 5, 5);
+		//outpost1.setBounds(405, 75, 100, 100);
+		//outpost2.setBounds(405, 425, 100, 100);
+		//outpost3.setBounds(70, 425, 100, 100);
+		//outpost4.setBounds(70, 75, 100, 100);
 		
-		campfire.setBounds(225, 275, 75, 75);
-		story.setBounds(0, 600, 550, 75);
-		
-		hut1.setBounds(225, 125, 75, 100);
-		hut2.setBounds(350, 250, 75, 100);
-		hut3.setBounds(100, 250, 75, 100);
-		hut4.setBounds(225, 375, 75, 100);
-		
-		outpost1.setBounds(400, 75, 100, 100);
-		outpost2.setBounds(400, 425, 100, 100);
-		outpost3.setBounds(50, 425, 100, 100);
-		outpost4.setBounds(50, 75, 100, 100);
-		
-		add(campfire);
-		add(story);
-		
-		add(hut1);
-		add(hut2);
-		add(hut3);
-		add(hut4);
-		
-		add(outpost1);
-		add(outpost2);
-		add(outpost3);
-		add(outpost4);
-		
+		add(camp);
+		add(farm1);
+		add(farm2);
+		add(farm3);
+		add(farm4);
 	}
 	
 	public boolean isComplete() {
@@ -114,13 +96,9 @@ public class StrongHold extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(hut1.isBuilt() == true && hut2.isBuilt() == true && hut3.isBuilt() == true && hut4.isBuilt() == true) {
-				if(outpost1.isBuilt() == true && outpost2.isBuilt() == true && outpost3.isBuilt() == true && outpost4.isBuilt() == true) {
-					if(upgradeB == null) {
-						setupUpgrade();
-					}
-				}
-			}
+//			if(upgradeB == null) {
+//				setupUpgrade();
+//			}
 		}
 	}
 	

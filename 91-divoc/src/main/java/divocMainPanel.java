@@ -9,7 +9,7 @@ import java.util.TimerTask;
 
 public class divocMainPanel extends JPanel{
 	
-	private final int WIDTH = 550, HEIGHT = 700;
+	private final int WIDTH = 575, HEIGHT = 700;
 	private int speed = 75;
 	private Timer timer;
 	private Camp camp;
@@ -20,6 +20,7 @@ public class divocMainPanel extends JPanel{
 	private People people;
 	private Rabbit rabbit;
 	private Leaf leaf;
+	private Wheat wheat;
 	private StrongHold stronghold;
 	
 	public divocMainPanel() {
@@ -44,6 +45,8 @@ public class divocMainPanel extends JPanel{
 		people = new People(1);
 		rabbit = new Rabbit(1000, 1000);
 		leaf = new Leaf(1000, 1000);
+		leaf = new Leaf(1000, 1000);
+		wheat = new Wheat(0, 0);
 		
 		camp = new Camp();
 		

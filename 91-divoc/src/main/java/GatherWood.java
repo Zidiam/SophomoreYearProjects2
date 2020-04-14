@@ -20,7 +20,7 @@ public class GatherWood extends JPanel{
 	
 	
 	public GatherWood() {
-		this.setPreferredSize(new Dimension(550, 25));
+		this.setPreferredSize(new Dimension(575, 25));
 		this.setBackground(Color.WHITE);
 		this.setLayout(null);
 		
@@ -66,12 +66,17 @@ public class GatherWood extends JPanel{
 		loadL = new JLabel(loadList.get(0));
 		startB = new JButton("Click to unlock wood gathering");
 		
-		gatherB.setBounds(450, 0, 100, 25);
-		addB.setBounds(100, 0, 100, 25);
-		removeB.setBounds(200, 0, 100, 25);
+		gatherB.setBounds(475, 0, 100, 25);
+		addB.setBounds(125, 0, 100, 25);
+		removeB.setBounds(225, 0, 100, 25);
 		gatherersL.setBounds(0, 0, 100, 25);
-		loadL.setBounds(300, 0, 150, 25);
-		startB.setBounds(0, 0, 550, 25);
+		loadL.setBounds(325, 0, 150, 25);
+		startB.setBounds(0, 0, 575, 25);
+		
+		addB.setBackground(Color.WHITE);
+		removeB.setBackground(Color.WHITE);
+		startB.setBackground(Color.WHITE);
+		gatherB.setBackground(Color.WHITE);
 		
 		loadL.setFont(new Font("Arial Narrow", Font.BOLD, 31));
 		loadL.setForeground(new Color(0, 0, 0, 50));

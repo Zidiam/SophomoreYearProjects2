@@ -20,7 +20,7 @@ public class Camp extends JPanel{
 	private JLabel upgradeL;
 	private Timer checkTimer;
 	private int gameSpeed = 1;
-	private boolean complete = false;
+	private boolean complete = true;
 	
 	public Camp() {
 		this.setLayout(null);
@@ -30,7 +30,7 @@ public class Camp extends JPanel{
 		
 		this.setBackground(Color.black);
 		
-		this.setPreferredSize(new Dimension(550, 700));
+		this.setPreferredSize(new Dimension(575, 700));
 	}
 	
 	private void setupTimers() {
@@ -45,8 +45,8 @@ public class Camp extends JPanel{
 		upgradeB.setBackground(Color.WHITE);
 		upgradeL.setForeground(Color.WHITE);
 		
-		upgradeB.setBounds(0, 0, 550, 25);
-		upgradeL.setBounds(0, 25, 550, 25);
+		upgradeB.setBounds(0, 0, 575, 25);
+		upgradeL.setBounds(0, 25, 575, 25);
 		
 		upgradeB.addActionListener(new ButtonListener());
 		
@@ -70,18 +70,18 @@ public class Camp extends JPanel{
 		outpost3 = new Outpost(10, 5, 5, 5);
 		outpost4 = new Outpost(10, 5, 5, 5);
 		
-		campfire.setBounds(225, 275, 75, 75);
-		story.setBounds(0, 600, 550, 75);
+		campfire.setBounds(245, 275, 75, 75);
+		story.setBounds(0, 600, 575, 75);
 		
-		hut1.setBounds(225, 125, 75, 100);
-		hut2.setBounds(350, 250, 75, 100);
-		hut3.setBounds(100, 250, 75, 100);
-		hut4.setBounds(225, 375, 75, 100);
+		hut1.setBounds(245, 125, 75, 100);
+		hut2.setBounds(365, 250, 75, 100);
+		hut3.setBounds(120, 250, 75, 100);
+		hut4.setBounds(245, 375, 75, 100);
 		
-		outpost1.setBounds(400, 75, 100, 100);
-		outpost2.setBounds(400, 425, 100, 100);
-		outpost3.setBounds(50, 425, 100, 100);
-		outpost4.setBounds(50, 75, 100, 100);
+		outpost1.setBounds(405, 75, 100, 100);
+		outpost2.setBounds(405, 425, 100, 100);
+		outpost3.setBounds(70, 425, 100, 100);
+		outpost4.setBounds(70, 75, 100, 100);
 		
 		add(campfire);
 		add(story);

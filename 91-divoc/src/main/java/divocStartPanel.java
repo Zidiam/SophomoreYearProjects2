@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class divocStartPanel extends JPanel{
 	
-	private final int WIDTH = 550, HEIGHT = 700;
+	private final int WIDTH = 575, HEIGHT = 700;
 	private int speed = 75;
 	private Timer timer;
 	private JButton enterB;

@@ -18,7 +18,7 @@ public class Story extends JPanel{
 	private CampFire campfire;
 	
 	public Story(CampFire campfire) {
-		this.setPreferredSize(new Dimension(550, 75));
+		this.setPreferredSize(new Dimension(575, 75));
 		this.setBackground(Color.BLACK);
 		
 		this.setLayout(null);
