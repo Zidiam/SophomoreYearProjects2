@@ -22,6 +22,7 @@ public class StrongHold extends JPanel{
 	private MineShaft mine1, mine2, mine3;
 	private Wall wall;
 	private TradepostButton tradepost;
+	private StoryLabel story;
 	
 	public StrongHold() {
 		this.setLayout(null);
@@ -69,6 +70,8 @@ public class StrongHold extends JPanel{
 		
 		wall = new Wall(100, 100);
 		
+		story = new StoryLabel();
+		
 		tradepost = new TradepostButton(260, 90, 20, 7);
 		
 		camp = new CampButton();
@@ -84,6 +87,8 @@ public class StrongHold extends JPanel{
 		mine3.setBounds(70, 450, 100, 100);
 		tradepost.setBounds(70, 100, 100, 100);
 		
+		story.setBounds(0, 600, 575, 75);
+		
 		wall.setBounds(0, 50, 575, 700);
 		
 		wall.setVisible(false);
@@ -96,6 +101,8 @@ public class StrongHold extends JPanel{
 		add(mine2);
 		add(mine3);
 		add(tradepost);
+		add(story);
+		
 		add(wall);
 	}
 	

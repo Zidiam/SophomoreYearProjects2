@@ -22,6 +22,7 @@ public class Villiage extends JPanel{
 	private House house1, house2, house3, house4;
 	private Well well1, well2, well3;
 	private ShopButton shop;
+	private StoryLabel story;
 	
 	public Villiage() {
 		this.setLayout(null);
@@ -61,6 +62,7 @@ public class Villiage extends JPanel{
 		stronghold = new StrongholdButton();
 		
 		shop = new ShopButton(1000, 600, 200, 120);
+		story = new StoryLabel();
 		
 		wall = new Wall(250, 250);
 		house1 = new House(500, 400, 90);
@@ -84,6 +86,7 @@ public class Villiage extends JPanel{
 		well3.setBounds(70, 450, 100, 100);
 		
 		shop.setBounds(70, 100, 100, 100);
+		story.setBounds(0, 600, 575, 75);
 		
 		wall.setBounds(0, 50, 575, 700);
 		
@@ -99,6 +102,7 @@ public class Villiage extends JPanel{
 		add(well2);
 		add(well3);
 		add(shop);
+		add(story);
 		
 		add(wall);
 	}

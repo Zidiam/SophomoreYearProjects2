@@ -21,6 +21,7 @@ public class City extends JPanel{
 	private Wall wall;
 	private Office office1, office2, office3, office4;
 	private Boat boat1, boat2, boat3, boat4;
+	private StoryLabel story;
 	
 	public City() {
 		this.setLayout(null);
@@ -61,6 +62,7 @@ public class City extends JPanel{
 		
 		Resource.allResources.get(6).setActive(true);
 		
+		story = new StoryLabel();
 		wall = new Wall(1000, 1000);
 		office1 = new Office(1200, 500, 170);
 		office2 = new Office(1500, 700, 180);
@@ -84,6 +86,8 @@ public class City extends JPanel{
 		boat3.setBounds(70, 450, 100, 100);
 		boat4.setBounds(70, 100, 100, 100);
 		
+		story.setBounds(0, 600, 575, 75);
+		
 		wall.setBounds(0, 50, 575, 700);
 		
 		wall.setVisible(false);
@@ -98,6 +102,8 @@ public class City extends JPanel{
 		add(boat2);
 		add(boat3);
 		add(boat4);
+		
+		add(story);
 		
 		add(wall);
 	}

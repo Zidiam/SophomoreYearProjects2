@@ -13,7 +13,7 @@ import javax.swing.Timer;
 
 public class Camp extends JPanel{
 	private CampFire campfire;
-	private Story story;
+	private StoryLabel story;
 	private Hut hut1, hut2, hut3, hut4;
 	private Outpost outpost1, outpost2, outpost3, outpost4;
 	private JButton upgradeB;
@@ -58,7 +58,7 @@ public class Camp extends JPanel{
 	
 	private void setupComponents() {
 		campfire = new CampFire();
-		story = new Story(campfire);
+		story = new StoryLabel();
 		
 		hut1 = new Hut(10, 5, 5);
 		hut2 = new Hut(20, 10, 10);

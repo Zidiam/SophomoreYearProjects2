@@ -23,15 +23,17 @@ public class divocMainPanel extends JPanel{
 	private City city;
 	private State state;
 	private Nation nation;
-	private boolean admin = true;
+	private boolean admin = false;
 	private Tradepost tradepost;
 	private Shop shop;
 	private Resource wood, leaf, rabbit, wheat, stone, water, iron, beef, fish;
+	private Story story;
 	
 	public divocMainPanel() {
 		timer = new Timer(speed, new GameListener());
 		
 		setupValues();
+		setupStories();
 		setupComponents();
 		
 		setBackground(Color.WHITE);
@@ -59,8 +61,6 @@ public class divocMainPanel extends JPanel{
 			fish = new Resource("Fish", 0, 0);
 		}
 		if(admin == true) {
-			//Tradepost.setActive(true);
-			//Shop.setActive(true);
 			people = new People(1);
 			wood = new Resource("Wood", 100000, 100000);
 			wood.addUsed(10000);
@@ -79,12 +79,17 @@ public class divocMainPanel extends JPanel{
 		}
 	}
 	
+	private void setupStories() {
+		wood.setStory("SPOOKY WOOD");
+		leaf.setStory("SPOOKY LEAF");
+	}
+	
 	private void setupComponents() {
 		tabs = new JTabbedPane();
 		inventory = new Inventory();
 		forest = new Forest();
 		camp = new Camp();
-		
+		story = new Story();
 		
 		tabs.add("Camp", camp);
 		tabs.add("Inventory", inventory);

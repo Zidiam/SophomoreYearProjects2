@@ -3,12 +3,15 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Inventory extends JPanel{
 	private Timer gameTimer;
 	private int gameSpeed = 1;
+	private JLabel infoL;
+	private InventoryStory story;
 	
 	public Inventory() {
 		this.setPreferredSize(new Dimension(575, 700));
@@ -21,6 +24,13 @@ public class Inventory extends JPanel{
 	}
 	
 	private void setupComponents() {
+		story = new InventoryStory();
+		infoL = new JLabel("test");
+		
+		infoL.setBounds(0, 650, 575, 25);
+		
+		add(infoL);
+		
 		for(int x = 0; x < Resource.allResources.size(); x++) {
 			add(Resource.allResources.get(x).getItem());
 		}
@@ -29,6 +39,8 @@ public class Inventory extends JPanel{
 	private void updateLocation() {
 		int x = 25;
 		int y = 0;
+		
+		infoL.setText(InventoryStory.getStory());
 		
 		for(int z = 0; z < Resource.allResources.size(); z++) {
 			if(x == 550) {

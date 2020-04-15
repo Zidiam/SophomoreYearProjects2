@@ -21,6 +21,7 @@ public class Town extends JPanel{
 	private Wall wall;
 	private Apartment apartment1, apartment2, apartment3, apartment4;
 	private Ranch ranch1, ranch2, ranch3, ranch4;
+	private StoryLabel story;
 	
 	public Town() {
 		this.setLayout(null);
@@ -61,6 +62,8 @@ public class Town extends JPanel{
 		
 		Resource.allResources.get(6).setActive(true);
 		
+		story = new StoryLabel();
+		
 		wall = new Wall(500, 500);
 		apartment1 = new Apartment(700, 100, 130);
 		apartment2 = new Apartment(800, 200, 140);
@@ -73,6 +76,7 @@ public class Town extends JPanel{
 		ranch4 = new Ranch(1600, 1400, 1000, 500);
 		
 		villiage.setBounds(245, 300, 75, 75);
+		story.setBounds(0, 600, 575, 75);
 		
 		apartment1.setBounds(245, 150, 75, 100);
 		apartment2.setBounds(365, 275, 75, 100);
@@ -98,7 +102,7 @@ public class Town extends JPanel{
 		add(ranch2);
 		add(ranch3);
 		add(ranch4);
-		
+		add(story);
 		add(wall);
 	}
 	

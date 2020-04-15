@@ -20,6 +20,7 @@ public class Nation extends JPanel{
 	private StateButton state;
 	private Wall wall;
 	private StateBuy state1, state2, state3, state4, state5, state6, state7, state8;
+	private StoryLabel story;
 	
 	public Nation() {
 		this.setLayout(null);
@@ -60,6 +61,8 @@ public class Nation extends JPanel{
 		
 		Resource.allResources.get(6).setActive(true);
 		
+		story = new StoryLabel();
+		
 		wall = new Wall(5000, 5000);
 		state1 = new StateBuy(1250, 900, 100, 10);
 		state2 = new StateBuy(1250, 900, 100, 10);
@@ -82,6 +85,8 @@ public class Nation extends JPanel{
 		state7.setBounds(70, 450, 100, 100);
 		state8.setBounds(70, 100, 100, 100);
 		
+		story.setBounds(0, 600, 575, 75);
+		
 		wall.setBounds(0, 50, 575, 700);
 		
 		wall.setVisible(false);
@@ -96,6 +101,8 @@ public class Nation extends JPanel{
 		add(state6);
 		add(state7);
 		add(state8);
+		
+		add(story);
 		
 		add(wall);
 	}

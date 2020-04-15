@@ -1,72 +1,22 @@
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Random;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-
-public class Story extends JPanel{
-	private JLabel storyL;
-	private ArrayList<String> storyList;
-	private int max = 1;
-	private Timer storyTimer;
-	private int storySpeed = 1000;
-	private CampFire campfire;
+public class Story {
+	private static ArrayList<String> stories = new ArrayList<String>();
 	
-	public Story(CampFire campfire) {
-		this.setPreferredSize(new Dimension(575, 75));
-		this.setBackground(Color.BLACK);
-		
-		this.setLayout(null);
-		
-		this.campfire = campfire;
-		
-		setUpStory();
-		setupComponents();
-		timerSetup();
+	public Story() {
+		stories = new ArrayList<String>();
 	}
 	
-	private void timerSetup() {
-		storyTimer = new Timer(storySpeed, new StoryListener());
-		storyTimer.start(); 
+	public static void addStory(String story) {
+		stories.add(story);
 	}
 	
-	private void setUpStory() {
-		storyList = new ArrayList<String>();
-		storyList.add("The area around you is lit");
-		storyList.add("The ground around you is sticky and smells funny");
-		storyList.add("The ground around you is sticky and smells funny");
+	public static void removeStory(String remove) {
+		stories.remove(stories.indexOf(remove));
 	}
 	
-	private void setupComponents() {
-		storyL = new JLabel("Click the light to light up the area around you");
-		
-		storyL.setForeground(new Color(255, 255, 255, 255));
-		
-		storyL.setBounds(0, 0, 550, 25);
-		
-		add(storyL);
+	public static ArrayList<String> getStory() {
+		return stories;
 	}
 	
-	public void updateStory() {
-		if(campfire.isLit() == false) {
-			storyL.setText("As the light fades so does your life");
-		}
-		else {
-			Random rand = new Random();
-			storyL.setText(storyList.get(rand.nextInt(max)));
-		}
-	}
-	
-	private class StoryListener implements ActionListener
-	{
-		public void actionPerformed(ActionEvent event)
-		{
-			updateStory();
-		}
-	}
 }

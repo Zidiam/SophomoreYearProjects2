@@ -92,6 +92,10 @@ public class Resource{
 		item.setBounds(x, y, width, height);
 	}
 	
+	public void setStory(String s) {
+		item.setStory(s);
+	}
+	
 	private class Item extends JPanel{
 
 		private JButton resourceB;
@@ -99,6 +103,7 @@ public class Resource{
 		private Timer gameTimer;
 		private int gameSpeed = 1;
 		private Resource resource;
+		private String story;
 		
 		private Item(Resource resource) {
 			this.setPreferredSize(new Dimension(75, 75));
@@ -108,6 +113,10 @@ public class Resource{
 			this.resource = resource;
 			
 			timerSetup();
+		}
+		
+		public void setStory(String s) {
+			story = s;
 		}
 		
 		private void timerSetup() {
@@ -123,6 +132,7 @@ public class Resource{
 			
 			resourceB.setBackground(new Color(0, 0, 0, 0));
 			resourceB.setContentAreaFilled(false);
+			resourceB.addActionListener(new ButtonListener());
 			
 			resourceL.setBounds(0, 50, 75, 25);
 			
@@ -166,6 +176,16 @@ public class Resource{
 			public void actionPerformed(ActionEvent event)
 			{
 				checkResource();
+			}
+		}
+		
+		private class ButtonListener implements ActionListener
+		{
+			public void actionPerformed(ActionEvent event)
+			{
+				if(event.getSource() == resourceB) {
+					InventoryStory.setStory(story);
+				}
 			}
 		}
 		

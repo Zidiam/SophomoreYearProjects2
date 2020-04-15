@@ -63,7 +63,10 @@ public class CampButton extends JPanel{
 					lightB.setFocusable(false);
 					lightB.setBackground(Color.WHITE);
 					lit = true;
+					Story.addStory("The fire burns bright!");
 				}
+				else
+					Story.addStory("You need to gather wood from the forest!");
 			}	
 		}
 	}
@@ -75,6 +78,7 @@ public class CampButton extends JPanel{
 			lightB.setFocusable(true);
 			lightB.setBackground(Color.BLACK);
 			lit = false;
+			Story.addStory("As the fire dims so does your life");
 		}
 	}
 	

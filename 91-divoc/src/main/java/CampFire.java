@@ -54,14 +54,17 @@ public class CampFire extends JPanel{
 	
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
-			if(event.getSource() == collectB && collectB.getText().equals("Light")) {
+			if(event.getSource() == collectB && lit == false) {
 				if(Resource.allResources.get(0).get() > 0) {
 					Resource.allResources.get(0).remove(1);
 					Resource.allResources.get(0).addUsed(1);
 					collectB.setContentAreaFilled(false);
 					collectB.setBackground(Color.WHITE);
 					lit = true;
+					Story.addStory("The fire burns bright!");
 				}
+				else
+					Story.addStory("You need to gather wood from the forest!");
 			}	
 		}
 	}
@@ -74,6 +77,7 @@ public class CampFire extends JPanel{
 			collectB.setContentAreaFilled(true);
 			collectB.setBackground(Color.BLACK);
 			lit = false;
+			Story.addStory("As the fire dims so does your life");
 		}
 	}
 }

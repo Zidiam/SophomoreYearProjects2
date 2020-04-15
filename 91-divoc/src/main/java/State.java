@@ -20,6 +20,7 @@ public class State extends JPanel{
 	private CityButton city;
 	private Wall wall;
 	private CityBuy city1, city2, city3, city4, city5, city6, city7, city8;
+	private StoryLabel story;
 	
 	public State() {
 		this.setLayout(null);
@@ -59,7 +60,7 @@ public class State extends JPanel{
 		city = new CityButton();
 		
 		Resource.allResources.get(6).setActive(true);
-		
+		story = new StoryLabel();
 		wall = new Wall(5000, 5000);
 		city1 = new CityBuy(1250, 900, 100, 10);
 		city2 = new CityBuy(1250, 900, 100, 10);
@@ -82,6 +83,8 @@ public class State extends JPanel{
 		city7.setBounds(70, 450, 100, 100);
 		city8.setBounds(70, 100, 100, 100);
 		
+		story.setBounds(0, 600, 575, 75);
+		
 		wall.setBounds(0, 50, 575, 700);
 		
 		wall.setVisible(false);
@@ -96,6 +99,8 @@ public class State extends JPanel{
 		add(city6);
 		add(city7);
 		add(city8);
+		
+		add(story);
 		
 		add(wall);
 	}
