@@ -62,7 +62,7 @@ public class Villiage extends JPanel{
 		
 		shop = new ShopButton(1000, 600, 200, 120);
 		
-		wall = new Wall(100, 100);
+		wall = new Wall(250, 250);
 		house1 = new House(500, 400, 90);
 		house2 = new House(600, 500, 100);
 		house3 = new House(700, 600, 110);

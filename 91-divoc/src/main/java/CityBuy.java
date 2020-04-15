@@ -13,29 +13,32 @@ import javax.swing.JToolTip;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class Apartment extends JPanel{
+public class CityBuy extends JPanel{
 	private int checkSpeed = 1;
-	private int removalSpeed = 25000;//set to 50k
+	private int removalSpeed = 2500;//set to 50k
 	private Timer removalTimer, checkTimer;
 	private JButton buildB;
 	private boolean built = false;
-	private int stoneCost, ironCost;
-	private JLabel ironL, apartmentL, stoneL;
-	private int maxWood;
+	private int ironCost, fishCost, beefCost;
+	private JLabel ironL, fishL, beefL;
+	private int maxFish;
+	private CityButton city;
 	
-	public Apartment(int ironCost, int stoneCost, int maxWood) {
+	public CityBuy(int ironCost, int fishCost, int beefCost, int maxFish) {
 		this.setLayout(null);
-		this.setPreferredSize(new Dimension(75, 100));
+		this.setPreferredSize(new Dimension(100, 100));
 		this.setBackground(Color.black);
 
-		this.maxWood = maxWood;
-		this.stoneCost = stoneCost;
+		city = new CityButton();
+		this.maxFish = maxFish;
 		this.ironCost = ironCost;
+		this.beefCost = beefCost;
+		this.fishCost = fishCost;
 		
 		timerSetup();
 	}
 	
-	private void buildApartment() {
+	private void buildCity() {
 		setupComponents();
 	}
 	
@@ -53,51 +56,52 @@ public class Apartment extends JPanel{
 
 	
 	private void setupComponents() {
-		buildB = new JButton("Build");
+		buildB = new JButton("City");
 		ironL = new JLabel(ironCost + " Iron", SwingConstants.CENTER);
-		stoneL = new JLabel(stoneCost + " Stone", SwingConstants.CENTER);
-		apartmentL = new JLabel("Apartment", SwingConstants.CENTER);
+		fishL = new JLabel(fishCost + " Fish", SwingConstants.CENTER);
+		beefL = new JLabel(beefCost + " Beef", SwingConstants.CENTER);
 		
 		buildB.setBackground(Color.black);
 		buildB.setForeground(Color.WHITE);
 		buildB.setBorderPainted(true);
 		buildB.setFocusable(false);
-			
-		apartmentL.setForeground(Color.WHITE);
+		
 		ironL.setForeground(Color.WHITE);
-		stoneL.setForeground(Color.WHITE);
+		fishL.setForeground(Color.WHITE);
+		beefL.setForeground(Color.WHITE);
 		
 		buildB.addActionListener(new ButtonListener());
 		
-		apartmentL.setBounds(0, 0, 75, 25);
-		buildB.setBounds(0, 25, 75, 25);
-		ironL.setBounds(0, 50, 75, 25);
-		stoneL.setBounds(0, 75, 75, 25);
+		buildB.setBounds(0, 0, 100, 25);
+		ironL.setBounds(0, 25, 100, 25);
+		fishL.setBounds(0, 50, 100, 25);
+		beefL.setBounds(0, 75, 100, 25);
 		
 		add(buildB);
 		add(ironL);
-		add(apartmentL);
-		add(stoneL);
+		add(fishL);
+		add(beefL);
 		
 		this.updateUI();
 	}
 	
-	private void removeApartment() {
-		buildB.setText("Build");
+	private void removeCity() {
+		buildB.setText("City");
 		ironL.setText(ironCost + " Iron");
-		stoneL.setText(stoneCost + " Stone");
-		apartmentL.setText("Apartment");
+		fishL.setText(fishCost + " Fish");
+		beefL.setText(beefCost + " Beef");
 		
 		buildB.setBackground(Color.black);
 		buildB.setForeground(Color.WHITE);
 		buildB.setBorderPainted(true);
 		buildB.setFocusable(false);
 		
-		buildB.setSize(75, 25);
-		
-		apartmentL.setForeground(Color.WHITE);
+		buildB.setLocation(0, 0);
+		buildB.setSize(100, 25);
+
 		ironL.setForeground(Color.WHITE);
-		stoneL.setForeground(Color.WHITE);
+		fishL.setForeground(Color.WHITE);
+		beefL.setForeground(Color.WHITE);
 		
 		buildB.setEnabled(true);
 		built = false;
@@ -106,25 +110,24 @@ public class Apartment extends JPanel{
 		
 	}
 	
-	private void addApartment() {
-		People.addPeople(3);
-		Resource.allResources.get(4).remove(stoneCost);
+	private void addCity() {
 		Resource.allResources.get(6).remove(ironCost);
-		buildB.setBackground(Color.GRAY);
+		Resource.allResources.get(7).remove(beefCost);
+		Resource.allResources.get(8).remove(fishCost);
+		this.removeAll();
+		
+		city.setBounds(0, 0, 75, 75);
+		
+		this.add(city);
 		built = true;
-		buildB.setText("Apartment");
-		buildB.setSize(75, 75);
-		buildB.setEnabled(false);
-		ironL.setText("");
-		apartmentL.setText("");
-		stoneL.setText("");
+		this.updateUI();
 	}
 	
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
-			if(event.getSource() == buildB && buildB.getText().equals("Build")) {
-				if(Resource.allResources.get(4).get() >= stoneCost && Resource.allResources.get(6).get() >= ironCost && built == false) {
-					addApartment();
+			if(event.getSource() == buildB && buildB.getText().equals("City")) {
+				if(Resource.allResources.get(6).get() >= ironCost && Resource.allResources.get(7).get() >= beefCost && Resource.allResources.get(8).get() >= fishCost && built == false) {
+					addCity();
 				}
 			}	
 		}
@@ -134,9 +137,9 @@ public class Apartment extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			//later we can destroy Apartments over time if an invader comes and such
+			//later we can destroy Citys over time if an invader comes and such
 			//if(built == true) {
-			//	removeApartment();	
+			//	removeCity();	
 			//}
 		}
 	}
@@ -145,8 +148,8 @@ public class Apartment extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(built == false && ironL == null && Resource.allResources.get(0).getUsed() >= maxWood) {
-				buildApartment();
+			if(built == false && ironL == null && Resource.allResources.get(8).getOverall() >= maxFish) {
+				buildCity();
 			}
 		}
 	}

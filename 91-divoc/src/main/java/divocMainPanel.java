@@ -20,10 +20,13 @@ public class divocMainPanel extends JPanel{
 	private StrongHold stronghold;
 	private Villiage villiage;
 	private Town town;
+	private City city;
+	private State state;
+	private Nation nation;
 	private boolean admin = true;
 	private Tradepost tradepost;
 	private Shop shop;
-	private Resource wood, leaf, rabbit, wheat, stone, water, iron, beef;
+	private Resource wood, leaf, rabbit, wheat, stone, water, iron, beef, fish;
 	
 	public divocMainPanel() {
 		timer = new Timer(speed, new GameListener());
@@ -53,6 +56,7 @@ public class divocMainPanel extends JPanel{
 			iron = new Resource("Iron", 0, 0);
 			iron.setOdds(50);
 			beef = new Resource("Beef", 0, 0);
+			fish = new Resource("Fish", 0, 0);
 		}
 		if(admin == true) {
 			//Tradepost.setActive(true);
@@ -71,6 +75,7 @@ public class divocMainPanel extends JPanel{
 			iron = new Resource("Iron", 100000, 100000);
 			iron.setOdds(50);
 			beef = new Resource("Beef", 100000, 100000);
+			fish = new Resource("Fish", 100000, 100000);
 		}
 	}
 	
@@ -110,12 +115,32 @@ public class divocMainPanel extends JPanel{
 			tabs.setTitleAt(0, "Town");
 			tabs.setSelectedIndex(0);
 		}
+		if(camp.isComplete() && stronghold.isComplete() && villiage.isComplete() && town.isComplete() && city == null) {
+			city = new City();
+			tabs.remove(0);
+			tabs.add(city, 0);
+			tabs.setTitleAt(0, "City");
+			tabs.setSelectedIndex(0);
+		}
+		if(camp.isComplete() && stronghold.isComplete() && villiage.isComplete() && town.isComplete() && city.isComplete() && state == null) {
+			state = new State();
+			tabs.remove(0);
+			tabs.add(state, 0);
+			tabs.setTitleAt(0, "State");
+			tabs.setSelectedIndex(0);
+		}
+		if(camp.isComplete() && stronghold.isComplete() && villiage.isComplete() && town.isComplete() && city.isComplete() && state.isComplete() && nation == null) {
+			nation = new Nation();
+			tabs.remove(0);
+			tabs.add(nation, 0);
+			tabs.setTitleAt(0, "Nation");
+			tabs.setSelectedIndex(0);
+		}
 		if(Tradepost.isActive()) {
 			tradepost = new Tradepost();
 			tabs.add("Tradepost", tradepost);
 		}
 		if(Shop.isActive()) {
-			System.out.println("test");
 			shop = new Shop();
 			tabs.add("Shop", shop);
 		}

@@ -20,8 +20,7 @@ public class Town extends JPanel{
 	private VilliageButton villiage;
 	private Wall wall;
 	private Apartment apartment1, apartment2, apartment3, apartment4;
-	private Ranch ranch1, ranch2, ranch3;
-	private ShopButton shop;
+	private Ranch ranch1, ranch2, ranch3, ranch4;
 	
 	public Town() {
 		this.setLayout(null);
@@ -41,7 +40,7 @@ public class Town extends JPanel{
 	
 	private void setupUpgrade() {
 		upgradeB = new JButton("Click to upgrade the town");
-		upgradeL = new JLabel("Cost: 10000 Wood, 5550 Leaves, 2500 Rabbit, 1000 stone", SwingConstants.CENTER);
+		upgradeL = new JLabel("Cost: 2000 Wood, 1000 Leaves, 500 Rabbit, 250 stone, 150 iron, 100 water, 50 beef", SwingConstants.CENTER);
 		
 		upgradeB.setBackground(Color.WHITE);
 		upgradeL.setForeground(Color.WHITE);
@@ -60,11 +59,9 @@ public class Town extends JPanel{
 	private void setupComponents() {
 		villiage = new VilliageButton();
 		
-		shop = new ShopButton(1000, 600, 200, 120);
-		
 		Resource.allResources.get(6).setActive(true);
 		
-		wall = new Wall(100, 100);
+		wall = new Wall(500, 500);
 		apartment1 = new Apartment(700, 100, 130);
 		apartment2 = new Apartment(800, 200, 140);
 		apartment3 = new Apartment(900, 300, 150);
@@ -73,6 +70,7 @@ public class Town extends JPanel{
 		ranch1 = new Ranch(1000, 800, 400, 10);
 		ranch2 = new Ranch(1200, 1000, 600, 200);
 		ranch3 = new Ranch(1400, 1200, 800, 300);
+		ranch4 = new Ranch(1600, 1400, 1000, 500);
 		
 		villiage.setBounds(245, 300, 75, 75);
 		
@@ -84,8 +82,7 @@ public class Town extends JPanel{
 		ranch1.setBounds(405, 100, 100, 100);
 		ranch2.setBounds(405, 450, 100, 100);
 		ranch3.setBounds(70, 450, 100, 100);
-		
-		shop.setBounds(70, 100, 100, 100);
+		ranch4.setBounds(70, 100, 100, 100);
 		
 		wall.setBounds(0, 50, 575, 700);
 		
@@ -100,7 +97,7 @@ public class Town extends JPanel{
 		add(ranch1);
 		add(ranch2);
 		add(ranch3);
-		add(shop);
+		add(ranch4);
 		
 		add(wall);
 	}
@@ -112,8 +109,16 @@ public class Town extends JPanel{
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == upgradeB) {
-				if(Resource.allResources.get(0).get() >= 1000) {
-					Resource.allResources.get(0).remove(1000);
+				//2000 Wood, 1000 Leaves, 500 Rabbit, 250 stone, 150 iron, 100 water, 50 beef
+				if(Resource.allResources.get(0).get() >= 2000 && Resource.allResources.get(1).get() >= 1000 && Resource.allResources.get(2).get() >= 500 && Resource.allResources.get(4).get() >= 250 &&
+						Resource.allResources.get(6).get() >= 150 && Resource.allResources.get(5).get() >= 100 && Resource.allResources.get(7).get() >= 50) {
+					Resource.allResources.get(0).remove(2000);
+					Resource.allResources.get(1).remove(1000);
+					Resource.allResources.get(2).remove(500);
+					Resource.allResources.get(4).remove(250);
+					Resource.allResources.get(6).remove(150);
+					Resource.allResources.get(5).remove(100);
+					Resource.allResources.get(7).remove(50);
 					complete = true;
 				}
 			}
@@ -125,7 +130,7 @@ public class Town extends JPanel{
 		public void actionPerformed(ActionEvent event)
 		{
 			if(apartment1.isBuilt() == true && apartment2.isBuilt() == true && apartment3.isBuilt() == true && apartment4.isBuilt() == true) {
-				if(ranch1.isBuilt() == true && ranch2.isBuilt() == true && ranch3.isBuilt() == true && shop.isBuilt() == true) {
+				if(ranch1.isBuilt() == true && ranch2.isBuilt() == true && ranch3.isBuilt() == true && ranch4.isBuilt() == true) {
 					if(wall.isVisible() == false) {
 						wall.setVisible(true);
 					}

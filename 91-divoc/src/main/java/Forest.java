@@ -12,7 +12,7 @@ public class Forest extends JPanel{
 	private JLabel people;
 	private Timer gameTimer;
 	private int gameSpeed = 1;
-	private Gather wood, traps, farm, mines, water, ranch;
+	private Gather wood, traps, farm, mines, water, ranch, fish;
 	
 	public Forest() {
 		this.setPreferredSize(new Dimension(575, 700));
@@ -40,9 +40,11 @@ public class Forest extends JPanel{
 		mines = new Gather("Miner", "Mine", Resource.allResources.get(4), 400);
 		mines.addResource(Resource.allResources.get(6));
 		
-		water = new Gather("Purifier", "Collect", Resource.allResources.get(5), 450);
+		water = new Gather("Purifier", "Purify", Resource.allResources.get(5), 450);
 		
-		ranch = new Gather("Rancher", "Collect", Resource.allResources.get(7), 500);
+		ranch = new Gather("Rancher", "Butcher", Resource.allResources.get(7), 500);
+		
+		fish = new Gather("Fisherman", "Fish", Resource.allResources.get(8), 550);
 		
 		people = new JLabel("Available People: " + People.getPeople());
 		
@@ -53,6 +55,7 @@ public class Forest extends JPanel{
 		mines.setBounds(0, 100, 575, 25);
 		water.setBounds(0, 125, 575, 25);
 		ranch.setBounds(0, 150, 575, 25);
+		fish.setBounds(0, 175, 575, 25);
 		
 		add(people);
 		add(wood);
@@ -61,6 +64,7 @@ public class Forest extends JPanel{
 		add(mines);
 		add(water);
 		add(ranch);
+		add(fish);
 	}
 	
 	private class GameListener implements ActionListener

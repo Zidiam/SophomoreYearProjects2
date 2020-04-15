@@ -13,30 +13,32 @@ import javax.swing.JToolTip;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class Ranch extends JPanel{
+public class StateBuy extends JPanel{
 	private int checkSpeed = 1;
 	private int removalSpeed = 2500;//set to 50k
 	private Timer removalTimer, checkTimer;
 	private JButton buildB;
 	private boolean built = false;
-	private int woodCost, leafCost, waterCost;
-	private JLabel woodL, leafL, waterL;
-	private int maxWater;
+	private int woodCost, rabbitCost, waterCost;
+	private JLabel woodL, rabbitL, waterL;
+	private int maxFish;
+	private StateButton state;
 	
-	public Ranch(int woodCost, int leafCost, int waterCost, int maxWater) {
+	public StateBuy(int woodCost, int rabbitCost, int waterCost, int maxFish) {
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(100, 100));
 		this.setBackground(Color.black);
 
-		this.maxWater = maxWater;
+		state = new StateButton();
+		this.maxFish = maxFish;
 		this.woodCost = woodCost;
 		this.waterCost = waterCost;
-		this.leafCost = leafCost;
+		this.rabbitCost = rabbitCost;
 		
 		timerSetup();
 	}
 	
-	private void buildRanch() {
+	private void buildState() {
 		setupComponents();
 	}
 	
@@ -54,9 +56,9 @@ public class Ranch extends JPanel{
 
 	
 	private void setupComponents() {
-		buildB = new JButton("Ranch");
+		buildB = new JButton("State");
 		woodL = new JLabel(woodCost + " Wood", SwingConstants.CENTER);
-		leafL = new JLabel(leafCost + " Leaves", SwingConstants.CENTER);
+		rabbitL = new JLabel(rabbitCost + " Rabbit", SwingConstants.CENTER);
 		waterL = new JLabel(waterCost + " Water", SwingConstants.CENTER);
 		
 		buildB.setBackground(Color.black);
@@ -65,28 +67,28 @@ public class Ranch extends JPanel{
 		buildB.setFocusable(false);
 		
 		woodL.setForeground(Color.WHITE);
-		leafL.setForeground(Color.WHITE);
+		rabbitL.setForeground(Color.WHITE);
 		waterL.setForeground(Color.WHITE);
 		
 		buildB.addActionListener(new ButtonListener());
 		
 		buildB.setBounds(0, 0, 100, 25);
 		woodL.setBounds(0, 25, 100, 25);
-		leafL.setBounds(0, 50, 100, 25);
+		rabbitL.setBounds(0, 50, 100, 25);
 		waterL.setBounds(0, 75, 100, 25);
 		
 		add(buildB);
 		add(woodL);
-		add(leafL);
+		add(rabbitL);
 		add(waterL);
 		
 		this.updateUI();
 	}
 	
-	private void removeRanch() {
-		buildB.setText("Ranch");
+	private void removeState() {
+		buildB.setText("State");
 		woodL.setText(woodCost + " Wood");
-		leafL.setText(leafCost + " Leaves");
+		rabbitL.setText(rabbitCost + " Rabbit");
 		waterL.setText(waterCost + " Water");
 		
 		buildB.setBackground(Color.black);
@@ -98,7 +100,7 @@ public class Ranch extends JPanel{
 		buildB.setSize(100, 25);
 
 		woodL.setForeground(Color.WHITE);
-		leafL.setForeground(Color.WHITE);
+		rabbitL.setForeground(Color.WHITE);
 		waterL.setForeground(Color.WHITE);
 		
 		buildB.setEnabled(true);
@@ -108,27 +110,24 @@ public class Ranch extends JPanel{
 		
 	}
 	
-	private void addRanch() {
+	private void addState() {
 		Resource.allResources.get(0).remove(woodCost);
 		Resource.allResources.get(5).remove(waterCost);
-		Resource.allResources.get(1).remove(leafCost);
-		Resource.allResources.get(7).addMultiplier(1);
-		Resource.allResources.get(7).setActive(true);
-		buildB.setBackground(Color.GRAY);
+		Resource.allResources.get(2).remove(rabbitCost);
+		this.removeAll();
+		
+		state.setBounds(0, 0, 100, 100);
+		
+		this.add(state);
 		built = true;
-		buildB.setText("Ranch");
-		buildB.setLocation(0, 0);
-		buildB.setSize(100, 100);
-		buildB.setEnabled(false);
-		woodL.setText("");
-		leafL.setText("");
+		this.updateUI();
 	}
 	
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
-			if(event.getSource() == buildB && buildB.getText().equals("Ranch")) {
-				if(Resource.allResources.get(0).get() >= woodCost && Resource.allResources.get(5).get() >= waterCost && Resource.allResources.get(1).get() >= leafCost && built == false) {
-					addRanch();
+			if(event.getSource() == buildB && buildB.getText().equals("State")) {
+				if(Resource.allResources.get(0).get() >= woodCost && Resource.allResources.get(5).get() >= waterCost && Resource.allResources.get(2).get() >= rabbitCost && built == false) {
+					addState();
 				}
 			}	
 		}
@@ -138,9 +137,9 @@ public class Ranch extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			//later we can destroy Ranchs over time if an invader comes and such
+			//later we can destroy States over time if an invader comes and such
 			//if(built == true) {
-			//	removeRanch();	
+			//	removeState();	
 			//}
 		}
 	}
@@ -149,8 +148,8 @@ public class Ranch extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(built == false && woodL == null && Resource.allResources.get(5).getOverall() >= maxWater) {
-				buildRanch();
+			if(built == false && woodL == null && Resource.allResources.get(8).getOverall() >= maxFish) {
+				buildState();
 			}
 		}
 	}
