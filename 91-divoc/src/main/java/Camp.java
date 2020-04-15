@@ -70,18 +70,18 @@ public class Camp extends JPanel{
 		outpost3 = new Outpost(90, 55, 20, 20);
 		outpost4 = new Outpost(100, 65, 30, 40);
 		
-		campfire.setBounds(245, 275, 75, 75);
+		campfire.setBounds(245, 300, 75, 75);
 		story.setBounds(0, 600, 575, 75);
 		
-		hut1.setBounds(245, 125, 75, 100);
-		hut2.setBounds(365, 250, 75, 100);
-		hut3.setBounds(120, 250, 75, 100);
-		hut4.setBounds(245, 375, 75, 100);
+		hut1.setBounds(245, 150, 75, 100);
+		hut2.setBounds(365, 275, 75, 100);
+		hut3.setBounds(120, 275, 75, 100);
+		hut4.setBounds(245, 400, 75, 100);
 		
-		outpost1.setBounds(405, 75, 100, 100);
-		outpost2.setBounds(405, 425, 100, 100);
-		outpost3.setBounds(70, 425, 100, 100);
-		outpost4.setBounds(70, 75, 100, 100);
+		outpost1.setBounds(405, 100, 100, 100);
+		outpost2.setBounds(405, 450, 100, 100);
+		outpost3.setBounds(70, 450, 100, 100);
+		outpost4.setBounds(70, 100, 100, 100);
 		
 		add(campfire);
 		add(story);

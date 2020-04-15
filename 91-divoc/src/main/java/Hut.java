@@ -62,7 +62,7 @@ public class Hut extends JPanel{
 		buildB.setForeground(Color.WHITE);
 		buildB.setBorderPainted(true);
 		buildB.setFocusable(false);
-		
+			
 		hutL.setForeground(Color.WHITE);
 		woodL.setForeground(Color.WHITE);
 		leafL.setForeground(Color.WHITE);

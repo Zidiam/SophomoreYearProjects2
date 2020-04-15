@@ -73,18 +73,18 @@ public class StrongHold extends JPanel{
 		
 		camp = new CampButton();
 		
-		camp.setBounds(245, 275, 75, 75);
-		farm1.setBounds(245, 125, 75, 100);
-		farm2.setBounds(365, 250, 75, 100);
-		farm3.setBounds(120, 250, 75, 100);
-		farm4.setBounds(245, 375, 75, 100);
+		camp.setBounds(245, 300, 75, 75);
+		farm1.setBounds(245, 150, 75, 100);
+		farm2.setBounds(365, 275, 75, 100);
+		farm3.setBounds(120, 275, 75, 100);
+		farm4.setBounds(245, 400, 75, 100);
 		
-		mine1.setBounds(405, 75, 100, 100);
-		mine2.setBounds(405, 425, 100, 100);
-		mine3.setBounds(70, 425, 100, 100);
-		tradepost.setBounds(70, 75, 100, 100);
+		mine1.setBounds(405, 100, 100, 100);
+		mine2.setBounds(405, 450, 100, 100);
+		mine3.setBounds(70, 450, 100, 100);
+		tradepost.setBounds(70, 100, 100, 100);
 		
-		wall.setBounds(0, 25, 575, 700);
+		wall.setBounds(0, 50, 575, 700);
 		
 		wall.setVisible(false);
 		add(camp);

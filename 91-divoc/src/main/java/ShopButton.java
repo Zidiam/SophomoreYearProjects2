@@ -13,29 +13,30 @@ import javax.swing.JToolTip;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class House extends JPanel{
+public class ShopButton extends JPanel{
 	private int checkSpeed = 1;
-	private int removalSpeed = 25000;//set to 50k
+	private int removalSpeed = 2500;//set to 50k
 	private Timer removalTimer, checkTimer;
 	private JButton buildB;
 	private boolean built = false;
-	private int woodCost, stoneCost;
-	private JLabel woodL, houseL, stoneL;
-	private int maxWood;
+	private int woodCost, waterCost, rabbitCost;
+	private JLabel woodL, waterL, rabbitL;
+	private int maxWater;
 	
-	public House(int woodCost, int stoneCost, int maxWood) {
+	public ShopButton(int woodCost, int waterCost, int rabbitCost, int maxWater) {
 		this.setLayout(null);
-		this.setPreferredSize(new Dimension(75, 100));
+		this.setPreferredSize(new Dimension(100, 100));
 		this.setBackground(Color.black);
 
-		this.maxWood = maxWood;
+		this.maxWater = maxWater;
 		this.woodCost = woodCost;
-		this.stoneCost = stoneCost;
+		this.waterCost = waterCost;
+		this.rabbitCost = rabbitCost;
 		
 		timerSetup();
 	}
 	
-	private void buildHouse() {
+	private void buildShop() {
 		setupComponents();
 	}
 	
@@ -53,51 +54,52 @@ public class House extends JPanel{
 
 	
 	private void setupComponents() {
-		buildB = new JButton("Build");
+		buildB = new JButton("Shop");
 		woodL = new JLabel(woodCost + " Wood", SwingConstants.CENTER);
-		stoneL = new JLabel(stoneCost + " Stone", SwingConstants.CENTER);
-		houseL = new JLabel("House", SwingConstants.CENTER);
+		waterL = new JLabel(waterCost + " Water", SwingConstants.CENTER);
+		rabbitL = new JLabel(rabbitCost + " Rabbits", SwingConstants.CENTER);
 		
 		buildB.setBackground(Color.black);
 		buildB.setForeground(Color.WHITE);
 		buildB.setBorderPainted(true);
 		buildB.setFocusable(false);
-			
-		houseL.setForeground(Color.WHITE);
+		
 		woodL.setForeground(Color.WHITE);
-		stoneL.setForeground(Color.WHITE);
+		waterL.setForeground(Color.WHITE);
+		rabbitL.setForeground(Color.WHITE);
 		
 		buildB.addActionListener(new ButtonListener());
 		
-		houseL.setBounds(0, 0, 75, 25);
-		buildB.setBounds(0, 25, 75, 25);
-		woodL.setBounds(0, 50, 75, 25);
-		stoneL.setBounds(0, 75, 75, 25);
+		buildB.setBounds(0, 0, 100, 25);
+		woodL.setBounds(0, 25, 100, 25);
+		waterL.setBounds(0, 50, 100, 25);
+		rabbitL.setBounds(0, 75, 100, 25);
 		
 		add(buildB);
 		add(woodL);
-		add(houseL);
-		add(stoneL);
+		add(waterL);
+		add(rabbitL);
 		
 		this.updateUI();
 	}
 	
-	private void removeHouse() {
-		buildB.setText("Build");
+	private void removeShop() {
+		buildB.setText("Shop");
 		woodL.setText(woodCost + " Wood");
-		stoneL.setText(stoneCost + " Stone");
-		houseL.setText("House");
+		waterL.setText(waterCost + " Water");
+		rabbitL.setText(rabbitCost + " Rabbits");
 		
 		buildB.setBackground(Color.black);
 		buildB.setForeground(Color.WHITE);
 		buildB.setBorderPainted(true);
 		buildB.setFocusable(false);
 		
-		buildB.setSize(75, 25);
-		
-		houseL.setForeground(Color.WHITE);
+		buildB.setLocation(0, 0);
+		buildB.setSize(100, 25);
+
 		woodL.setForeground(Color.WHITE);
-		stoneL.setForeground(Color.WHITE);
+		waterL.setForeground(Color.WHITE);
+		rabbitL.setForeground(Color.WHITE);
 		
 		buildB.setEnabled(true);
 		built = false;
@@ -106,25 +108,26 @@ public class House extends JPanel{
 		
 	}
 	
-	private void addHouse() {
-		People.addPeople(2);
-		Resource.allResources.get(4).remove(stoneCost);
+	private void addShop() {
+		Shop.setActive(true);
 		Resource.allResources.get(0).remove(woodCost);
+		Resource.allResources.get(5).remove(waterCost);
+		Resource.allResources.get(2).remove(rabbitCost);
 		buildB.setBackground(Color.GRAY);
 		built = true;
-		buildB.setText("House");
-		buildB.setSize(75, 75);
+		buildB.setText("Shop");
+		buildB.setLocation(0, 0);
+		buildB.setSize(100, 100);
 		buildB.setEnabled(false);
 		woodL.setText("");
-		houseL.setText("");
-		stoneL.setText("");
+		waterL.setText("");
 	}
 	
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
-			if(event.getSource() == buildB && buildB.getText().equals("Build")) {
-				if(Resource.allResources.get(0).get() >= woodCost && Resource.allResources.get(1).get() >= stoneCost && built == false) {
-					addHouse();
+			if(event.getSource() == buildB && buildB.getText().equals("Shop")) {
+				if(Resource.allResources.get(0).get() >= woodCost && Resource.allResources.get(5).get() >= waterCost && Resource.allResources.get(2).get() >= rabbitCost && built == false) {
+					addShop();
 				}
 			}	
 		}
@@ -134,9 +137,9 @@ public class House extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			//later we can destroy Houses over time if an invader comes and such
+			//later we can destroy waterCost over time if an invader comes and such
 			//if(built == true) {
-			//	removeHouse();	
+			//	removeShop();	
 			//}
 		}
 	}
@@ -145,8 +148,8 @@ public class House extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(built == false && woodL == null && Resource.allResources.get(0).getUsed() >= maxWood) {
-				buildHouse();
+			if(built == false && woodL == null && Resource.allResources.get(5).getOverall() >= maxWater) {
+				buildShop();
 			}
 		}
 	}

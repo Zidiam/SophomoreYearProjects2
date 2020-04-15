@@ -11,19 +11,19 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class Villiage extends JPanel{
+public class Town extends JPanel{
 	private JButton upgradeB;
 	private JLabel upgradeL;
 	private Timer checkTimer;
 	private int gameSpeed = 1;
 	private boolean complete = false;
-	private StrongholdButton stronghold;
+	private VilliageButton villiage;
 	private Wall wall;
-	private House house1, house2, house3, house4;
-	private Well well1, well2, well3;
+	private Apartment apartment1, apartment2, apartment3, apartment4;
+	private Ranch ranch1, ranch2, ranch3;
 	private ShopButton shop;
 	
-	public Villiage() {
+	public Town() {
 		this.setLayout(null);
 		
 		setupComponents();
@@ -40,7 +40,7 @@ public class Villiage extends JPanel{
 	}
 	
 	private void setupUpgrade() {
-		upgradeB = new JButton("Click to upgrade the villiage");
+		upgradeB = new JButton("Click to upgrade the town");
 		upgradeL = new JLabel("Cost: 10000 Wood, 5550 Leaves, 2500 Rabbit, 1000 stone", SwingConstants.CENTER);
 		
 		upgradeB.setBackground(Color.WHITE);
@@ -58,30 +58,32 @@ public class Villiage extends JPanel{
 	}
 	
 	private void setupComponents() {
-		stronghold = new StrongholdButton();
+		villiage = new VilliageButton();
 		
 		shop = new ShopButton(1000, 600, 200, 120);
 		
+		Resource.allResources.get(6).setActive(true);
+		
 		wall = new Wall(100, 100);
-		house1 = new House(500, 400, 90);
-		house2 = new House(600, 500, 100);
-		house3 = new House(700, 600, 110);
-		house4 = new House(800, 700, 120);
+		apartment1 = new Apartment(700, 100, 130);
+		apartment2 = new Apartment(800, 200, 140);
+		apartment3 = new Apartment(900, 300, 150);
+		apartment4 = new Apartment(1000, 400, 160);
 		
-		well1 = new Well(550, 400, 250, 14);
-		well2 = new Well(650, 500, 400, 16);
-		well3 = new Well(800, 650, 500, 18);
+		ranch1 = new Ranch(1000, 800, 400, 10);
+		ranch2 = new Ranch(1200, 1000, 600, 200);
+		ranch3 = new Ranch(1400, 1200, 800, 300);
 		
-		stronghold.setBounds(245, 300, 75, 75);
+		villiage.setBounds(245, 300, 75, 75);
 		
-		house1.setBounds(245, 150, 75, 100);
-		house2.setBounds(365, 275, 75, 100);
-		house3.setBounds(120, 275, 75, 100);
-		house4.setBounds(245, 400, 75, 100);
+		apartment1.setBounds(245, 150, 75, 100);
+		apartment2.setBounds(365, 275, 75, 100);
+		apartment3.setBounds(120, 275, 75, 100);
+		apartment4.setBounds(245, 400, 75, 100);
 		
-		well1.setBounds(405, 100, 100, 100);
-		well2.setBounds(405, 450, 100, 100);
-		well3.setBounds(70, 450, 100, 100);
+		ranch1.setBounds(405, 100, 100, 100);
+		ranch2.setBounds(405, 450, 100, 100);
+		ranch3.setBounds(70, 450, 100, 100);
 		
 		shop.setBounds(70, 100, 100, 100);
 		
@@ -89,15 +91,15 @@ public class Villiage extends JPanel{
 		
 		wall.setVisible(false);
 
-		add(stronghold);
-		add(house1);
-		add(house2);
-		add(house3);
-		add(house4);
+		add(villiage);
+		add(apartment1);
+		add(apartment2);
+		add(apartment3);
+		add(apartment4);
 		
-		add(well1);
-		add(well2);
-		add(well3);
+		add(ranch1);
+		add(ranch2);
+		add(ranch3);
 		add(shop);
 		
 		add(wall);
@@ -122,8 +124,8 @@ public class Villiage extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(house1.isBuilt() == true && house2.isBuilt() == true && house3.isBuilt() == true && house4.isBuilt() == true) {
-				if(well1.isBuilt() == true && well2.isBuilt() == true && well3.isBuilt() == true && shop.isBuilt() == true) {
+			if(apartment1.isBuilt() == true && apartment2.isBuilt() == true && apartment3.isBuilt() == true && apartment4.isBuilt() == true) {
+				if(ranch1.isBuilt() == true && ranch2.isBuilt() == true && ranch3.isBuilt() == true && shop.isBuilt() == true) {
 					if(wall.isVisible() == false) {
 						wall.setVisible(true);
 					}

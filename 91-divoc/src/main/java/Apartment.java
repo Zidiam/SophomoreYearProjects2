@@ -13,29 +13,29 @@ import javax.swing.JToolTip;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class House extends JPanel{
+public class Apartment extends JPanel{
 	private int checkSpeed = 1;
 	private int removalSpeed = 25000;//set to 50k
 	private Timer removalTimer, checkTimer;
 	private JButton buildB;
 	private boolean built = false;
-	private int woodCost, stoneCost;
-	private JLabel woodL, houseL, stoneL;
+	private int stoneCost, ironCost;
+	private JLabel ironL, apartmentL, stoneL;
 	private int maxWood;
 	
-	public House(int woodCost, int stoneCost, int maxWood) {
+	public Apartment(int ironCost, int stoneCost, int maxWood) {
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(75, 100));
 		this.setBackground(Color.black);
 
 		this.maxWood = maxWood;
-		this.woodCost = woodCost;
 		this.stoneCost = stoneCost;
+		this.ironCost = ironCost;
 		
 		timerSetup();
 	}
 	
-	private void buildHouse() {
+	private void buildApartment() {
 		setupComponents();
 	}
 	
@@ -54,39 +54,39 @@ public class House extends JPanel{
 	
 	private void setupComponents() {
 		buildB = new JButton("Build");
-		woodL = new JLabel(woodCost + " Wood", SwingConstants.CENTER);
-		stoneL = new JLabel(stoneCost + " Stone", SwingConstants.CENTER);
-		houseL = new JLabel("House", SwingConstants.CENTER);
+		ironL = new JLabel(stoneCost + " Iron", SwingConstants.CENTER);
+		stoneL = new JLabel(ironCost + " Stone", SwingConstants.CENTER);
+		apartmentL = new JLabel("Apartment", SwingConstants.CENTER);
 		
 		buildB.setBackground(Color.black);
 		buildB.setForeground(Color.WHITE);
 		buildB.setBorderPainted(true);
 		buildB.setFocusable(false);
 			
-		houseL.setForeground(Color.WHITE);
-		woodL.setForeground(Color.WHITE);
+		apartmentL.setForeground(Color.WHITE);
+		ironL.setForeground(Color.WHITE);
 		stoneL.setForeground(Color.WHITE);
 		
 		buildB.addActionListener(new ButtonListener());
 		
-		houseL.setBounds(0, 0, 75, 25);
+		apartmentL.setBounds(0, 0, 75, 25);
 		buildB.setBounds(0, 25, 75, 25);
-		woodL.setBounds(0, 50, 75, 25);
+		ironL.setBounds(0, 50, 75, 25);
 		stoneL.setBounds(0, 75, 75, 25);
 		
 		add(buildB);
-		add(woodL);
-		add(houseL);
+		add(ironL);
+		add(apartmentL);
 		add(stoneL);
 		
 		this.updateUI();
 	}
 	
-	private void removeHouse() {
+	private void removeApartment() {
 		buildB.setText("Build");
-		woodL.setText(woodCost + " Wood");
-		stoneL.setText(stoneCost + " Stone");
-		houseL.setText("House");
+		ironL.setText(stoneCost + " Iron");
+		stoneL.setText(ironCost + " Stone");
+		apartmentL.setText("Apartment");
 		
 		buildB.setBackground(Color.black);
 		buildB.setForeground(Color.WHITE);
@@ -95,8 +95,8 @@ public class House extends JPanel{
 		
 		buildB.setSize(75, 25);
 		
-		houseL.setForeground(Color.WHITE);
-		woodL.setForeground(Color.WHITE);
+		apartmentL.setForeground(Color.WHITE);
+		ironL.setForeground(Color.WHITE);
 		stoneL.setForeground(Color.WHITE);
 		
 		buildB.setEnabled(true);
@@ -106,25 +106,25 @@ public class House extends JPanel{
 		
 	}
 	
-	private void addHouse() {
-		People.addPeople(2);
+	private void addApartment() {
+		People.addPeople(3);
 		Resource.allResources.get(4).remove(stoneCost);
-		Resource.allResources.get(0).remove(woodCost);
+		Resource.allResources.get(6).remove(ironCost);
 		buildB.setBackground(Color.GRAY);
 		built = true;
-		buildB.setText("House");
+		buildB.setText("Apartment");
 		buildB.setSize(75, 75);
 		buildB.setEnabled(false);
-		woodL.setText("");
-		houseL.setText("");
+		ironL.setText("");
+		apartmentL.setText("");
 		stoneL.setText("");
 	}
 	
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == buildB && buildB.getText().equals("Build")) {
-				if(Resource.allResources.get(0).get() >= woodCost && Resource.allResources.get(1).get() >= stoneCost && built == false) {
-					addHouse();
+				if(Resource.allResources.get(4).get() >= stoneCost && Resource.allResources.get(6).get() >= ironCost && built == false) {
+					addApartment();
 				}
 			}	
 		}
@@ -134,9 +134,9 @@ public class House extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			//later we can destroy Houses over time if an invader comes and such
+			//later we can destroy Apartments over time if an invader comes and such
 			//if(built == true) {
-			//	removeHouse();	
+			//	removeApartment();	
 			//}
 		}
 	}
@@ -145,8 +145,8 @@ public class House extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(built == false && woodL == null && Resource.allResources.get(0).getUsed() >= maxWood) {
-				buildHouse();
+			if(built == false && ironL == null && Resource.allResources.get(0).getUsed() >= maxWood) {
+				buildApartment();
 			}
 		}
 	}

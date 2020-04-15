@@ -20,6 +20,7 @@ public class Gather extends JPanel{
 	private boolean isDisplayed;
 	private ArrayList<Resource> resources;
 	private String name, nameB;
+	private int multiplier;
 	
 	public Gather(String name, String nameB, Resource resource, int loadSpeed) {
 		this.setPreferredSize(new Dimension(575, 25));
@@ -35,6 +36,7 @@ public class Gather extends JPanel{
 		this.loadSpeed = loadSpeed;
 		checkSpeed = 1;
 		isDisplayed = false;
+		multiplier = resource.getMultiplier();
 		setupLoad();
 		setupTimer();
 	}
@@ -76,12 +78,12 @@ public class Gather extends JPanel{
 		collectorsL = new JLabel(name + "s: " + collectors);
 		loadL = new JLabel(loadList.get(0));
 		startB = new JButton("Click to setup " + name + "s");
-		multiplierL = new JLabel(resources.get(0).getMultiplier() + "x");
+		multiplierL = new JLabel(multiplier + "x");
 		
 		collectB.setBounds(475, 0, 100, 25);
 		addB.setBounds(125, 0, 100, 25);
 		removeB.setBounds(225, 0, 100, 25);
-		collectorsL.setBounds(0, 0, 75, 25);
+		collectorsL.setBounds(0, 0, 100, 25);
 		loadL.setBounds(325, 0, 150, 25);
 		startB.setBounds(0, 0, 575, 25);
 		multiplierL.setBounds(100, 0, 25, 25);
@@ -118,7 +120,11 @@ public class Gather extends JPanel{
 	
 	private void add() {
 		for(int z = 0; z < resources.size(); z ++) {
-			resources.get(z).add(collectors);
+			if(resources.get(z).isActive()) {
+				for(int y = 0; y < collectors; y++) {
+					resources.get(z).add(multiplier);
+				}
+			}
 		}
 	}
 	
@@ -128,7 +134,7 @@ public class Gather extends JPanel{
 			People.addPeople(1);
 		}
 		collectorsL.setText(name + "s: " + collectors);
-		multiplierL.setText(resources.get(0).getMultiplier() + "x");
+		multiplierL.setText(multiplier + "x");
 	}
 	
 	private void update() {
@@ -139,6 +145,14 @@ public class Gather extends JPanel{
 		if(isDisplayed == false && resources.get(0).isActive()) {
 			setupComponents();
 			isDisplayed = true;
+		}
+	}
+	
+	private void checkMultiplier() {
+		for(int x = 0; x < resources.size(); x++) {
+			if(resources.get(x).getMultiplier() > multiplier) {
+				multiplier = resources.get(x).getMultiplier();
+			}
 		}
 	}
 	
@@ -190,6 +204,7 @@ public class Gather extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
+			checkMultiplier();
 			checkDisplay();
 			if(isDisplayed == true) {
 				checkPeople();

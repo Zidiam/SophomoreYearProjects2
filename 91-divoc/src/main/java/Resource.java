@@ -36,11 +36,15 @@ public class Resource{
 		return amount;
 	}
 	
+	public void setOdds(int odds) {
+		this.odds = odds;
+	}
+	
 	public void add(int add) {
 		Random rand = new Random();
 		if(rand.nextInt(100) <= odds) {
-			amount += add*multiplier;
-			overall += add*multiplier;	
+			amount += add;
+			overall += add;	
 		}
 	}
 	

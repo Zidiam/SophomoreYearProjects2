@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class Tradepost extends JPanel{
+public class Shop extends JPanel{
 	
 	private static boolean active = false;
 	private Timer checkTimer, loadTimer;
@@ -24,9 +24,9 @@ public class Tradepost extends JPanel{
 	private int loadSpeed = 2500;
 	private JLabel loadL, loadingL;
 	private ArrayList<String> loadList;
-	private TradeButton button1, button2, button3, button4, button5, button6;
+	private ButtonShop button1, button2, button3, button4, button5, button6;
 	
-	public Tradepost() {
+	public Shop() {
 		this.setLayout(null);
 		
 		this.setBackground(Color.white);
@@ -58,12 +58,12 @@ public class Tradepost extends JPanel{
 	private void setupComponents() {
 		loadL = new JLabel("Time until refresh:");
 		loadingL = new JLabel(loadList.get(1));
-		button1 = new TradeButton();
-		button2 = new TradeButton();
-		button3 = new TradeButton();
-		button4 = new TradeButton();
-		button5 = new TradeButton();
-		button6 = new TradeButton();
+		button1 = new ButtonShop();
+		button2 = new ButtonShop();
+		button3 = new ButtonShop();
+		button4 = new ButtonShop();
+		button5 = new ButtonShop();
+		button6 = new ButtonShop();
 		
 		
 		button1.setBounds(50, 25, 225, 175);
@@ -139,13 +139,13 @@ public class Tradepost extends JPanel{
 		}
 	}
 	
-	private class TradeButton extends JPanel{
+	private class ButtonShop extends JPanel{
 		private JButton button, tradeB;
 		private JLabel resourceL1, resourceL2, forL;
 		private Resource resource1, resource2;
 		private int amount1, amount2;
 		
-		private TradeButton() {
+		private ButtonShop() {
 			this.setPreferredSize(new Dimension(225, 175));
 			
 			this.setLayout(null);
@@ -159,7 +159,7 @@ public class Tradepost extends JPanel{
 			resourceL1 = new JLabel("Resource", SwingConstants.CENTER);
 			resourceL2 = new JLabel("Resource", SwingConstants.CENTER);
 			forL = new JLabel("For", SwingConstants.CENTER);
-			tradeB = new JButton("Trade");
+			tradeB = new JButton("Purchase");
 			
 			button.setBounds(0, 0, 225, 175);
 			resourceL1.setBounds(0, 25, 225, 25);
@@ -185,7 +185,7 @@ public class Tradepost extends JPanel{
 		
 		public void randomize() {
 			tradeB.setEnabled(true);
-			tradeB.setText("Trade");
+			tradeB.setText("Purchase");
 			
 			Random rand = new Random();
 			
@@ -199,18 +199,21 @@ public class Tradepost extends JPanel{
 			resource1 = active.get(rand.nextInt(active.size()));
 			resource2 = active.get(rand.nextInt(active.size()));
 			
-			amount1 = rand.nextInt(resource1.getOverall()/resource1.get());
-			amount2 = rand.nextInt(resource2.getOverall()/resource2.get());
+			amount2 = rand.nextInt(resource2.getMultiplier());
+			if(amount2 == 0) {
+				amount2 += 1;
+			}
+			amount1 = rand.nextInt(resource1.get() * amount2);
 			
 			resourceL1.setText(amount1 + " " + resource1.getName());
-			resourceL2.setText(amount2 + " " + resource2.getName());
+			resourceL2.setText("Add " + amount2 + "x multiplier for " + resource2.getName());
 		}
 		
 		private void deactivateB() {
 			if(resource1.get() >= amount1) {
 				resource1.remove(amount1);
-				resource2.add(amount2);
-				tradeB.setText("Completed");
+				resource2.addMultiplier(amount2);
+				tradeB.setText("Purchased");
 				tradeB.setEnabled(false);
 			}
 		}

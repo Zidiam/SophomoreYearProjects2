@@ -27,11 +27,15 @@ public class Inventory extends JPanel{
 	}
 	
 	private void updateLocation() {
-		int x = 0;
+		int x = 25;
 		int y = 0;
 		
 		for(int z = 0; z < Resource.allResources.size(); z++) {
-			if(Resource.allResources.get(z).isActive() == true) {
+			if(x == 550) {
+				x = 25;
+				y += 75;
+			}
+			if(Resource.allResources.get(z).isActive() == true && Resource.allResources.get(z).get() > 0) {
 				Resource.allResources.get(z).setBounds(x, y, 75, 75);
 				x += 75;
 			}

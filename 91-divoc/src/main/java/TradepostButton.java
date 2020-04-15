@@ -127,7 +127,6 @@ public class TradepostButton extends JPanel{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == buildB && buildB.getText().equals("Tradepost")) {
 				if(Resource.allResources.get(0).get() >= woodCost && Resource.allResources.get(1).get() >= leafCost && Resource.allResources.get(2).get() >= rabbitCost && built == false) {
-					System.out.println("test");
 					addTradepost();
 				}
 			}	
