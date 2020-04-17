@@ -21,6 +21,7 @@ public class Gather extends JPanel{
 	private ArrayList<Resource> resources;
 	private String name, nameB;
 	private int multiplier;
+	public static String attention;
 	
 	public Gather(String name, String nameB, Resource resource, int loadSpeed) {
 		this.setPreferredSize(new Dimension(575, 25));
@@ -110,6 +111,10 @@ public class Gather extends JPanel{
 		add(multiplierL);
 	}
 	
+	private void setAttention(String s) {
+		attention = s;
+	}
+	
 	private void setupTimer() {
 		loadTimer = new Timer(loadSpeed, new LoadListener());
 		loadTimer.start();
@@ -163,12 +168,21 @@ public class Gather extends JPanel{
 					loadL.setText(loadList.get(1));
 				}
 			}
+			else if(event.getSource() == collectB && collectors == 0) {
+				setAttention("To " + nameB + ", you need to add people to this job!");
+			}
 			if(event.getSource() == addB && loadL.getText().equals(loadList.get(0))) {
 				if(People.getPeople() > 0) {
 					collectors ++;
 					People.removePeople(1);
 					collectorsL.setText(name + "s: " + collectors);
 				}
+				else {
+					setAttention("You need more people or remove people from a different job!");
+				}
+			}
+			else if(event.getSource() == addB && !loadL.getText().equals(loadList.get(0))) {
+				setAttention("You can't add people to a job when the job is in progress!");
 			}
 			if(event.getSource() == removeB && loadL.getText().equals(loadList.get(0))) {
 				if(collectors > 0) {
@@ -176,6 +190,12 @@ public class Gather extends JPanel{
 					People.addPeople(1);
 					collectorsL.setText(name + "s: " + collectors);
 				}
+				else {
+					setAttention("You have removed all people from this job!");
+				}
+			}
+			else if(event.getSource() == removeB && !loadL.getText().equals(loadList.get(0))) {
+				setAttention("You can't remove people from a job when they are already doing it!");
 			}
 			if(event.getSource() == startB) {
 				remove(startB);

@@ -23,11 +23,12 @@ public class divocMainPanel extends JPanel{
 	private City city;
 	private State state;
 	private Nation nation;
-	private boolean admin = false;
-	private Tradepost tradepost;
+	private boolean admin = true;
+	private Tradepost tradepost; 
 	private Shop shop;
 	private Resource wood, leaf, rabbit, wheat, stone, water, iron, beef, fish;
 	private Story story;
+	private EndGame end;
 	
 	public divocMainPanel() {
 		timer = new Timer(speed, new GameListener());
@@ -85,7 +86,7 @@ public class divocMainPanel extends JPanel{
 	}
 	
 	private void setupComponents() {
-		tabs = new JTabbedPane();
+		tabs = new JTabbedPane(); 
 		inventory = new Inventory();
 		forest = new Forest();
 		camp = new Camp();
@@ -140,6 +141,13 @@ public class divocMainPanel extends JPanel{
 			tabs.add(nation, 0);
 			tabs.setTitleAt(0, "Nation");
 			tabs.setSelectedIndex(0);
+		}
+		if(camp.isComplete() && stronghold.isComplete() && villiage.isComplete() && town.isComplete() && city.isComplete() && state.isComplete() && nation.isComplete() == true && end == null) {
+			end = new EndGame();
+			remove(tabs);
+			end.setBounds(0, 0, 575, 700);
+			add(end);
+			this.updateUI();
 		}
 		if(Tradepost.isActive()) {
 			tradepost = new Tradepost();

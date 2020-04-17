@@ -63,7 +63,7 @@ public class CampFire extends JPanel{
 					lit = true;
 					Story.addStory("The fire burns bright!");
 				}
-				else
+				else 
 					Story.addStory("You need to gather wood from the forest!");
 			}	
 		}
@@ -73,11 +73,13 @@ public class CampFire extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			collectB.setText("Light");
-			collectB.setContentAreaFilled(true);
-			collectB.setBackground(Color.BLACK);
-			lit = false;
-			Story.addStory("As the fire dims so does your life");
+			if(lit == true) {
+				collectB.setText("Light");
+				collectB.setContentAreaFilled(true);
+				collectB.setBackground(Color.BLACK);
+				lit = false;
+				Story.addStory("As the fire dims so does your life");
+			}
 		}
 	}
 }

@@ -75,10 +75,12 @@ public class VilliageButton extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			lightB.setFocusable(true);
-			lightB.setBackground(Color.BLACK);
-			lit = false;
-			Story.addStory("As the fire dims so does your life");
+			if(lit == true) {
+				lightB.setFocusable(true);
+				lightB.setBackground(Color.BLACK);
+				lit = false;
+				Story.addStory("As the fire dims so does your life");
+			}
 		}
 	}
 	

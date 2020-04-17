@@ -65,7 +65,7 @@ public class CampButton extends JPanel{
 					lit = true;
 					Story.addStory("The fire burns bright!");
 				}
-				else
+				else 
 					Story.addStory("You need to gather wood from the forest!");
 			}	
 		}

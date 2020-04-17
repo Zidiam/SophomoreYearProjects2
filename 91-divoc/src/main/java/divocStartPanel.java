@@ -14,6 +14,7 @@ public class divocStartPanel extends JPanel{
 	private JButton enterB;
 	private JLabel titleL;
 	private divocMainPanel mainP;
+	private JLabel creatorL, versionL;
 	
 	public divocStartPanel() {
 		addKeyListener(new DirectionListener());
@@ -32,9 +33,13 @@ public class divocStartPanel extends JPanel{
 	public void createComponents() {
 		titleL = new JLabel("19-DIVOC");
 		enterB = new JButton("Enter");
+		creatorL = new JLabel("Creator: Jason Melnik");
+		versionL = new JLabel("Version: 1.1 BETA", SwingConstants.RIGHT);
 		
 		enterB.setBounds(225, 300, 100, 25);
 		titleL.setBounds(185, 200, 250, 50);
+		creatorL.setBounds(0, 675, 200, 25);
+		versionL.setBounds(400, 675, 175, 25);
 		
 		enterB.setBackground(Color.WHITE);
 		titleL.setFont(new Font("Chiller", 1, 50));
@@ -43,6 +48,8 @@ public class divocStartPanel extends JPanel{
 		
 		add(enterB);
 		add(titleL);
+		add(creatorL);
+		add(versionL);
 	}
 	
 	public void startGame() {

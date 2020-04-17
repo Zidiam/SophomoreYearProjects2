@@ -9,7 +9,7 @@ import javax.swing.Timer;
 
 public class Forest extends JPanel{
 	
-	private JLabel people;
+	private JLabel people, attentionL;
 	private Timer gameTimer;
 	private int gameSpeed = 1;
 	private Gather wood, traps, farm, mines, water, ranch, fish;
@@ -30,6 +30,10 @@ public class Forest extends JPanel{
 	}
 	
 	private void setupComponents() {
+		attentionL = new JLabel("");
+		
+		attentionL.setForeground(Color.RED);
+		
 		wood = new Gather("Gatherer", "Gather", Resource.allResources.get(0), 250);
 		wood.addResource(Resource.allResources.get(1));
 		
@@ -56,6 +60,7 @@ public class Forest extends JPanel{
 		water.setBounds(0, 125, 575, 25);
 		ranch.setBounds(0, 150, 575, 25);
 		fish.setBounds(0, 175, 575, 25);
+		attentionL.setBounds(0, 650, 550, 25);
 		
 		add(people);
 		add(wood);
@@ -65,6 +70,8 @@ public class Forest extends JPanel{
 		add(water);
 		add(ranch);
 		add(fish);
+		
+		add(attentionL);
 	}
 	
 	private class GameListener implements ActionListener
@@ -72,6 +79,7 @@ public class Forest extends JPanel{
 		public void actionPerformed(ActionEvent event)
 		{
 			people.setText("Available People: " + People.getPeople());
+			attentionL.setText(Gather.attention);
 		}
 	}
 	

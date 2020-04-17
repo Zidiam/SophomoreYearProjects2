@@ -21,6 +21,7 @@ public class Camp extends JPanel{
 	private Timer checkTimer;
 	private int gameSpeed = 1;
 	private boolean complete = false;
+	private BadEvent event;
 	
 	public Camp() {
 		this.setLayout(null);
@@ -59,6 +60,7 @@ public class Camp extends JPanel{
 	private void setupComponents() {
 		campfire = new CampFire();
 		story = new StoryLabel();
+		event = new BadEvent();
 		
 		hut1 = new Hut(10, 5, 5);
 		hut2 = new Hut(20, 10, 10);
@@ -83,6 +85,10 @@ public class Camp extends JPanel{
 		outpost3.setBounds(70, 450, 100, 100);
 		outpost4.setBounds(70, 100, 100, 100);
 		
+		event.setBounds(0, 0, 575, 700);
+		
+		add(event);
+		
 		add(campfire);
 		add(story);
 		
@@ -95,7 +101,6 @@ public class Camp extends JPanel{
 		add(outpost2);
 		add(outpost3);
 		add(outpost4);
-		
 	}
 	
 	public boolean isComplete() {
