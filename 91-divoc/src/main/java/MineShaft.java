@@ -13,10 +13,9 @@ import javax.swing.JToolTip;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class MineShaft extends JPanel{
+public class MineShaft extends Building{
 	private int checkSpeed = 1;
-	private int removalSpeed = 2500;//set to 50k
-	private Timer removalTimer, checkTimer;
+	private Timer checkTimer;
 	private JButton buildB;
 	private boolean built = false;
 	private int woodCost, rabbitCost, wheatCost;
@@ -33,17 +32,16 @@ public class MineShaft extends JPanel{
 		this.wheatCost = wheatCost;
 		this.rabbitCost = rabbitCost;
 		
+		BuiltBuildings.add(this);
+		
 		timerSetup();
 	}
 	
-	private void buildMineShaft() {
+	private void build() {
 		setupComponents();
 	}
 	
 	private void timerSetup() {
-		removalTimer = new Timer(removalSpeed, new RemoveListener());
-		removalTimer.start(); 
-		
 		checkTimer = new Timer(checkSpeed, new CheckListener());
 		checkTimer.start(); 
 	}
@@ -83,7 +81,7 @@ public class MineShaft extends JPanel{
 		this.updateUI();
 	}
 	
-	private void removeMineShaft() {
+	public void remove() {
 		buildB.setText("MineShaft");
 		woodL.setText(woodCost + " Wood");
 		wheatL.setText(wheatCost + " Leaves");
@@ -104,11 +102,11 @@ public class MineShaft extends JPanel{
 		buildB.setEnabled(true);
 		built = false;
 		People.removePeople(1);
-		
+		Resource.allResources.get(4).removeMultiplier(1);
 		
 	}
 	
-	private void addMineShaft() {
+	private void add() {
 		Resource.allResources.get(0).remove(woodCost);
 		Resource.allResources.get(3).remove(wheatCost);
 		Resource.allResources.get(2).remove(rabbitCost);
@@ -129,20 +127,9 @@ public class MineShaft extends JPanel{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == buildB && buildB.getText().equals("MineShaft")) {
 				if(Resource.allResources.get(0).get() >= woodCost && Resource.allResources.get(3).get() >= wheatCost && Resource.allResources.get(2).get() >= rabbitCost && built == false) {
-					addMineShaft();
+					add();
 				}
 			}	
-		}
-	}
-	
-	private class RemoveListener implements ActionListener
-	{
-		public void actionPerformed(ActionEvent event)
-		{
-			//later we can destroy MineShafts over time if an invader comes and such
-			//if(built == true) {
-			//	removeMineShaft();	
-			//}
 		}
 	}
 	
@@ -151,7 +138,7 @@ public class MineShaft extends JPanel{
 		public void actionPerformed(ActionEvent event)
 		{
 			if(built == false && woodL == null && Resource.allResources.get(3).getOverall() >= maxWheat) {
-				buildMineShaft();
+				build();
 			}
 		}
 	}

@@ -13,10 +13,9 @@ import javax.swing.JToolTip;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class Boat extends JPanel{
+public class Boat extends Building{
 	private int checkSpeed = 1;
-	private int removalSpeed = 2500;//set to 50k
-	private Timer removalTimer, checkTimer;
+	private Timer checkTimer;
 	private JButton buildB;
 	private boolean built = false;
 	private int woodCost, leafCost, beefCost;
@@ -33,16 +32,16 @@ public class Boat extends JPanel{
 		this.beefCost = beefCost;
 		this.leafCost = leafCost;
 		
+		BuiltBuildings.add(this);
+		
 		timerSetup();
 	}
 	
-	private void buildBoat() {
+	private void build() {
 		setupComponents();
 	}
 	
 	private void timerSetup() {
-		removalTimer = new Timer(removalSpeed, new RemoveListener());
-		removalTimer.start(); 
 		
 		checkTimer = new Timer(checkSpeed, new CheckListener());
 		checkTimer.start(); 
@@ -83,7 +82,7 @@ public class Boat extends JPanel{
 		this.updateUI();
 	}
 	
-	private void removeBoat() {
+	public void remove() {
 		buildB.setText("Boat");
 		woodL.setText(woodCost + " Wood");
 		leafL.setText(leafCost + " Leaves");
@@ -104,11 +103,12 @@ public class Boat extends JPanel{
 		buildB.setEnabled(true);
 		built = false;
 		People.removePeople(1);
+		Resource.allResources.get(8).removeMultiplier(1);
 		
 		
 	}
 	
-	private void addBoat() {
+	private void add() {
 		Resource.allResources.get(0).remove(woodCost);
 		Resource.allResources.get(7).remove(beefCost);
 		Resource.allResources.get(1).remove(leafCost);
@@ -128,20 +128,9 @@ public class Boat extends JPanel{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == buildB && buildB.getText().equals("Boat")) {
 				if(Resource.allResources.get(0).get() >= woodCost && Resource.allResources.get(7).get() >= beefCost && Resource.allResources.get(1).get() >= leafCost && built == false) {
-					addBoat();
+					add();
 				}
 			}	
-		}
-	}
-	
-	private class RemoveListener implements ActionListener
-	{
-		public void actionPerformed(ActionEvent event)
-		{
-			//later we can destroy Boats over time if an invader comes and such
-			//if(built == true) {
-			//	removeBoat();	
-			//}
 		}
 	}
 	
@@ -150,7 +139,7 @@ public class Boat extends JPanel{
 		public void actionPerformed(ActionEvent event)
 		{
 			if(built == false && woodL == null && Resource.allResources.get(7).getOverall() >= maxBeef) {
-				buildBoat();
+				build();
 			}
 		}
 	}

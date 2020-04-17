@@ -57,10 +57,18 @@ public class Camp extends JPanel{
 		this.updateUI();
 	}
 	
+	private void destroyUpgrade() {
+		remove(upgradeB);
+		remove(upgradeL);
+		
+		
+		upgradeB = null;
+		upgradeL = null;
+	}
+	
 	private void setupComponents() {
 		campfire = new CampFire();
 		story = new StoryLabel();
-		event = new BadEvent();
 		
 		hut1 = new Hut(10, 5, 5);
 		hut2 = new Hut(20, 10, 10);
@@ -85,8 +93,8 @@ public class Camp extends JPanel{
 		outpost3.setBounds(70, 450, 100, 100);
 		outpost4.setBounds(70, 100, 100, 100);
 		
+		event = new BadEvent();
 		event.setBounds(0, 0, 575, 700);
-		
 		add(event);
 		
 		add(campfire);
@@ -122,12 +130,11 @@ public class Camp extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(hut1.isBuilt() == true && hut2.isBuilt() == true && hut3.isBuilt() == true && hut4.isBuilt() == true) {
-				if(outpost1.isBuilt() == true && outpost2.isBuilt() == true && outpost3.isBuilt() == true && outpost4.isBuilt() == true) {
-					if(upgradeB == null) {
-						setupUpgrade();
-					}
-				}
+			if(BuiltBuildings.getAmount() >= 8 && upgradeL == null) {
+				setupUpgrade();
+			}
+			if(BuiltBuildings.getAmount() < 8 && upgradeL != null) {
+				destroyUpgrade();
 			}
 		}
 	}

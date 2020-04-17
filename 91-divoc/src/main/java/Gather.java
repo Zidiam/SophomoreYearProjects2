@@ -154,11 +154,13 @@ public class Gather extends JPanel{
 	}
 	
 	private void checkMultiplier() {
+		multiplier = resources.get(0).getMultiplier();
 		for(int x = 0; x < resources.size(); x++) {
 			if(resources.get(x).getMultiplier() > multiplier) {
 				multiplier = resources.get(x).getMultiplier();
 			}
 		}
+		
 	}
 	
 	private class ButtonListener implements ActionListener{

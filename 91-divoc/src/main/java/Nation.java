@@ -21,6 +21,7 @@ public class Nation extends JPanel{
 	private Wall wall;
 	private StateBuy state1, state2, state3, state4, state5, state6, state7, state8;
 	private StoryLabel story;
+	private BadEvent event;
 	
 	public Nation() {
 		this.setLayout(null);
@@ -39,8 +40,8 @@ public class Nation extends JPanel{
 	}
 	
 	private void setupUpgrade() {
-		upgradeB = new JButton("Click to upgrade the state");
-		upgradeL = new JLabel("Cost: 10000 Wood, 5000 Leaves, 2000 Rabbit, 1000 stone, 600 iron, 400 water, 200 beef, 100 fish", SwingConstants.CENTER);
+		upgradeB = new JButton("Click to upgrade the nation");
+		upgradeL = new JLabel("Cost: 20000 Wood, 10000 Leaves, 4000 Rabbit, 2000 stone, 1200 iron, 800 water, 400 beef, 200 fish", SwingConstants.CENTER);
 		
 		upgradeB.setBackground(Color.WHITE);
 		upgradeL.setForeground(Color.WHITE);
@@ -54,6 +55,15 @@ public class Nation extends JPanel{
 		add(upgradeL);
 		
 		this.updateUI();
+	}
+	
+	private void destroyUpgrade() {
+		remove(upgradeB);
+		remove(upgradeL);
+		
+		
+		upgradeB = null;
+		upgradeL = null;
 	}
 	
 	private void setupComponents() {
@@ -88,9 +98,11 @@ public class Nation extends JPanel{
 		story.setBounds(0, 600, 575, 75);
 		
 		wall.setBounds(0, 50, 575, 700);
-		
-		wall.setVisible(false);
 
+		event = new BadEvent();
+		event.setBounds(0, 0, 575, 700);
+		add(event);
+		
 		add(state);
 		add(state1);
 		add(state2);
@@ -115,8 +127,8 @@ public class Nation extends JPanel{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == upgradeB) {
 				//10000 Wood, 5000 Leaves, 2000 Rabbit, 1000 stone, 600 iron, 400 water, 200 beef, 100 fish
-				if(Resource.allResources.get(0).get() >= 5000*2 && Resource.allResources.get(1).get() >= 2500*2 && Resource.allResources.get(2).get() >= 1000*2 && Resource.allResources.get(4).get() >= 500*2 &&
-						Resource.allResources.get(6).get() >= 300*2 && Resource.allResources.get(5).get() >= 200*2 && Resource.allResources.get(7).get() >= 100*2 && Resource.allResources.get(8).get() >= 50*2) {
+				if(Resource.allResources.get(0).get() >= 5000*4 && Resource.allResources.get(1).get() >= 2500*4 && Resource.allResources.get(2).get() >= 1000*4 && Resource.allResources.get(4).get() >= 500*4 &&
+						Resource.allResources.get(6).get() >= 300*4 && Resource.allResources.get(5).get() >= 200*4 && Resource.allResources.get(7).get() >= 100*4 && Resource.allResources.get(8).get() >= 50*4) {
 					Resource.allResources.get(0).remove(5000*2);
 					Resource.allResources.get(1).remove(2500*2);
 					Resource.allResources.get(2).remove(1000*2);
@@ -135,16 +147,12 @@ public class Nation extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(state1.isBuilt() == true && state2.isBuilt() == true && state3.isBuilt() == true && state4.isBuilt() == true) {
-				if(state5.isBuilt() == true && state6.isBuilt() == true && state7.isBuilt() == true && state8.isBuilt() == true) {
-					if(wall.isVisible() == false) {
-						wall.setVisible(true);
-					}
-					if(wall.isBought()) {
-						if(upgradeB == null) {
-							setupUpgrade();
-						}
-					}
+			if(wall.isBought()) {
+				if(BuiltBuildings.getAmount() >= 8 && upgradeL == null) {
+					setupUpgrade();
+				}
+				if(BuiltBuildings.getAmount() < 8 && upgradeL != null) {
+					destroyUpgrade();
 				}
 			}
 		}

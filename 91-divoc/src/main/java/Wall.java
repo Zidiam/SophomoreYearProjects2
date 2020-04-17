@@ -13,6 +13,8 @@ public class Wall extends JPanel{
 	private JLabel cost;
 	private int wood, stone;
 	private boolean bought = false;
+	private Timer checkTimer;
+	private boolean built = false;
 	
 	public Wall(int wood, int stone) {
 		this.setPreferredSize(new Dimension(575, 700));
@@ -24,8 +26,13 @@ public class Wall extends JPanel{
 		this.wood = wood;
 		this.stone = stone;
 				
-		setupComponents();
+		setupTimers();
 		
+	}
+	
+	private void setupTimers() {
+		checkTimer = new Timer(1, new CheckListener());
+		checkTimer.start(); 
 	}
 	
 	private void setupComponents() {
@@ -49,9 +56,23 @@ public class Wall extends JPanel{
 		add(purchase);
 		add(cost);
 		add(wall);
-		
-
-		
+	}
+	
+	private void removeComponents() {
+		this.removeAll();
+	}
+	
+	private void checkComplete() {
+		if(isBought() == false) {
+			if(built == false && BuiltBuildings.getAmount() >= 8) {
+				built = true;
+				setupComponents();
+			}
+			if(built == true && BuiltBuildings.getAmount() < 8) {
+				built = false;
+				removeComponents();
+			}
+		}
 	}
 	
 	public boolean isBought() {
@@ -71,6 +92,14 @@ public class Wall extends JPanel{
 			if(event.getSource() == purchase && Resource.allResources.get(0).get() >= wood && Resource.allResources.get(4).get() >= stone) {
 				purchased();
 			}
+		}
+	}
+	
+	private class CheckListener implements ActionListener
+	{
+		public void actionPerformed(ActionEvent event)
+		{
+			checkComplete();
 		}
 	}
 	

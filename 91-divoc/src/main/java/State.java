@@ -21,6 +21,7 @@ public class State extends JPanel{
 	private Wall wall;
 	private CityBuy city1, city2, city3, city4, city5, city6, city7, city8;
 	private StoryLabel story;
+	private BadEvent event;
 	
 	public State() {
 		this.setLayout(null);
@@ -56,6 +57,15 @@ public class State extends JPanel{
 		this.updateUI();
 	}
 	
+	private void destroyUpgrade() {
+		remove(upgradeB);
+		remove(upgradeL);
+		
+		
+		upgradeB = null;
+		upgradeL = null;
+	}
+	
 	private void setupComponents() {
 		city = new CityButton();
 		
@@ -87,8 +97,10 @@ public class State extends JPanel{
 		
 		wall.setBounds(0, 50, 575, 700);
 		
-		wall.setVisible(false);
-
+		event = new BadEvent();
+		event.setBounds(0, 0, 575, 700);
+		add(event);
+		
 		add(city);
 		add(city1);
 		add(city2);
@@ -133,16 +145,12 @@ public class State extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(city1.isBuilt() == true && city2.isBuilt() == true && city3.isBuilt() == true && city4.isBuilt() == true) {
-				if(city5.isBuilt() == true && city6.isBuilt() == true && city7.isBuilt() == true && city8.isBuilt() == true) {
-					if(wall.isVisible() == false) {
-						wall.setVisible(true);
-					}
-					if(wall.isBought()) {
-						if(upgradeB == null) {
-							setupUpgrade();
-						}
-					}
+			if(wall.isBought()) {
+				if(BuiltBuildings.getAmount() >= 8 && upgradeL == null) {
+					setupUpgrade();
+				}
+				if(BuiltBuildings.getAmount() < 8 && upgradeL != null) {
+					destroyUpgrade();
 				}
 			}
 		}

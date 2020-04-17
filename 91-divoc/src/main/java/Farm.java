@@ -9,10 +9,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class Farm extends JPanel{
+public class Farm extends Building{
 	private int checkSpeed = 1;
-	private int removalSpeed = 25000;//set to 50k
-	private Timer removalTimer, checkTimer;
+	private Timer checkTimer;
 	private JButton buildB;
 	private boolean built = false;
 	private int woodCost, leafCost;
@@ -28,16 +27,16 @@ public class Farm extends JPanel{
 		this.woodCost = woodCost;
 		this.leafCost = leafCost;
 		
+		BuiltBuildings.add(this);
+		
 		timerSetup();
 	}
 	
-	private void buildFarm() {
+	private void build() {
 		setupComponents();
 	}
 	
 	private void timerSetup() {
-		removalTimer = new Timer(removalSpeed, new RemoveListener());
-		removalTimer.start(); 
 		
 		checkTimer = new Timer(checkSpeed, new CheckListener());
 		checkTimer.start(); 
@@ -78,7 +77,7 @@ public class Farm extends JPanel{
 		this.updateUI();
 	}
 	
-	private void removeFarm() {
+	public void remove() {
 		buildB.setText("Build");
 		woodL.setText(woodCost + " Wood");
 		leafL.setText(leafCost + " Leaves");
@@ -98,11 +97,11 @@ public class Farm extends JPanel{
 		buildB.setEnabled(true);
 		built = false;
 		People.removePeople(1);
-		
+		Resource.allResources.get(3).removeMultiplier(1);
 		
 	}
 	
-	private void addFarm() {
+	private void add() {
 		Resource.allResources.get(0).remove(woodCost);
 		Resource.allResources.get(1).remove(leafCost);
 		Resource.allResources.get(3).addMultiplier(1);
@@ -121,20 +120,9 @@ public class Farm extends JPanel{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == buildB && buildB.getText().equals("Build")) {
 				if(Resource.allResources.get(0).get() >= woodCost && Resource.allResources.get(1).get() >= leafCost && built == false) {
-					addFarm();
+					add();
 				}
 			}	
-		}
-	}
-	
-	private class RemoveListener implements ActionListener
-	{
-		public void actionPerformed(ActionEvent event)
-		{
-			//later we can destroy farms over time if an invader comes and such
-			//if(built == true) {
-			//	removeFarm();	
-			//}
 		}
 	}
 	
@@ -143,7 +131,7 @@ public class Farm extends JPanel{
 		public void actionPerformed(ActionEvent event)
 		{
 			if(built == false && woodL == null && Resource.allResources.get(0).getUsed() >= maxWood) {
-				buildFarm();
+				build();
 			}
 		}
 	}

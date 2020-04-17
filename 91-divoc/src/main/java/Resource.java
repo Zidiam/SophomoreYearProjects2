@@ -80,6 +80,10 @@ public class Resource{
 		multiplier += add;
 	}
 	
+	public void removeMultiplier(int remove) {
+		multiplier -= remove;
+	}
+	
 	public int getOverall() {
 		return overall;
 	}

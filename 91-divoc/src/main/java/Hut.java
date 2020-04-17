@@ -13,10 +13,9 @@ import javax.swing.JToolTip;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class Hut extends JPanel{
+public class Hut extends Building{
 	private int checkSpeed = 1;
-	private int removalSpeed = 25000;//set to 50k
-	private Timer removalTimer, checkTimer;
+	private Timer checkTimer;
 	private JButton buildB;
 	private boolean built = false;
 	private int woodCost, leafCost;
@@ -32,16 +31,16 @@ public class Hut extends JPanel{
 		this.woodCost = woodCost;
 		this.leafCost = leafCost;
 		
+		BuiltBuildings.add(this);
+		
 		timerSetup();
 	}
 	
-	private void buildHut() {
+	private void build() {
 		setupComponents();
 	}
 	
 	private void timerSetup() {
-		removalTimer = new Timer(removalSpeed, new RemoveListener());
-		removalTimer.start(); 
 		
 		checkTimer = new Timer(checkSpeed, new CheckListener());
 		checkTimer.start(); 
@@ -82,7 +81,7 @@ public class Hut extends JPanel{
 		this.updateUI();
 	}
 	
-	private void removeHut() {
+	public void remove() {
 		buildB.setText("Build");
 		woodL.setText(woodCost + " Wood");
 		leafL.setText(leafCost + " Leaves");
@@ -92,21 +91,22 @@ public class Hut extends JPanel{
 		buildB.setForeground(Color.WHITE);
 		buildB.setBorderPainted(true);
 		buildB.setFocusable(false);
-		
-		buildB.setSize(75, 25);
-		
+			
 		hutL.setForeground(Color.WHITE);
 		woodL.setForeground(Color.WHITE);
 		leafL.setForeground(Color.WHITE);
 		
+		buildB.setSize(75, 25);
+		
 		buildB.setEnabled(true);
 		built = false;
 		People.removePeople(1);
-		
+		Resource.allResources.get(0).removeMultiplier(1);
+		Resource.allResources.get(1).removeMultiplier(1);
 		
 	}
 	
-	private void addHut() {
+	private void add() {
 		Resource.allResources.get(0).remove(woodCost);
 		Resource.allResources.get(1).remove(leafCost);
 		Resource.allResources.get(0).addMultiplier(1);
@@ -126,7 +126,7 @@ public class Hut extends JPanel{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == buildB && buildB.getText().equals("Build")) {
 				if(Resource.allResources.get(0).get() >= woodCost && Resource.allResources.get(1).get() >= leafCost && built == false) {
-					addHut();
+					add();
 				}
 			}	
 		}
@@ -138,7 +138,7 @@ public class Hut extends JPanel{
 		public void actionPerformed(ActionEvent event)
 		{
 			if(built == false && woodL == null && Resource.allResources.get(0).getUsed() >= maxWood) {
-				buildHut();
+				build();
 				Resource.allResources.get(2).setActive(true);
 			}
 		}

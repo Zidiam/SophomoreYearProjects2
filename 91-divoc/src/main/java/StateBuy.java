@@ -13,10 +13,9 @@ import javax.swing.JToolTip;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class StateBuy extends JPanel{
+public class StateBuy extends Building{
 	private int checkSpeed = 1;
-	private int removalSpeed = 2500;//set to 50k
-	private Timer removalTimer, checkTimer;
+	private Timer checkTimer;
 	private JButton buildB;
 	private boolean built = false;
 	private int woodCost, rabbitCost, waterCost;
@@ -35,17 +34,16 @@ public class StateBuy extends JPanel{
 		this.waterCost = waterCost;
 		this.rabbitCost = rabbitCost;
 		
+		BuiltBuildings.add(this);
+		
 		timerSetup();
 	}
 	
-	private void buildState() {
+	private void build() {
 		setupComponents();
 	}
 	
 	private void timerSetup() {
-		removalTimer = new Timer(removalSpeed, new RemoveListener());
-		removalTimer.start(); 
-		
 		checkTimer = new Timer(checkSpeed, new CheckListener());
 		checkTimer.start(); 
 	}
@@ -85,38 +83,29 @@ public class StateBuy extends JPanel{
 		this.updateUI();
 	}
 	
-	private void removeState() {
-		buildB.setText("State");
-		woodL.setText(woodCost + " Wood");
-		rabbitL.setText(rabbitCost + " Rabbit");
-		waterL.setText(waterCost + " Water");
+	public void remove() {
+		remove(state);
 		
-		buildB.setBackground(Color.black);
-		buildB.setForeground(Color.WHITE);
-		buildB.setBorderPainted(true);
-		buildB.setFocusable(false);
-		
-		buildB.setLocation(0, 0);
-		buildB.setSize(100, 25);
-
-		woodL.setForeground(Color.WHITE);
-		rabbitL.setForeground(Color.WHITE);
-		waterL.setForeground(Color.WHITE);
+		add(buildB);
+		add(woodL);
+		add(rabbitL);
+		add(waterL);
 		
 		buildB.setEnabled(true);
 		built = false;
-		People.removePeople(1);
-		
+		People.removePeople(25);
 		
 	}
 	
-	private void addState() {
+	private void add() {
 		Resource.allResources.get(0).remove(woodCost);
 		Resource.allResources.get(5).remove(waterCost);
 		Resource.allResources.get(2).remove(rabbitCost);
 		this.removeAll();
 		
 		state.setBounds(0, 0, 100, 100);
+		
+		People.addPeople(25);
 		
 		this.add(state);
 		built = true;
@@ -127,20 +116,9 @@ public class StateBuy extends JPanel{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == buildB && buildB.getText().equals("State")) {
 				if(Resource.allResources.get(0).get() >= woodCost && Resource.allResources.get(5).get() >= waterCost && Resource.allResources.get(2).get() >= rabbitCost && built == false) {
-					addState();
+					add();
 				}
 			}	
-		}
-	}
-	
-	private class RemoveListener implements ActionListener
-	{
-		public void actionPerformed(ActionEvent event)
-		{
-			//later we can destroy States over time if an invader comes and such
-			//if(built == true) {
-			//	removeState();	
-			//}
 		}
 	}
 	
@@ -149,7 +127,7 @@ public class StateBuy extends JPanel{
 		public void actionPerformed(ActionEvent event)
 		{
 			if(built == false && woodL == null && Resource.allResources.get(8).getOverall() >= maxFish) {
-				buildState();
+				build();
 			}
 		}
 	}

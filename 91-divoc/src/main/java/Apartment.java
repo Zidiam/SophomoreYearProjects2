@@ -13,10 +13,9 @@ import javax.swing.JToolTip;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class Apartment extends JPanel{
+public class Apartment extends Building{
 	private int checkSpeed = 1;
-	private int removalSpeed = 25000;//set to 50k
-	private Timer removalTimer, checkTimer;
+	private Timer checkTimer;
 	private JButton buildB;
 	private boolean built = false;
 	private int stoneCost, ironCost;
@@ -32,17 +31,16 @@ public class Apartment extends JPanel{
 		this.stoneCost = stoneCost;
 		this.ironCost = ironCost;
 		
+		BuiltBuildings.add(this);
+		
 		timerSetup();
 	}
 	
-	private void buildApartment() {
+	private void build() {
 		setupComponents();
 	}
 	
 	private void timerSetup() {
-		removalTimer = new Timer(removalSpeed, new RemoveListener());
-		removalTimer.start(); 
-		
 		checkTimer = new Timer(checkSpeed, new CheckListener());
 		checkTimer.start(); 
 	}
@@ -82,7 +80,7 @@ public class Apartment extends JPanel{
 		this.updateUI();
 	}
 	
-	private void removeApartment() {
+	public void remove() {
 		buildB.setText("Build");
 		ironL.setText(ironCost + " Iron");
 		stoneL.setText(stoneCost + " Stone");
@@ -101,12 +99,12 @@ public class Apartment extends JPanel{
 		
 		buildB.setEnabled(true);
 		built = false;
-		People.removePeople(1);
+		People.removePeople(3);
 		
 		
 	}
 	
-	private void addApartment() {
+	private void add() {
 		People.addPeople(3);
 		Resource.allResources.get(4).remove(stoneCost);
 		Resource.allResources.get(6).remove(ironCost);
@@ -124,20 +122,9 @@ public class Apartment extends JPanel{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == buildB && buildB.getText().equals("Build")) {
 				if(Resource.allResources.get(4).get() >= stoneCost && Resource.allResources.get(6).get() >= ironCost && built == false) {
-					addApartment();
+					add();
 				}
 			}	
-		}
-	}
-	
-	private class RemoveListener implements ActionListener
-	{
-		public void actionPerformed(ActionEvent event)
-		{
-			//later we can destroy Apartments over time if an invader comes and such
-			//if(built == true) {
-			//	removeApartment();	
-			//}
 		}
 	}
 	
@@ -146,7 +133,7 @@ public class Apartment extends JPanel{
 		public void actionPerformed(ActionEvent event)
 		{
 			if(built == false && ironL == null && Resource.allResources.get(0).getUsed() >= maxWood) {
-				buildApartment();
+				build();
 			}
 		}
 	}

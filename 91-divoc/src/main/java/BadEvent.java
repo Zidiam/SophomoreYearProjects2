@@ -5,6 +5,7 @@ import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -14,7 +15,7 @@ import javax.swing.Timer;
 
 public class BadEvent extends JPanel{
 	private Timer checkTimer, reloadTimer;
-	private int eventTime = 1000;
+	private int eventTime = 20000;
 	private boolean complete = false;
 	private JLabel swordL, eventL, choiceL;
 	private JButton deffendB, surrenderB, coverB, smallCoverB;
@@ -90,18 +91,23 @@ public class BadEvent extends JPanel{
 	}
 	
 	private void deffend() {
-		
+		for(int x = 0; x < BuiltBuildings.get().size(); x++) {
+			if(BuiltBuildings.get().get(x).isBuilt()) {
+				BuiltBuildings.get().get(x).remove();
+				break;
+			}
+		}
 		
 		Story.addStory("Since you deffended your villiage the bandits were only able to set fire to one building!");
 		
 		removeEverything();
 	}
 
-	private void surrender() {
-		
+	private void surrender() {	
 		for(int x = 0; x < Resource.allResources.size(); x++) {
 			if(Resource.allResources.get(x).isActive()) {
-				Resource.allResources.get(x).remove(Resource.allResources.get(x).get() / (Resource.allResources.get(x).getOverall() - Resource.allResources.get(x).get()));
+				Random rand = new Random();
+				Resource.allResources.get(x).remove(rand.nextInt(Resource.allResources.get(x).get()));
 			}
 		}
 		
@@ -137,7 +143,7 @@ public class BadEvent extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(active == false) {
+			if(active == false && BuiltBuildings.get().size() > 1) {
 				setupComponents();
 			}
 		}

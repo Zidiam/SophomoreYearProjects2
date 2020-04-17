@@ -22,6 +22,7 @@ public class City extends JPanel{
 	private Office office1, office2, office3, office4;
 	private Boat boat1, boat2, boat3, boat4;
 	private StoryLabel story;
+	private BadEvent event;
 	
 	public City() {
 		this.setLayout(null);
@@ -57,6 +58,15 @@ public class City extends JPanel{
 		this.updateUI();
 	}
 	
+	private void destroyUpgrade() {
+		remove(upgradeB);
+		remove(upgradeL);
+		
+		
+		upgradeB = null;
+		upgradeL = null;
+	}
+	
 	private void setupComponents() {
 		villiage = new VilliageButton();
 		
@@ -89,9 +99,11 @@ public class City extends JPanel{
 		story.setBounds(0, 600, 575, 75);
 		
 		wall.setBounds(0, 50, 575, 700);
-		
-		wall.setVisible(false);
 
+		event = new BadEvent();
+		event.setBounds(0, 0, 575, 700);
+		add(event);
+		
 		add(villiage);
 		add(office1);
 		add(office2);
@@ -136,16 +148,12 @@ public class City extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(office1.isBuilt() == true && office2.isBuilt() == true && office3.isBuilt() == true && office4.isBuilt() == true) {
-				if(boat1.isBuilt() == true && boat2.isBuilt() == true && boat3.isBuilt() == true && boat4.isBuilt() == true) {
-					if(wall.isVisible() == false) {
-						wall.setVisible(true);
-					}
-					if(wall.isBought()) {
-						if(upgradeB == null) {
-							setupUpgrade();
-						}
-					}
+			if(wall.isBought()) {
+				if(BuiltBuildings.getAmount() >= 8 && upgradeL == null) {
+					setupUpgrade();
+				}
+				if(BuiltBuildings.getAmount() < 8 && upgradeL != null) {
+					destroyUpgrade();
 				}
 			}
 		}

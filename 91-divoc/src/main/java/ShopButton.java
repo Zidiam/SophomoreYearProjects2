@@ -121,6 +121,7 @@ public class ShopButton extends JPanel{
 		buildB.setEnabled(false);
 		woodL.setText("");
 		waterL.setText("");
+		BuiltBuildings.addAmount(1);
 	}
 	
 	private class ButtonListener implements ActionListener{

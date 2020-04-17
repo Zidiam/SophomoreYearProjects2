@@ -13,10 +13,9 @@ import javax.swing.JToolTip;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class CityBuy extends JPanel{
+public class CityBuy extends Building{
 	private int checkSpeed = 1;
-	private int removalSpeed = 2500;//set to 50k
-	private Timer removalTimer, checkTimer;
+	private Timer checkTimer;
 	private JButton buildB;
 	private boolean built = false;
 	private int ironCost, fishCost, beefCost;
@@ -35,16 +34,16 @@ public class CityBuy extends JPanel{
 		this.beefCost = beefCost;
 		this.fishCost = fishCost;
 		
+		BuiltBuildings.add(this);
+		
 		timerSetup();
 	}
 	
-	private void buildCity() {
+	private void build() {
 		setupComponents();
 	}
 	
 	private void timerSetup() {
-		removalTimer = new Timer(removalSpeed, new RemoveListener());
-		removalTimer.start(); 
 		
 		checkTimer = new Timer(checkSpeed, new CheckListener());
 		checkTimer.start(); 
@@ -85,35 +84,26 @@ public class CityBuy extends JPanel{
 		this.updateUI();
 	}
 	
-	private void removeCity() {
-		buildB.setText("City");
-		ironL.setText(ironCost + " Iron");
-		fishL.setText(fishCost + " Fish");
-		beefL.setText(beefCost + " Beef");
+	public void remove() {
+		remove(city);
 		
-		buildB.setBackground(Color.black);
-		buildB.setForeground(Color.WHITE);
-		buildB.setBorderPainted(true);
-		buildB.setFocusable(false);
-		
-		buildB.setLocation(0, 0);
-		buildB.setSize(100, 25);
-
-		ironL.setForeground(Color.WHITE);
-		fishL.setForeground(Color.WHITE);
-		beefL.setForeground(Color.WHITE);
+		add(buildB);
+		add(ironL);
+		add(fishL);
+		add(beefL);
 		
 		buildB.setEnabled(true);
 		built = false;
-		People.removePeople(1);
+		People.removePeople(10);
 		
 		
 	}
 	
-	private void addCity() {
+	private void add() {
 		Resource.allResources.get(6).remove(ironCost);
 		Resource.allResources.get(7).remove(beefCost);
 		Resource.allResources.get(8).remove(fishCost);
+		People.addPeople(10);
 		this.removeAll();
 		
 		city.setBounds(0, 0, 75, 75);
@@ -127,20 +117,9 @@ public class CityBuy extends JPanel{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == buildB && buildB.getText().equals("City")) {
 				if(Resource.allResources.get(6).get() >= ironCost && Resource.allResources.get(7).get() >= beefCost && Resource.allResources.get(8).get() >= fishCost && built == false) {
-					addCity();
+					add();
 				}
 			}	
-		}
-	}
-	
-	private class RemoveListener implements ActionListener
-	{
-		public void actionPerformed(ActionEvent event)
-		{
-			//later we can destroy Citys over time if an invader comes and such
-			//if(built == true) {
-			//	removeCity();	
-			//}
 		}
 	}
 	
@@ -149,7 +128,7 @@ public class CityBuy extends JPanel{
 		public void actionPerformed(ActionEvent event)
 		{
 			if(built == false && ironL == null && Resource.allResources.get(8).getOverall() >= maxFish) {
-				buildCity();
+				build();
 			}
 		}
 	}

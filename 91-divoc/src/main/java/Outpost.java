@@ -1,6 +1,5 @@
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -13,10 +12,9 @@ import javax.swing.JToolTip;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class Outpost extends JPanel{
+public class Outpost extends Building{
 	private int checkSpeed = 1;
-	private int removalSpeed = 2500;//set to 50k
-	private Timer removalTimer, checkTimer;
+	private Timer checkTimer;
 	private JButton buildB;
 	private boolean built = false;
 	private int woodCost, leafCost, rabbitCost;
@@ -33,16 +31,16 @@ public class Outpost extends JPanel{
 		this.leafCost = leafCost;
 		this.rabbitCost = rabbitCost;
 		
+		BuiltBuildings.add(this);
+		
 		timerSetup();
 	}
 	
-	private void buildOutpost() {
+	private void build() {
 		setupComponents();
 	}
 	
 	private void timerSetup() {
-		removalTimer = new Timer(removalSpeed, new RemoveListener());
-		removalTimer.start(); 
 		
 		checkTimer = new Timer(checkSpeed, new CheckListener());
 		checkTimer.start(); 
@@ -83,7 +81,7 @@ public class Outpost extends JPanel{
 		this.updateUI();
 	}
 	
-	private void removeOutpost() {
+	public void remove() {
 		buildB.setText("Outpost");
 		woodL.setText(woodCost + " Wood");
 		leafL.setText(leafCost + " Leaves");
@@ -104,11 +102,11 @@ public class Outpost extends JPanel{
 		buildB.setEnabled(true);
 		built = false;
 		People.removePeople(1);
-		
+		Resource.allResources.get(2).removeMultiplier(1);
 		
 	}
 	
-	private void addOutpost() {
+	private void add() {
 		Resource.allResources.get(0).remove(woodCost);
 		Resource.allResources.get(1).remove(leafCost);
 		Resource.allResources.get(2).addMultiplier(1);
@@ -128,20 +126,9 @@ public class Outpost extends JPanel{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == buildB && buildB.getText().equals("Outpost")) {
 				if(Resource.allResources.get(0).get() >= woodCost && Resource.allResources.get(1).get() >= leafCost && Resource.allResources.get(2).get() >= rabbitCost && built == false) {
-					addOutpost();
+					add();
 				}
 			}	
-		}
-	}
-	
-	private class RemoveListener implements ActionListener
-	{
-		public void actionPerformed(ActionEvent event)
-		{
-			//later we can destroy outposts over time if an invader comes and such
-			//if(built == true) {
-			//	removeOutpost();	
-			//}
 		}
 	}
 	
@@ -150,7 +137,7 @@ public class Outpost extends JPanel{
 		public void actionPerformed(ActionEvent event)
 		{
 			if(built == false && woodL == null && Resource.allResources.get(2).getOverall() >= maxRabbit) {
-				buildOutpost();
+				build();
 			}
 		}
 	}

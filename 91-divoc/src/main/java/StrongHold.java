@@ -23,6 +23,7 @@ public class StrongHold extends JPanel{
 	private Wall wall;
 	private TradepostButton tradepost;
 	private StoryLabel story;
+	private BadEvent event;
 	
 	public StrongHold() {
 		this.setLayout(null);
@@ -55,7 +56,16 @@ public class StrongHold extends JPanel{
 		add(upgradeB);
 		add(upgradeL);
 		
-		this.updateUI();
+		//this.updateUI();
+	}
+	
+	private void destroyUpgrade() {
+		remove(upgradeB);
+		remove(upgradeL);
+		
+		
+		upgradeB = null;
+		upgradeL = null;
 	}
 	
 	private void setupComponents() {
@@ -91,7 +101,10 @@ public class StrongHold extends JPanel{
 		
 		wall.setBounds(0, 50, 575, 700);
 		
-		wall.setVisible(false);
+		event = new BadEvent();
+		event.setBounds(0, 0, 575, 700);
+		add(event);
+		
 		add(camp);
 		add(farm1);
 		add(farm2);
@@ -122,16 +135,12 @@ public class StrongHold extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(farm1.isBuilt() == true && farm2.isBuilt() == true && farm3.isBuilt() == true && farm4.isBuilt() == true) {
-				if(mine1.isBuilt() == true && mine2.isBuilt() == true && mine3.isBuilt() == true && tradepost.isBuilt() == true) {
-					if(wall.isVisible() == false) {
-						wall.setVisible(true);
-					}
-					if(wall.isBought()) {
-						if(upgradeB == null) {
-							setupUpgrade();
-						}
-					}
+			if(wall.isBought()) {
+				if(BuiltBuildings.getAmount() >= 8 && upgradeL == null) {
+					setupUpgrade();
+				}
+				if(BuiltBuildings.getAmount() < 8 && upgradeL != null) {
+					destroyUpgrade();
 				}
 			}
 		}

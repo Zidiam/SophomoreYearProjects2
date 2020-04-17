@@ -13,10 +13,9 @@ import javax.swing.JToolTip;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-public class Well extends JPanel{
+public class Well extends Building{
 	private int checkSpeed = 1;
-	private int removalSpeed = 2500;//set to 50k
-	private Timer removalTimer, checkTimer;
+	private Timer checkTimer;
 	private JButton buildB;
 	private boolean built = false;
 	private int woodCost, leafCost, stoneCost;
@@ -33,17 +32,16 @@ public class Well extends JPanel{
 		this.stoneCost = stoneCost;
 		this.leafCost = leafCost;
 		
+		BuiltBuildings.add(this);
+		
 		timerSetup();
 	}
 	
-	private void buildWell() {
+	private void build() {
 		setupComponents();
 	}
 	
 	private void timerSetup() {
-		removalTimer = new Timer(removalSpeed, new RemoveListener());
-		removalTimer.start(); 
-		
 		checkTimer = new Timer(checkSpeed, new CheckListener());
 		checkTimer.start(); 
 	}
@@ -83,7 +81,7 @@ public class Well extends JPanel{
 		this.updateUI();
 	}
 	
-	private void removeWell() {
+	public void remove() {
 		buildB.setText("Well");
 		woodL.setText(woodCost + " Wood");
 		leafL.setText(leafCost + " Leaves");
@@ -108,7 +106,7 @@ public class Well extends JPanel{
 		
 	}
 	
-	private void addWell() {
+	private void add() {
 		Resource.allResources.get(0).remove(woodCost);
 		Resource.allResources.get(4).remove(stoneCost);
 		Resource.allResources.get(1).remove(leafCost);
@@ -128,20 +126,9 @@ public class Well extends JPanel{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == buildB && buildB.getText().equals("Well")) {
 				if(Resource.allResources.get(0).get() >= woodCost && Resource.allResources.get(4).get() >= stoneCost && Resource.allResources.get(1).get() >= leafCost && built == false) {
-					addWell();
+					add();
 				}
 			}	
-		}
-	}
-	
-	private class RemoveListener implements ActionListener
-	{
-		public void actionPerformed(ActionEvent event)
-		{
-			//later we can destroy Wells over time if an invader comes and such
-			//if(built == true) {
-			//	removeWell();	
-			//}
 		}
 	}
 	
@@ -150,7 +137,7 @@ public class Well extends JPanel{
 		public void actionPerformed(ActionEvent event)
 		{
 			if(built == false && woodL == null && People.getPeople() >= maxPeople) {
-				buildWell();
+				build();
 			}
 		}
 	}

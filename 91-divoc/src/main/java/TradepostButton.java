@@ -15,8 +15,7 @@ import javax.swing.Timer;
 
 public class TradepostButton extends JPanel{
 	private int checkSpeed = 1;
-	private int removalSpeed = 2500;//set to 50k
-	private Timer removalTimer, checkTimer;
+	private Timer checkTimer;
 	private JButton buildB;
 	private boolean built = false;
 	private int woodCost, leafCost, rabbitCost;
@@ -41,9 +40,6 @@ public class TradepostButton extends JPanel{
 	}
 	
 	private void timerSetup() {
-		removalTimer = new Timer(removalSpeed, new RemoveListener());
-		removalTimer.start(); 
-		
 		checkTimer = new Timer(checkSpeed, new CheckListener());
 		checkTimer.start(); 
 	}
@@ -83,31 +79,6 @@ public class TradepostButton extends JPanel{
 		this.updateUI();
 	}
 	
-	private void removeTradepost() {
-		buildB.setText("Tradepost");
-		woodL.setText(woodCost + " Wood");
-		leafL.setText(leafCost + " Leaves");
-		rabbitL.setText(rabbitCost + " Rabbits");
-		
-		buildB.setBackground(Color.black);
-		buildB.setForeground(Color.WHITE);
-		buildB.setBorderPainted(true);
-		buildB.setFocusable(false);
-		
-		buildB.setLocation(0, 0);
-		buildB.setSize(100, 25);
-
-		woodL.setForeground(Color.WHITE);
-		leafL.setForeground(Color.WHITE);
-		rabbitL.setForeground(Color.WHITE);
-		
-		buildB.setEnabled(true);
-		built = false;
-		People.removePeople(1);
-		
-		
-	}
-	
 	private void addTradepost() {
 		Tradepost.setActive(true);
 		Resource.allResources.get(0).remove(woodCost);
@@ -121,6 +92,7 @@ public class TradepostButton extends JPanel{
 		buildB.setEnabled(false);
 		woodL.setText("");
 		leafL.setText("");
+		BuiltBuildings.addAmount(1);
 	}
 	
 	private class ButtonListener implements ActionListener{
@@ -130,17 +102,6 @@ public class TradepostButton extends JPanel{
 					addTradepost();
 				}
 			}	
-		}
-	}
-	
-	private class RemoveListener implements ActionListener
-	{
-		public void actionPerformed(ActionEvent event)
-		{
-			//later we can destroy Tradeposts over time if an invader comes and such
-			//if(built == true) {
-			//	removeTradepost();	
-			//}
 		}
 	}
 	

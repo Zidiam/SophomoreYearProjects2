@@ -22,6 +22,7 @@ public class Town extends JPanel{
 	private Apartment apartment1, apartment2, apartment3, apartment4;
 	private Ranch ranch1, ranch2, ranch3, ranch4;
 	private StoryLabel story;
+	private BadEvent event;
 	
 	public Town() {
 		this.setLayout(null);
@@ -57,6 +58,15 @@ public class Town extends JPanel{
 		this.updateUI();
 	}
 	
+	private void destroyUpgrade() {
+		remove(upgradeB);
+		remove(upgradeL);
+		
+		
+		upgradeB = null;
+		upgradeL = null;
+	}
+	
 	private void setupComponents() {
 		villiage = new VilliageButton();
 		
@@ -90,8 +100,10 @@ public class Town extends JPanel{
 		
 		wall.setBounds(0, 50, 575, 700);
 		
-		wall.setVisible(false);
-
+		event = new BadEvent();
+		event.setBounds(0, 0, 575, 700);
+		add(event);
+		
 		add(villiage);
 		add(apartment1);
 		add(apartment2);
@@ -103,6 +115,7 @@ public class Town extends JPanel{
 		add(ranch3);
 		add(ranch4);
 		add(story);
+		
 		add(wall);
 	}
 	
@@ -133,16 +146,12 @@ public class Town extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(apartment1.isBuilt() == true && apartment2.isBuilt() == true && apartment3.isBuilt() == true && apartment4.isBuilt() == true) {
-				if(ranch1.isBuilt() == true && ranch2.isBuilt() == true && ranch3.isBuilt() == true && ranch4.isBuilt() == true) {
-					if(wall.isVisible() == false) {
-						wall.setVisible(true);
-					}
-					if(wall.isBought()) {
-						if(upgradeB == null) {
-							setupUpgrade();
-						}
-					}
+			if(wall.isBought()) {
+				if(BuiltBuildings.getAmount() >= 8 && upgradeL == null) {
+					setupUpgrade();
+				}
+				if(BuiltBuildings.getAmount() < 8 && upgradeL != null) {
+					destroyUpgrade();
 				}
 			}
 		}

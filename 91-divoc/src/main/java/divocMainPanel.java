@@ -23,7 +23,7 @@ public class divocMainPanel extends JPanel{
 	private City city;
 	private State state;
 	private Nation nation;
-	private boolean admin = true;
+	private boolean admin = false;
 	private Tradepost tradepost; 
 	private Shop shop;
 	private Resource wood, leaf, rabbit, wheat, stone, water, iron, beef, fish;
@@ -101,6 +101,7 @@ public class divocMainPanel extends JPanel{
 	
 	private void updateTabs() {
 		if(camp.isComplete() && stronghold == null) {
+			BuiltBuildings.removeall();
 			stronghold = new StrongHold();
 			tabs.remove(0);
 			tabs.add(stronghold, 0);
@@ -108,6 +109,7 @@ public class divocMainPanel extends JPanel{
 			tabs.setSelectedIndex(0);
 		}
 		if(camp.isComplete() && stronghold.isComplete() && villiage == null) {
+			BuiltBuildings.removeall();
 			villiage = new Villiage();
 			tabs.remove(0);
 			tabs.add(villiage, 0);
@@ -115,6 +117,7 @@ public class divocMainPanel extends JPanel{
 			tabs.setSelectedIndex(0);
 		}
 		if(camp.isComplete() && stronghold.isComplete() && villiage.isComplete() && town == null) {
+			BuiltBuildings.removeall();
 			town = new Town();
 			tabs.remove(0);
 			tabs.add(town, 0);
@@ -122,6 +125,7 @@ public class divocMainPanel extends JPanel{
 			tabs.setSelectedIndex(0);
 		}
 		if(camp.isComplete() && stronghold.isComplete() && villiage.isComplete() && town.isComplete() && city == null) {
+			BuiltBuildings.removeall();
 			city = new City();
 			tabs.remove(0);
 			tabs.add(city, 0);
@@ -129,6 +133,7 @@ public class divocMainPanel extends JPanel{
 			tabs.setSelectedIndex(0);
 		}
 		if(camp.isComplete() && stronghold.isComplete() && villiage.isComplete() && town.isComplete() && city.isComplete() && state == null) {
+			BuiltBuildings.removeall();
 			state = new State();
 			tabs.remove(0);
 			tabs.add(state, 0);
@@ -136,6 +141,7 @@ public class divocMainPanel extends JPanel{
 			tabs.setSelectedIndex(0);
 		}
 		if(camp.isComplete() && stronghold.isComplete() && villiage.isComplete() && town.isComplete() && city.isComplete() && state.isComplete() && nation == null) {
+			BuiltBuildings.removeall();
 			nation = new Nation();
 			tabs.remove(0);
 			tabs.add(nation, 0);
@@ -143,6 +149,7 @@ public class divocMainPanel extends JPanel{
 			tabs.setSelectedIndex(0);
 		}
 		if(camp.isComplete() && stronghold.isComplete() && villiage.isComplete() && town.isComplete() && city.isComplete() && state.isComplete() && nation.isComplete() == true && end == null) {
+			BuiltBuildings.removeall();
 			end = new EndGame();
 			remove(tabs);
 			end.setBounds(0, 0, 575, 700);

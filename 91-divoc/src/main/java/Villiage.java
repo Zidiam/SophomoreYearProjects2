@@ -23,6 +23,7 @@ public class Villiage extends JPanel{
 	private Well well1, well2, well3;
 	private ShopButton shop;
 	private StoryLabel story;
+	private BadEvent event;
 	
 	public Villiage() {
 		this.setLayout(null);
@@ -58,6 +59,15 @@ public class Villiage extends JPanel{
 		this.updateUI();
 	}
 	
+	private void destroyUpgrade() {
+		remove(upgradeB);
+		remove(upgradeL);
+		
+		
+		upgradeB = null;
+		upgradeL = null;
+	}
+	
 	private void setupComponents() {
 		stronghold = new StrongholdButton();
 		
@@ -89,9 +99,11 @@ public class Villiage extends JPanel{
 		story.setBounds(0, 600, 575, 75);
 		
 		wall.setBounds(0, 50, 575, 700);
-		
-		wall.setVisible(false);
 
+		event = new BadEvent();
+		event.setBounds(0, 0, 575, 700);
+		add(event);
+		
 		add(stronghold);
 		add(house1);
 		add(house2);
@@ -126,16 +138,12 @@ public class Villiage extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(house1.isBuilt() == true && house2.isBuilt() == true && house3.isBuilt() == true && house4.isBuilt() == true) {
-				if(well1.isBuilt() == true && well2.isBuilt() == true && well3.isBuilt() == true && shop.isBuilt() == true) {
-					if(wall.isVisible() == false) {
-						wall.setVisible(true);
-					}
-					if(wall.isBought()) {
-						if(upgradeB == null) {
-							setupUpgrade();
-						}
-					}
+			if(wall.isBought()) {
+				if(BuiltBuildings.getAmount() >= 8 && upgradeL == null) {
+					setupUpgrade();
+				}
+				if(BuiltBuildings.getAmount() < 8 && upgradeL != null) {
+					destroyUpgrade();
 				}
 			}
 		}
