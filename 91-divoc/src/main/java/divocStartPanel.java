@@ -1,10 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.util.ArrayList;
-import java.util.Random;
 
 public class divocStartPanel extends JPanel{
 	
@@ -95,4 +91,3 @@ public class divocStartPanel extends JPanel{
 		}
 	}
 }
-	

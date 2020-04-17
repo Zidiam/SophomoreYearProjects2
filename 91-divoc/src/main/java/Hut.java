@@ -131,17 +131,7 @@ public class Hut extends JPanel{
 			}	
 		}
 	}
-	
-	private class RemoveListener implements ActionListener
-	{
-		public void actionPerformed(ActionEvent event)
-		{
-			//later we can destroy huts over time if an invader comes and such
-			//if(built == true) {
-			//	removeHut();	
-			//}
-		}
-	}
+
 	
 	private class CheckListener implements ActionListener
 	{

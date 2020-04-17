@@ -14,9 +14,9 @@ import javax.swing.Timer;
 
 public class BadEvent extends JPanel{
 	private Timer checkTimer, reloadTimer;
-	private int eventTime = 100;
+	private int eventTime = 1000;
 	private boolean complete = false;
-	private JLabel swordL, eventL;
+	private JLabel swordL, eventL, choiceL;
 	private JButton deffendB, surrenderB, coverB, smallCoverB;
 	private boolean active;
 	
@@ -47,6 +47,8 @@ public class BadEvent extends JPanel{
 		surrenderB = new JButton("SURRENDER");
 		coverB = new JButton();
 		smallCoverB = new JButton();
+		eventL = new JLabel("Bandits are invading your camp!", SwingConstants.CENTER);
+		choiceL = new JLabel("What will you do?", SwingConstants.CENTER);
 		
 		coverB.setOpaque(false);
 		
@@ -55,7 +57,8 @@ public class BadEvent extends JPanel{
 		surrenderB.setBounds(305, 400, 125, 25);
 		coverB.setBounds(0, 0, 575, 700);
 		smallCoverB.setBounds(130, 250, 300, 175);
-		
+		eventL.setBounds(130, 305, 300, 25);
+		choiceL.setBounds(130, 355, 300, 25);
 		
 		swordL.setFont(new Font("Dialog", 1, 50));
 		
@@ -68,7 +71,10 @@ public class BadEvent extends JPanel{
 		smallCoverB.setBackground(Color.WHITE);
 		
 		deffendB.addActionListener(new ButtonListener());
+		surrenderB.addActionListener(new ButtonListener());
 		
+		add(choiceL);
+		add(eventL);
 		add(swordL);
 		add(deffendB);
 		add(surrenderB);
@@ -83,6 +89,27 @@ public class BadEvent extends JPanel{
 		return complete;
 	}
 	
+	private void deffend() {
+		
+		
+		Story.addStory("Since you deffended your villiage the bandits were only able to set fire to one building!");
+		
+		removeEverything();
+	}
+
+	private void surrender() {
+		
+		for(int x = 0; x < Resource.allResources.size(); x++) {
+			if(Resource.allResources.get(x).isActive()) {
+				Resource.allResources.get(x).remove(Resource.allResources.get(x).get() / (Resource.allResources.get(x).getOverall() - Resource.allResources.get(x).get()));
+			}
+		}
+		
+		Story.addStory("Since you surrenderd your villiage the bandits only took your resources and fled");
+		
+		removeEverything();
+	}
+	
 	private void removeEverything() {
 		
 		this.removeAll();
@@ -94,7 +121,10 @@ public class BadEvent extends JPanel{
 	private class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event) {
 			if(event.getSource() == surrenderB) {
-				removeEverything();
+				surrender();
+			}
+			if(event.getSource() == deffendB) {
+				deffend();
 			}
 		}
 	}
