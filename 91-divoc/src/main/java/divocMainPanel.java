@@ -28,14 +28,17 @@ public class divocMainPanel extends JPanel{
 	private Shop shop;
 	private Resource wood, leaf, rabbit, wheat, stone, water, iron, beef, fish;
 	private Story story;
-	private EndGame end;
+	private Outro outro;
+	private Frame main;
 	
-	public divocMainPanel() {
+	public divocMainPanel(Frame main) {
 		timer = new Timer(speed, new GameListener());
 		
 		setupValues();
 		setupStories();
 		setupComponents();
+		
+		this.main = main;
 		
 		setBackground(Color.WHITE);
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -148,12 +151,11 @@ public class divocMainPanel extends JPanel{
 			tabs.setTitleAt(0, "Nation");
 			tabs.setSelectedIndex(0);
 		}
-		if(camp.isComplete() && stronghold.isComplete() && villiage.isComplete() && town.isComplete() && city.isComplete() && state.isComplete() && nation.isComplete() == true && end == null) {
-			BuiltBuildings.removeall();
-			end = new EndGame();
+		if(camp.isComplete() && stronghold.isComplete() && villiage.isComplete() && town.isComplete() && city.isComplete() && state.isComplete() && nation.isComplete() == true && outro == null) {
+			outro = new Outro(main);
 			remove(tabs);
-			end.setBounds(0, 0, 575, 700);
-			add(end);
+			outro.setBounds(0, 0, 575, 700);
+			add(outro);
 			this.updateUI();
 		}
 		if(Tradepost.isActive()) {

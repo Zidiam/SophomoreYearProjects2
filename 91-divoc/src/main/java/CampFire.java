@@ -29,7 +29,6 @@ public class CampFire extends JPanel{
 	
 	private void timerSetup() {
 		removalTimer = new Timer(removalSpeed, new RemoveListener());
-		removalTimer.start(); 
 	}
 	
 	public boolean isLit() {
@@ -62,9 +61,12 @@ public class CampFire extends JPanel{
 					collectB.setBackground(Color.WHITE);
 					lit = true;
 					Story.addStory("The fire burns bright!");
+					removalTimer.restart(); 
 				}
-				else 
+				else {
 					Story.addStory("You need to gather wood from the forest!");
+					removalTimer.restart(); 	
+				}
 			}	
 		}
 	}
@@ -79,6 +81,10 @@ public class CampFire extends JPanel{
 				collectB.setBackground(Color.BLACK);
 				lit = false;
 				Story.addStory("As the fire dims so does your life");
+				BadEvent.checkTimer.restart();
+			}
+			if(lit == false && !BadEvent.checkTimer.isRunning()) {
+				BadEvent.checkTimer.start();
 			}
 		}
 	}

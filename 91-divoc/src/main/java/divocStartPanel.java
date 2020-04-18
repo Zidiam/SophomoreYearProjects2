@@ -13,10 +13,13 @@ public class divocStartPanel extends JPanel{
 	private JLabel creatorL, versionL;
 	private Intro intro;
 	private Timer checkTimer;
+	private Frame main;
 	
-	public divocStartPanel() {
+	public divocStartPanel(Frame main) {
 		createComponents();
 		checkTimer = new Timer(speed, new CheckListener());
+		
+		this.main = main;
 		
 		this.setLayout(null);
 		setBackground(Color.WHITE);
@@ -30,7 +33,7 @@ public class divocStartPanel extends JPanel{
 		titleL = new JLabel("19-DIVOC");
 		enterB = new JButton("Enter");
 		creatorL = new JLabel("Creator: Jason Melnik");
-		versionL = new JLabel("Version: 2.0 BETA", SwingConstants.RIGHT);
+		versionL = new JLabel("Version: 2.1 BETA", SwingConstants.RIGHT);
 		
 		enterB.setBounds(225, 300, 100, 25);
 		titleL.setBounds(185, 200, 250, 50);
@@ -51,11 +54,8 @@ public class divocStartPanel extends JPanel{
 	public void startGame() {
 		this.removeAll();
 		intro = new Intro();
+		intro.setBounds(0, 0, 575, 700);
 		this.add(intro);
-		
-		mainP = new divocMainPanel();
-		this.setLayout(new BorderLayout());
-		this.add(mainP);
 		this.updateUI();
 	}
 	
@@ -68,8 +68,10 @@ public class divocStartPanel extends JPanel{
 	}
 	
 	private void setupGame() {
-		mainP = new divocMainPanel();
-		this.setLayout(new BorderLayout());
+		this.removeAll();
+		mainP = new divocMainPanel(main);
+		
+		mainP.setBounds(0, 0, 575, 700);
 		this.add(mainP);
 		this.updateUI();
 	}

@@ -14,8 +14,9 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 public class BadEvent extends JPanel{
-	private Timer checkTimer, reloadTimer;
-	private int eventTime = 20000;
+	private Timer reloadTimer;
+	public static Timer checkTimer;
+	private int eventTime = 35000;
 	private boolean complete = false;
 	private JLabel swordL, eventL, choiceL;
 	private JButton deffendB, surrenderB, coverB, smallCoverB;
@@ -35,7 +36,6 @@ public class BadEvent extends JPanel{
 	
 	private void setupTimers() {
 		checkTimer = new Timer(eventTime, new CheckListener());
-		checkTimer.start(); 
 		
 		reloadTimer = new Timer(1, new ReloadListener());
 		reloadTimer.start(); 
@@ -82,7 +82,6 @@ public class BadEvent extends JPanel{
 		add(coverB);
 		add(smallCoverB);
 		active = true;
-		checkTimer.stop(); 
 		this.updateUI();
 	}
 	
@@ -107,11 +106,12 @@ public class BadEvent extends JPanel{
 		for(int x = 0; x < Resource.allResources.size(); x++) {
 			if(Resource.allResources.get(x).isActive()) {
 				Random rand = new Random();
-				Resource.allResources.get(x).remove(rand.nextInt(Resource.allResources.get(x).get()));
+				if(Resource.allResources.get(x).get() > 0) {
+					Resource.allResources.get(x).remove(rand.nextInt(Resource.allResources.get(x).get()));
+					Story.addStory("Since you surrenderd your villiage the bandits only took your resources and fled");
+				}
 			}
 		}
-		
-		Story.addStory("Since you surrenderd your villiage the bandits only took your resources and fled");
 		
 		removeEverything();
 	}
@@ -121,7 +121,6 @@ public class BadEvent extends JPanel{
 		this.removeAll();
 		active = false;
 		this.updateUI();
-		checkTimer.start(); 
 	}
 	
 	private class ButtonListener implements ActionListener{
@@ -143,7 +142,7 @@ public class BadEvent extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(active == false && BuiltBuildings.get().size() > 1) {
+			if(active == false && BuiltBuildings.getAmount() > 1) {
 				setupComponents();
 			}
 		}

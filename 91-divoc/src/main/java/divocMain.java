@@ -9,7 +9,7 @@ public class divocMain {
 		JFrame frame = new JFrame("91-divoc");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		frame.getContentPane().add(new divocStartPanel());
+		frame.getContentPane().add(new divocStartPanel(frame));
 		
 		frame.pack();
 		frame.setVisible(true);
