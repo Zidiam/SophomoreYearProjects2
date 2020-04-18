@@ -33,7 +33,7 @@ public class divocStartPanel extends JPanel{
 		titleL = new JLabel("19-DIVOC");
 		enterB = new JButton("Enter");
 		creatorL = new JLabel("Creator: Jason Melnik");
-		versionL = new JLabel("Version: 2.1 BETA", SwingConstants.RIGHT);
+		versionL = new JLabel("Version: 2.6", SwingConstants.RIGHT);
 		
 		enterB.setBounds(225, 300, 100, 25);
 		titleL.setBounds(185, 200, 250, 50);
