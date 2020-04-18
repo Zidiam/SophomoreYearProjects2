@@ -100,11 +100,6 @@ public class Tradepost extends JPanel{
 		loadTimer.start(); 
 	}
 	
-	private void checkConversion() {
-		this.updateUI();
-		
-	}
-	
 	private class CheckListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent event)

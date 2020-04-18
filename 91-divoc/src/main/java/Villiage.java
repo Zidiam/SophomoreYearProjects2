@@ -75,14 +75,17 @@ public class Villiage extends JPanel{
 		story = new StoryLabel();
 		
 		wall = new Wall(250, 250);
-		house1 = new House(500, 400, 90);
-		house2 = new House(600, 500, 100);
-		house3 = new House(700, 600, 110);
-		house4 = new House(800, 700, 120);
 		
-		well1 = new Well(550, 400, 250, 14);
-		well2 = new Well(650, 500, 400, 16);
-		well3 = new Well(800, 650, 500, 18);
+		int woodc = Resource.allResources.get(0).getUsed();
+		
+		house1 = new House(1400, 400, woodc + 1);
+		house2 = new House(2000, 600, woodc + 5);
+		house3 = new House(2500, 800, woodc + 10);
+		house4 = new House(4000, 1000, woodc + 15);
+		
+		well1 = new Well(1500, 450, 250, 14);
+		well2 = new Well(1750, 750, 400, 16);
+		well3 = new Well(2050, 905, 600, 18);
 		
 		stronghold.setBounds(245, 300, 75, 75);
 		
@@ -95,7 +98,7 @@ public class Villiage extends JPanel{
 		well2.setBounds(405, 450, 100, 100);
 		well3.setBounds(70, 450, 100, 100);
 		
-		shop.setBounds(70, 100, 100, 100);
+		shop.setBounds(70, 100, 100, 1);
 		story.setBounds(0, 600, 575, 75);
 		
 		wall.setBounds(0, 50, 575, 700);

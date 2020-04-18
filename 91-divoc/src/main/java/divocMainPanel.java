@@ -84,8 +84,15 @@ public class divocMainPanel extends JPanel{
 	}
 	
 	private void setupStories() {
-		wood.setStory("SPOOKY WOOD");
-		leaf.setStory("SPOOKY LEAF");
+		wood.setStory("Old rotten wood found near dead corpses");
+		leaf.setStory("Leaves found around the wood");
+		rabbit.setStory("Has green swolen bumps all over the skin");
+		wheat.setStory("It looks like dirt and not worth eating");
+		stone.setStory("Some hard material for hard buildings");
+		water.setStory("Grayish in color but water is water");
+		iron.setStory("A harder material than stone to build bigger buildings");
+		beef.setStory("No way to make sure this meat is clean but atleast its something to eat");
+		fish.setStory("Most are dead and floating on top of the water");
 	}
 	
 	private void setupComponents() {

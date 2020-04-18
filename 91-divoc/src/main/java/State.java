@@ -72,14 +72,17 @@ public class State extends JPanel{
 		Resource.allResources.get(6).setActive(true);
 		story = new StoryLabel();
 		wall = new Wall(5000, 5000);
-		city1 = new CityBuy(1250, 900, 100, 10);
-		city2 = new CityBuy(1250, 900, 100, 10);
-		city3 = new CityBuy(1250, 900, 100, 10);
-		city4 = new CityBuy(1250, 900, 100, 10);
-		city5 = new CityBuy(1250, 900, 100, 10);
-		city6 = new CityBuy(1300, 1000, 200, 100);
-		city7 = new CityBuy(1500, 1200, 800, 200);
-		city8 = new CityBuy(2000, 1600, 1000, 400);
+		
+		int woodc = Resource.allResources.get(0).getUsed();
+		
+		city1 = new CityBuy(500, 400, 100, woodc + 1);
+		city2 = new CityBuy(1000, 800, 200, woodc + 5);
+		city3 = new CityBuy(1500, 1200, 400, woodc + 10);
+		city4 = new CityBuy(2500, 1200, 600, woodc + 20);
+		city5 = new CityBuy(3500, 2500, 1500, woodc + 35);
+		city6 = new CityBuy(5500, 3600, 2500, woodc + 50);
+		city7 = new CityBuy(8200, 5600, 3500, woodc + 75);
+		city8 = new CityBuy(10000, 8000, 6000, woodc + 100);
 		
 		city.setBounds(245, 300, 75, 75);
 		

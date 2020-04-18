@@ -72,12 +72,12 @@ public class Camp extends JPanel{
 		
 		hut1 = new Hut(10, 5, 5);
 		hut2 = new Hut(20, 10, 10);
-		hut3 = new Hut(30, 15, 20);
-		hut4 = new Hut(50, 30, 40);
+		hut3 = new Hut(30, 15, 15);
+		hut4 = new Hut(50, 30, 20);
 		
 		outpost1 = new Outpost(60, 35, 10, 5);
-		outpost2 = new Outpost(80, 45, 15, 10);
-		outpost3 = new Outpost(90, 55, 20, 20);
+		outpost2 = new Outpost(80, 45, 15, 20);
+		outpost3 = new Outpost(90, 55, 20, 30);
 		outpost4 = new Outpost(100, 65, 30, 40);
 		
 		campfire.setBounds(245, 300, 75, 75);

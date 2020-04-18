@@ -20,16 +20,16 @@ public class CityBuy extends Building{
 	private boolean built = false;
 	private int ironCost, fishCost, beefCost;
 	private JLabel ironL, fishL, beefL;
-	private int maxFish;
+	private int maxWood;
 	private CityButton city;
 	
-	public CityBuy(int ironCost, int fishCost, int beefCost, int maxFish) {
+	public CityBuy(int ironCost, int fishCost, int beefCost, int maxWood) {
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(100, 100));
 		this.setBackground(Color.black);
 
 		city = new CityButton();
-		this.maxFish = maxFish;
+		this.maxWood = maxWood;
 		this.ironCost = ironCost;
 		this.beefCost = beefCost;
 		this.fishCost = fishCost;
@@ -127,7 +127,7 @@ public class CityBuy extends Building{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(built == false && ironL == null && Resource.allResources.get(8).getOverall() >= maxFish) {
+			if(built == false && ironL == null && Resource.allResources.get(0).getOverall() >= maxWood) {
 				build();
 			}
 		}

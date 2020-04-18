@@ -20,16 +20,16 @@ public class StateBuy extends Building{
 	private boolean built = false;
 	private int woodCost, rabbitCost, waterCost;
 	private JLabel woodL, rabbitL, waterL;
-	private int maxFish;
+	private int maxWood;
 	private StateButton state;
 	
-	public StateBuy(int woodCost, int rabbitCost, int waterCost, int maxFish) {
+	public StateBuy(int woodCost, int rabbitCost, int waterCost, int maxWood) {
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(100, 100));
 		this.setBackground(Color.black);
 
 		state = new StateButton();
-		this.maxFish = maxFish;
+		this.maxWood = maxWood;
 		this.woodCost = woodCost;
 		this.waterCost = waterCost;
 		this.rabbitCost = rabbitCost;
@@ -126,7 +126,7 @@ public class StateBuy extends Building{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(built == false && woodL == null && Resource.allResources.get(8).getOverall() >= maxFish) {
+			if(built == false && woodL == null && Resource.allResources.get(0).getOverall() >= maxWood) {
 				build();
 			}
 		}

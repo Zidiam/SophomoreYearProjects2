@@ -102,7 +102,6 @@ public class Boat extends Building{
 		
 		buildB.setEnabled(true);
 		built = false;
-		People.removePeople(1);
 		Resource.allResources.get(8).removeMultiplier(1);
 		
 		

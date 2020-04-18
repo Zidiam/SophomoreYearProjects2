@@ -20,14 +20,14 @@ public class TradepostButton extends JPanel{
 	private boolean built = false;
 	private int woodCost, leafCost, rabbitCost;
 	private JLabel woodL, leafL, rabbitL;
-	private int maxRabbit;
+	private int maxStone;
 	
-	public TradepostButton(int woodCost, int leafCost, int rabbitCost, int maxRabbit) {
+	public TradepostButton(int woodCost, int leafCost, int rabbitCost, int maxStone) {
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(100, 100));
 		this.setBackground(Color.black);
 
-		this.maxRabbit = maxRabbit;
+		this.maxStone = maxStone;
 		this.woodCost = woodCost;
 		this.leafCost = leafCost;
 		this.rabbitCost = rabbitCost;
@@ -109,7 +109,7 @@ public class TradepostButton extends JPanel{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			if(built == false && woodL == null && Resource.allResources.get(2).getOverall() >= maxRabbit) {
+			if(built == false && woodL == null && Resource.allResources.get(4).getOverall() >= maxStone) {
 				buildTradepost();
 			}
 		}

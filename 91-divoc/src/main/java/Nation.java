@@ -74,14 +74,17 @@ public class Nation extends JPanel{
 		story = new StoryLabel();
 		
 		wall = new Wall(5000, 5000);
-		state1 = new StateBuy(1250, 900, 100, 10);
-		state2 = new StateBuy(1250, 900, 100, 10);
-		state3 = new StateBuy(1250, 900, 100, 10);
-		state4 = new StateBuy(1250, 900, 100, 10);
-		state5 = new StateBuy(1250, 900, 100, 10);
-		state6 = new StateBuy(1300, 1000, 200, 100);
-		state7 = new StateBuy(1500, 1200, 800, 200);
-		state8 = new StateBuy(2000, 1600, 1000, 400);
+		
+		int woodc = Resource.allResources.get(0).getUsed();
+		
+		state1 = new StateBuy(10000, 8000, 6000, woodc + 1);
+		state2 = new StateBuy(10200, 8200, 6200, woodc + 5);
+		state3 = new StateBuy(12000, 10000, 8000, woodc + 10);
+		state4 = new StateBuy(14000, 12000, 10000, woodc + 20);
+		state5 = new StateBuy(16000, 14000, 12000, woodc + 35);
+		state6 = new StateBuy(18000, 16000, 14000, woodc + 55);
+		state7 = new StateBuy(20000, 18000, 16000, woodc + 75);
+		state8 = new StateBuy(22000, 20000, 18000, woodc + 105);
 		
 		state.setBounds(245, 300, 100, 100);
 		

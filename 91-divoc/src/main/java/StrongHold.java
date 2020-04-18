@@ -69,20 +69,22 @@ public class StrongHold extends JPanel{
 	}
 	
 	private void setupComponents() {
-		farm1 = new Farm(200, 125, 50);
-		farm2 = new Farm(250, 200, 60);
-		farm3 = new Farm(300, 250, 70);
-		farm4 = new Farm(400, 300, 80);
-	
-		mine1 = new MineShaft(250, 80, 20, 5);
-		mine2 = new MineShaft(300, 90, 30, 10);
-		mine3 = new MineShaft(350, 100, 30, 10);
+		int woodc = Resource.allResources.get(0).getUsed();
+		
+		farm1 = new Farm(300, 150, woodc + 1);
+		farm2 = new Farm(500, 260, woodc + 5);
+		farm3 = new Farm(900, 490, woodc + 10);
+		farm4 = new Farm(1200, 780, woodc + 15);
+		
+		mine1 = new MineShaft(350, 80, 20, 1);
+		mine2 = new MineShaft(650, 200, 200, 21);
+		mine3 = new MineShaft(850, 550, 350, 210);
 		
 		wall = new Wall(100, 100);
 		
 		story = new StoryLabel();
 		
-		tradepost = new TradepostButton(260, 90, 20, 7);
+		tradepost = new TradepostButton(260, 90, 20, 5);
 		
 		camp = new CampButton();
 		

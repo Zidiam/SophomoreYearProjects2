@@ -79,8 +79,6 @@ public class CityButton extends JPanel{
 		public void actionPerformed(ActionEvent event)
 		{
 			if(lit == true) {
-				lightB.setText("Light");
-				lightB.setContentAreaFilled(true);
 				lightB.setBackground(Color.BLACK);
 				lit = false;
 				Story.addStory("As the fire dims so does your life");

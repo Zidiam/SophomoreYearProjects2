@@ -101,7 +101,6 @@ public class MineShaft extends Building{
 		
 		buildB.setEnabled(true);
 		built = false;
-		People.removePeople(1);
 		Resource.allResources.get(4).removeMultiplier(1);
 		
 	}
@@ -112,7 +111,6 @@ public class MineShaft extends Building{
 		Resource.allResources.get(2).remove(rabbitCost);
 		Resource.allResources.get(4).addMultiplier(1);
 		Resource.allResources.get(4).setActive(true);
-		People.addPeople(1);
 		buildB.setBackground(Color.GRAY);
 		built = true;
 		buildB.setText("MineShaft");

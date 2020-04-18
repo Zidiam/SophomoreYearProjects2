@@ -75,15 +75,18 @@ public class Town extends JPanel{
 		story = new StoryLabel();
 		
 		wall = new Wall(500, 500);
-		apartment1 = new Apartment(700, 100, 130);
-		apartment2 = new Apartment(800, 200, 140);
-		apartment3 = new Apartment(900, 300, 150);
-		apartment4 = new Apartment(1000, 400, 160);
 		
-		ranch1 = new Ranch(1000, 800, 400, 10);
-		ranch2 = new Ranch(1200, 1000, 600, 200);
-		ranch3 = new Ranch(1400, 1200, 800, 300);
-		ranch4 = new Ranch(1600, 1400, 1000, 500);
+		int woodc = Resource.allResources.get(0).getUsed();
+		
+		apartment1 = new Apartment(700, 100, woodc + 1);
+		apartment2 = new Apartment(800, 200, woodc + 5);
+		apartment3 = new Apartment(900, 300, woodc + 10);
+		apartment4 = new Apartment(1000, 400, woodc + 15);
+		
+		ranch1 = new Ranch(1000, 800, 400, 1);
+		ranch2 = new Ranch(1200, 1000, 600, 400);
+		ranch3 = new Ranch(1400, 1200, 800, 650);
+		ranch4 = new Ranch(1600, 1400, 1000, 820);
 		
 		villiage.setBounds(245, 300, 75, 75);
 		story.setBounds(0, 600, 575, 75);

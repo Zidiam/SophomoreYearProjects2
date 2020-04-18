@@ -74,15 +74,18 @@ public class City extends JPanel{
 		
 		story = new StoryLabel();
 		wall = new Wall(1000, 1000);
-		office1 = new Office(1200, 500, 170);
-		office2 = new Office(1500, 700, 180);
-		office3 = new Office(2000, 1000, 190);
-		office4 = new Office(2500, 1500, 200);
 		
-		boat1 = new Boat(1250, 900, 100, 10);
-		boat2 = new Boat(1300, 1000, 200, 100);
-		boat3 = new Boat(1500, 1200, 800, 200);
-		boat4 = new Boat(2000, 1600, 1000, 400);
+		int woodc = Resource.allResources.get(0).getUsed();
+		
+		office1 = new Office(1200, 500, woodc + 1);
+		office2 = new Office(1500, 700, woodc + 5);
+		office3 = new Office(2000, 1000, woodc + 10);
+		office4 = new Office(2500, 1500, woodc + 15);
+		
+		boat1 = new Boat(1250, 900, 100, 1);
+		boat2 = new Boat(1300, 1000, 200, 110);
+		boat3 = new Boat(1500, 1200, 800, 250);
+		boat4 = new Boat(2000, 1600, 1000, 900);
 		
 		villiage.setBounds(245, 300, 75, 75);
 		
